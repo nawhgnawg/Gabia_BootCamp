@@ -1,9 +1,0 @@
-package oop2;
-
-public class EnumSeasonUse {
-  
-  public static void main(String[] args) {
-    EnumSeason spring = EnumSeason.SPRING;
-    
-  }
-}
