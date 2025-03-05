@@ -1,0 +1,12 @@
+package oop2;
+
+import oop.Payment;
+
+public class Mobile extends Payment {
+  
+  public void mobile() {
+    System.out.println("모바일 결재");
+    System.out.println();
+  }
+  
+}

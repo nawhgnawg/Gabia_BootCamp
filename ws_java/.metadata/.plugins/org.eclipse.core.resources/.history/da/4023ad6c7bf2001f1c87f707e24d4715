@@ -1,0 +1,10 @@
+package oop2;
+
+public class Employee2Use {
+
+  public static void main(String[] args) {
+    // TODO Auto-generated method stub
+
+  }
+
+}

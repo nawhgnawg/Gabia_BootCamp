@@ -1,0 +1,113 @@
+package oop;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.DecimalFormat;
+
+public class MovieProc {
+
+  public static void main(String[] args) {
+    
+    String name;
+    String seat;
+    int sungin_cnt = 0;
+    int stu_cnt = 0;
+    
+    int sungin_price = 0;
+    int stu_price = 0;
+    int price = 0;
+    int point = 0;
+    
+    DecimalFormat df = new DecimalFormat("#,###,##0 원");
+    String basic = df.format(1800000);
+    
+    File movie = null;    // 읽을 파일
+    FileReader fr = null; // 파일 읽기
+    BufferedReader br = null; // 읽은 파일 내용을 메모리에 저장
+    
+    // 파일 쓰기 관련
+    File movie_proc = null; // 기록할 파일
+    FileWriter fw = null;     // 파일 쓰기
+    PrintWriter pw = null;  // 메모리에 기록
+    
+    try {
+      // 파일 읽기 관련 객체 생성
+      movie = new File("/Users/imgwanghwan/kd/ws_java/oop/src/oop/movie.csv");
+      fr = new FileReader(movie);
+      br = new BufferedReader(fr);
+      
+      // 파일 쓰기 관련 객체 생성
+      movie_proc = new File("/Users/imgwanghwan/kd/ws_java/oop/src/oop/movie_proc.csv");
+      fw = new FileWriter(movie_proc);
+      pw = new PrintWriter(fw);
+      
+      String line = br.readLine();
+      
+      while (true) {
+        line = br.readLine();
+        
+        if (line == null) {
+          break;
+        }
+        
+        String[] split_line = line.split(",");
+        
+        name = split_line[0].strip();
+        seat = split_line[1].strip();
+        sungin_cnt = Integer.parseInt(split_line[2].strip());
+        stu_cnt = Integer.parseInt(split_line[3].strip());
+        
+        if (seat.equals("A")) {
+          sungin_price = 11000 * sungin_cnt;
+          stu_price = 8800 * stu_cnt;
+        } else if (seat.equals("B")) {
+          sungin_price = 10000 * sungin_cnt;
+          stu_price = 8000 * stu_cnt;
+        } else if (seat.equals("B")) {
+          sungin_price = 9000 * sungin_cnt;
+          stu_price = 7200 * stu_cnt;
+        }
+        
+        price = sungin_price + stu_price;
+        point = (int) (price * 0.05);
+        
+        
+        System.out.println("영화명: " + name);
+        System.out.println("좌석: " + seat);
+        System.out.println("성인수: " + sungin_cnt);
+        System.out.println("학생수: " + stu_cnt);
+        System.out.println("성인 금액: " + df.format(sungin_price));
+        System.out.println("학생 금액: " + df.format(stu_price));
+        System.out.println("결재 금액: " + df.format(price));
+        System.out.println("포인트(5%): " + df.format(point));
+        System.out.println("-------------------------------------");
+        
+        
+        pw.write("ㅇㅖ");
+        pw.println("영화명: " + name);  // 파일 기록
+        pw.println("좌석: " + seat);
+        pw.println("성인수: " + sungin_cnt + "명"); 
+        pw.println("학생수: " + stu_cnt + "명");
+        pw.println("성인 금액: " + df.format(sungin_price));
+        pw.println("학생 금액: " + df.format(stu_price));
+        pw.println("결재 금액: " + df.format(price));
+        pw.println("포인트(5%): " + df.format(point));
+        pw.println("-------------------------------");
+        
+        
+      }
+      
+      
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+   
+  }
+
+}

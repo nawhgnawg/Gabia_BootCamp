@@ -1,0 +1,16 @@
+package jcf;
+
+public class DataProcess {
+  
+  Object data = new DataVO("인셉션", 10.0, "디카프리오");
+  
+  public DataVO save(String title, double score, String actor) {
+    DataVO movie = new DataVO(title, score, actor);
+    return movie;
+  }
+  
+  public DataVO findByActor(String title) {
+    
+  }
+
+}

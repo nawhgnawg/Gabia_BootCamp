@@ -1,0 +1,16 @@
+package oop;
+
+import java.net.MulticastSocket;
+
+public class Wrapper {
+
+  public static void main(String[] args) {
+    int year = 2025;
+    Integer year_object = 2025;   // wrapper class -> 값을 저장하려는 목적보다는 함수 사용 목적 
+    System.out.println(year_object.intValue());
+    System.out.println(year_object);
+
+
+  }
+
+}

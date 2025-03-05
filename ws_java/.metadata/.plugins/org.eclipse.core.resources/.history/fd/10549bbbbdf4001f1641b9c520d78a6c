@@ -1,0 +1,21 @@
+package jcf;
+
+public class ObjectTest1 {
+
+  public static void main(String[] args) {
+    Object obj1 = "fall";
+    System.out.println(obj1);
+    System.out.println(obj1.toString().toUpperCase());
+    System.out.println(((String) obj1).toUpperCase());  // Object를 사용했기 때문에 객체 형변환을 하는게 더 나음
+    
+    
+    System.out.println(obj1.getClass().getName()); // 부모가 가지고있는 객체의 타입
+    System.out.println(obj1 instanceof Object);
+    System.out.println(obj1 instanceof String);
+    System.out.println(obj1 instanceof Integer);
+    
+    
+
+  }
+
+}

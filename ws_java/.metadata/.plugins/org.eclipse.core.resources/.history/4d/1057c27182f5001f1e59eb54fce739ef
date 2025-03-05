@@ -1,0 +1,20 @@
+package jcf;
+
+import java.util.ArrayList;
+
+public class CateProcess {
+  
+  ArrayList<CateVO> list = new ArrayList<CateVO>();
+  
+  public void save(CateVO cate) {
+    this.list.add(cate);
+  }
+  
+  public void print() {
+    System.out.println(this.list.get(0));
+    System.out.println(this.list.get(1));
+    System.out.println(this.list.get(2));
+    System.out.println(this.list.get(3));
+  }
+
+}

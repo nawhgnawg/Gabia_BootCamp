@@ -1,0 +1,131 @@
+package tool;
+
+public class Tool {
+  
+  public static String comma(int num) {
+    return  String.format("%,d", num);
+  }
+
+/*
+  public static boolean isImage(String fileName) {
+    if (fileName.endsWith("jpg") || fileName.endsWith("gif") || fileName.endsWith("png")) {
+      return true;
+    }
+    
+    return false;
+  }
+*/
+
+/*  
+  public static String getStringByLength(String title, int pre) {
+    if (title.length() > pre) {
+      return title.substring(0, pre) + "...";
+    } else {
+      return title;
+    }
+  }
+*/
+  
+  public static String checkNull(String msg) {
+    if (msg == null) {
+      return "";
+    }
+    return msg;
+  }
+  
+  
+  
+  /**
+   * 이미지인지 검사
+   * 
+   * @param file 파일명
+   * @return
+   */
+  public static boolean isImage(String file) {
+    boolean sw = false;
+    if (file != null) {
+      file = file.toLowerCase();
+      if (file.endsWith("jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith("gif")) {
+        sw = true;
+      }
+    }
+    return sw;
+  }
+
+  /**
+   * 파일 업로드 가능 파일 체크
+   * 
+   * @param file
+   * @return
+   */
+  public static boolean checkUploadFile(String file) {
+    file = file.toLowerCase();
+    String[] names = { "jpg", "jpeg", "png", "gif", "txt", "csv", "hwp", "xls", "xlsx", "ppt", "pptx", "zip", "tar",
+        "gz", "ipynb", "doc", "mp3", "mp4" };
+
+    for (String name : names) {
+      if (file.endsWith(name)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+  
+  
+  
+  /**
+   * 문자열의 길이가 length 보다 크면 "..."을 표시하는 메소드
+   * 
+   * @param str    원본 문자열
+   * @param length 출력할 문자열 길이
+   * @return 특정 길이의 문자열
+   */
+  public static String getStringByLength(String str, int length) {
+    if (str != null) {
+      if (str.length() > length) {
+        str = str.substring(0, length) + "..."; // 범위: 0 ~ length - 1
+      }
+    } else {
+      str = "";
+    }
+
+    return str;
+  }
+  
+  /**
+   * byte 수를 전달받아 자료의 단위를 적용합니다. Byte -> KB -> MB -> GB -> TB -> PT -> EX -> ZB ->
+   * YB
+   * 
+   * @param size
+   * @return 1000 → 1 KB
+   */
+  public static String unit(long size) {
+    String str = "";
+
+    if (size < 1024) { // 1 KB 이하, 1024 byte 미만이면
+      str = size + " Byte";
+    } else if (size < 1024 * 1024) { // 1 MB 이하, 1048576 byte 미만이면 KB
+      str = (int) (Math.ceil(size / 1024.0)) + " KB";
+    } else if (size < 1024 * 1024 * 1024) { // 1 GB 이하, 1073741824 byte 미만
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0)) + " MB";
+    } else if (size < 1024L * 1024 * 1024 * 1024) { // 1 TB 이하, 큰 정수 표현을 위해 int -> long형식으로 변환
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0)) + " GB";
+    } else if (size < 1024L * 1024 * 1024 * 1024 * 1024) { // 1 PT 이하
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0 / 1024.0)) + " TB"; // 테라
+    } else if (size < 1024L * 1024 * 1024 * 1024 * 1024 * 1024) { // 1 EX 이하
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0)) + " PT"; // 페타
+    } else if (size < 1024L * 1024 * 1024 * 1024 * 1024 * 1024 * 1024) { // 1 ZB 이하
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0)) + " EX"; // 엑사
+    } else if (size < 1024L * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024) { // 1 YB 이하
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0)) + " ZB"; // Google이
+                                                                                                            // 사용 중인 단위,
+                                                                                                            // 제타
+    } else { // 1 YB 이상
+      str = (int) (Math.ceil(size / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0 / 1024.0)) + " YB"; // 요타
+    }
+
+    return str;
+  }
+  
+}

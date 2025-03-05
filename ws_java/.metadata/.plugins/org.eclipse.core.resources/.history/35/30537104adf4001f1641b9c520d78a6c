@@ -1,0 +1,8 @@
+package inter;
+
+public abstract class Payment {
+  
+  public abstract void payment();
+  
+  
+}

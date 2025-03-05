@@ -1,0 +1,13 @@
+package exam;
+
+public class TestUse {
+
+  public static void main(String[] args) {
+    Test test = new Test();
+    
+    test = new Test(90, 100, 80);
+    
+
+  }
+
+}

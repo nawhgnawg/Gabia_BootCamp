@@ -1,0 +1,16 @@
+package jcf;
+
+import java.util.ArrayList;
+
+public class ArrayListTest {
+
+  public static void main(String[] args) {
+    ArrayList list = new ArrayList();
+    
+    list.add("fall"); // String(인수/Argument) -> Object(매개 변수/Parameter)
+    
+    
+
+  }
+
+}

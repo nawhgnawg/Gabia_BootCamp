@@ -1,0 +1,11 @@
+package tool;
+
+public class Tool {
+  
+  public static long comma(int num) {
+    String.format(String.valueOf(num), ",");
+    return num;
+    
+  }
+
+}

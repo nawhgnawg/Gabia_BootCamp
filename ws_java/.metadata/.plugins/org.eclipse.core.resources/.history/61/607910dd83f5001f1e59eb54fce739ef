@@ -1,0 +1,25 @@
+package jcf;
+
+import java.util.ArrayList;
+
+public class Generics3 {
+  
+  public static void main(String[] args) {
+    
+    
+    ArrayList<CateVO> list = new ArrayList<CateVO>();
+    
+    CateVO cate1 = new CateVO(2, "SF", "2023-08-31", 500);
+    CateVO cate2 = new CateVO(3, "드라마", "2023-09-01", 300);
+    CateVO cate3 = new CateVO(4, "휴먼", "2023-09-05", 300);
+    
+    
+    CateProcess process = new CateProcess();
+    
+    process.save(list);
+    process.print(list);
+    
+    
+  }
+
+}

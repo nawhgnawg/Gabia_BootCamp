@@ -1,0 +1,26 @@
+package jcf;
+
+import java.util.ArrayList;
+
+public class CateProcess {
+  
+  CateVO cate1 = new CateVO(1, "SF", "2023-08-31", 500);
+  CateVO cate2 = new CateVO(2, "드라마", "2023-09-01", 300);
+  CateVO cate3 = new CateVO(3, "휴먼", "2023-09-05", 300);
+  
+  
+  public void save(ArrayList<CateVO> list) {
+    list.add(cate1);
+    list.add(cate2);
+    list.add(cate3);
+  }
+  
+  public void print(ArrayList<CateVO> list) {
+    System.out.println(list.get(0));
+    System.out.println(list.get(1));
+    System.out.println(list.get(2));
+    System.out.println(list.get(3));
+    System.out.println("--------------------");
+  }
+
+}

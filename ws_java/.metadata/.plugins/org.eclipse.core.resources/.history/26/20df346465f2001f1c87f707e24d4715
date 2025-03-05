@@ -1,0 +1,18 @@
+package oop;
+
+import tool.Tool;
+
+public class ToolTest {
+
+  public static void main(String[] args) {
+    System.out.println(Tool.comma(2500000));
+    
+    boolean sw = Tool.isImage("Flower.jpg");
+    System.out.println(sw);
+    sw = Tool.isImage("Flower.gif");
+    System.out.println(sw);
+    sw = Tool.isImage("Flower.png");
+    System.out.println(sw);
+  }
+
+}

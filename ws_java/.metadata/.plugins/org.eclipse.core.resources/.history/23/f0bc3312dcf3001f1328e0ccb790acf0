@@ -1,0 +1,12 @@
+package oop2;
+
+import oop.Payment;
+
+public class Card extends Payment {
+  
+  public void card() {
+    System.out.println("카드 결재");
+    System.out.println();
+  }
+
+}

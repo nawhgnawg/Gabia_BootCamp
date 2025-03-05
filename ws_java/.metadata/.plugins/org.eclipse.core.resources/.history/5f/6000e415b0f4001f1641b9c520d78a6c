@@ -1,0 +1,13 @@
+package inter;
+
+public class AbsTest {
+
+  public static void main(String[] args) {
+    Payment payment = new Pay2015();
+    payment.card();
+    payment.cash();
+    payment.mobile();
+
+  }
+
+}

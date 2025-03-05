@@ -1,0 +1,16 @@
+package jcf;
+
+public class DataMain {
+
+  public static void main(String[] args) {
+    DataVO vo = new DataVO("인셉션", 10.0, "디카프리오");
+    DataProcess<DataVO> process = new DataProcess<DataVO>();
+    
+    process.setData(vo);
+    process.getData();
+    
+    
+
+  }
+
+}

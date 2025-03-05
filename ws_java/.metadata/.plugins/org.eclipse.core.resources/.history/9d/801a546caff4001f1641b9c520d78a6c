@@ -1,0 +1,18 @@
+package inter;
+
+public class Pay2015 extends Payment {
+  
+
+  @Override
+  public void card() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void mobile() {
+    // TODO Auto-generated method stub
+    
+  }
+
+}

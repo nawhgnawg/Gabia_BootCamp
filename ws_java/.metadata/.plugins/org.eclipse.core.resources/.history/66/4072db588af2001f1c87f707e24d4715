@@ -1,0 +1,12 @@
+package oop;
+
+public class PaymentUse {
+
+  public static void main(String[] args) {
+    
+    Cash cash = new Cash();
+    cash.order("짜장면", 6000, 2);
+
+  }
+
+}

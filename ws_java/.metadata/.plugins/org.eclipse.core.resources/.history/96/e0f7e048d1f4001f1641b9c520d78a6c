@@ -1,0 +1,14 @@
+package jcf;
+
+public class DataProcess {
+  
+  public DataVO save(String title, double score, String actor) {
+    DataVO data = new DataVO(title, score, actor);
+    return data;
+  }
+  
+  public DataVO find() {
+    return new DataVO();
+  }
+
+}

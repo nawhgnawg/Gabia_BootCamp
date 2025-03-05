@@ -1,0 +1,21 @@
+package jcf;
+
+import java.util.Date;
+import java.util.HashMap;
+
+public class MapTest {
+
+  public static void main(String[] args) {
+    HashMap map = new HashMap();
+    
+    map.put("year", 2025);
+    map.put("season", "fall");
+    map.put("date", new Date());
+    
+    System.out.println(map.get("year"));
+    System.out.println(map.get("season"));
+    System.out.println(((Date) map.get("date")).toLocaleString());
+
+  }
+
+}

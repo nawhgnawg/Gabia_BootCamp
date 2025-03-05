@@ -1,0 +1,31 @@
+package oop;
+
+public class SplitTest {
+  
+  public static void main(String[] args) {
+    String season = "봄,여름,가을,겨울";
+    String[] list = season.split(",");
+    
+    // 1번
+    System.out.println(list[0]);
+    System.out.println(list[1]);
+    System.out.println(list[2]);
+    System.out.println(list[3]);
+    System.out.println("------------");
+    
+    // 2번
+    for (String item : list) {
+      System.out.println(item);
+    }
+    System.out.println("------------");
+    
+    // 3번
+    season = "봄, 여름, 가을, 겨울";
+    list = season.split(",| 여");
+    for (int i = 0; i < list.length; i++) {
+      System.out.println(list[i]);
+    }
+    
+  }
+  
+}

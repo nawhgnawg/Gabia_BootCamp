@@ -1,0 +1,33 @@
+package jcf;
+
+public class Movie {
+  
+  private String title;
+  private double score;
+  private String actor;
+  
+  
+  public Movie() {
+    
+  }
+  
+  public Movie(String title, double score, String actor) {
+    this.title = title;
+    this.score = score;
+    this.actor = actor;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public double getScore() {
+    return score;
+  }
+
+  public String getActor() {
+    return actor;
+  }
+  
+
+}

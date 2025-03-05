@@ -1,0 +1,10 @@
+package jcf;
+
+public class CateVO {
+  
+  private int cateno;
+  private String name;
+  private String rdate;
+  private int cnt;
+
+}

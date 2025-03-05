@@ -1,0 +1,16 @@
+package jdbc;
+
+import javax.sql.DataSource;
+
+public class MovieDAOUse {
+
+  public static void main(String[] args) {
+    MovieDAO movieDAO = new MovieDAO();
+//    System.out.println(movieDAO.create("베테랑", 10, "황정민")); 
+//    System.out.println(movieDAO.create("기생충", 10, "송강호")); 
+//    movieDAO.list();
+//    movieDAO.read(2);
+    movieDAO.update("브리짓 존스의 일기", 9.5, "휴 그랜트", 2);
+  }
+
+}

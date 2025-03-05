@@ -1,0 +1,11 @@
+package exam;
+
+public class Test {
+  
+  private int java;
+  private int python;
+  private int algorithm;
+  
+  
+  
+}

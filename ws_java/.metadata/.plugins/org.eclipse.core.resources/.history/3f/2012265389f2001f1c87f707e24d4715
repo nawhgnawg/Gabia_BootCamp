@@ -1,0 +1,9 @@
+package oop;
+
+public class Card {
+  
+  public void card() {
+    System.out.println("카드 결재");
+  }
+
+}
