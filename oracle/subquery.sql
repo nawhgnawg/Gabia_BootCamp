@@ -61,33 +61,40 @@ WHERE bonbong >= (SELECT AVG(bonbong) AS bonbong FROM pay2 WHERE part = '개발�
 
 
 -- 3) 가길동과 같은 부서의 평균 급여 출력
-SELECT TO_CHAR(ROUND(AVG(bonbong), -2), 'FM9,999,999') AS bonbong
-FROM pay2
-WHERE part = (SELECT part FROM pay2 WHERE sawon = '가길동');
+-- 가길동 부서
+SELECT part FROM pay2 WHERE sawon = '가길동';
 
 PART                
 --------------------
 개발팀
 
-
+-- 25.03.05
+-- 가길동과 같은 부서의 평균 급여 출력
+SELECT TO_CHAR(ROUND(AVG(bonbong), -2), 'FM9,999,999') AS bonbong
+FROM pay2
+WHERE part = (SELECT part FROM pay2 WHERE sawon = '가길동');
 
 BONBONG   
 ----------
 4,527,400
 
 -- 나길순과 같은 부서의 평균 급여 출력
-SELECT TO_CHAR(ROUND(AVG(bonbong), -2), 'FM9,999,999') AS bonbong 
+SELECT AVG(bonbong)
 FROM pay2
 WHERE part = (SELECT part FROM pay2 WHERE sawon = '나길순');
 
-BONBONG   
-----------
-4,250,000
+AVG(BONBONG)
+------------
+     4250000
    
 -- 나길순이 근무하는 부서의 평균 급여 이상을 수령하는 모든 부서의 직원 출력
 SELECT payno, part, sawon, bonbong, tax, bonus
 FROM pay2
-WHERE bonbong >= (SELECT AVG(bonbong) FROM pay2 WHERE part = (SELECT part FROM pay2 WHERE sawon = '나길순'));
+WHERE bonbong >= (SELECT AVG(bonbong) 
+                  FROM pay2 
+                  WHERE part = (SELECT part 
+                                FROM pay2 
+                                WHERE sawon = '나길순'));
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS
 ---------- -------------------- --------------- ---------- ---------- ----------
@@ -96,7 +103,15 @@ WHERE bonbong >= (SELECT AVG(bonbong) FROM pay2 WHERE part = (SELECT part FROM p
 
          
 -- 나길순이 근무하는 부서의 평균 급여 이상을 수령하는 모든 부서의 직원을 출력하되, TAX를 1000000 이상 공제하는 직원 출력
-
+SELECT payno, part, sawon, bonbong, tax, bonus
+FROM pay2
+WHERE bonbong >= (SELECT AVG(bonbong) 
+                  FROM pay2
+                  WHERE part = (SELECT part 
+                                FROM pay2 
+                                WHERE sawon = '나길순'
+                                )
+                 )AND tax >= 1000000;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS
 ---------- -------------------- --------------- ---------- ---------- ----------
@@ -126,6 +141,9 @@ FROM pay2;
          7 분석팀               아로미             6500000    1000000          0
 
 -- sawon 컬럼 오름차순 정렬
+SELECT payno, part, sawon, bonbong, tax, bonus
+FROM pay2
+ORDER BY sawon ASC;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS
 ---------- -------------------- --------------- ---------- ---------- ----------
@@ -138,6 +156,9 @@ FROM pay2;
          2 분석팀               정호연             3500000     300000          0
 
 -- 레코드 분할시 사용할 정보는? PK는 정렬시 일정하게 출력되지 않음으로 사용 불가
+-- ROWNUM : 내부 메모리 상의 번호 -> PK가 있는데 이게 왜 필요한가? -> PK는 정렬시 일정하게 안됨
+SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM as r
+FROM pay2;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
@@ -149,8 +170,10 @@ FROM pay2;
          6 개발팀               왕눈이             5500000     800000          0          6
          7 분석팀               아로미             6500000    1000000          0          7
 
--- FWGHSR(Rownum)O: SQL 마지막에 정렬이 발생함.★
-
+-- FWGHSR(Rownum)O: SQL 마지막에 정렬이 발생함.★  -> 레코드 분할 기준이 없어짐
+SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM as r
+FROM pay2
+ORDER BY sawon ASC;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
@@ -164,8 +187,13 @@ FROM pay2;
          
          2 분석팀               정호연             3500000     300000          0          2 <- 3페이지
          
--- FWGHSRO: 정렬 -> ROWNUM
-
+-- FWGHSRO: 정렬 -> ROWNUM  (정렬을 하고나서 ROWNUM을 붙여라)
+SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM as r
+FROM (
+    SELECT payno, part, sawon, bonbong, tax, bonus
+    FROM pay2
+    ORDER BY sawon ASC
+);
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
@@ -177,16 +205,43 @@ FROM pay2;
          1 개발팀               이정재             2512345   12345.67          0          6
          2 분석팀               정호연             3500000     300000          0          7
 
--- 분할, FWGHSRO에의하면 rownum 인식 불가
+-- 분할, FWGHSRO에의하면 rownum 인식 불가 (WHERE 에서 r을 사용하면 SELECT 절보다 먼저 실행되기때문에 WHERE절에서 r을 인식할 수 없음)
+SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM AS r
+FROM (
+    SELECT payno, part, sawon, bonbong, tax, bonus
+    FROM pay2
+    ORDER BY sawon ASC
+)
+WHERE r >= 1 AND r <= 3;
 
+-- r을 만들고 서브쿼리를 이용해서 사용
+SELECT payno, part, sawon, bonbong, tax, bonus, r
+FROM(
+    SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM AS r
+    FROM (
+        SELECT payno, part, sawon, bonbong, tax, bonus
+        FROM pay2
+        ORDER BY sawon ASC
+    )
+)
+WHERE r >= 1 AND r <= 3;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
          4 개발팀               가길동             7000000    1200000          0          1
          5 분석팀               나길순             5000000     800000          0          2
          7 분석팀               아로미             6500000    1000000          0          3
-         
-
+       
+SELECT payno, part, sawon, bonbong, tax, bonus, r
+FROM(
+    SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM AS r
+    FROM (
+        SELECT payno, part, sawon, bonbong, tax, bonus
+        FROM pay2
+        ORDER BY sawon ASC
+    )
+)
+WHERE r >= 4 AND r <= 6;
 
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
@@ -194,7 +249,16 @@ FROM pay2;
          3 개발팀               이정재             4070000          0          0          5
          1 개발팀               이정재             2512345   12345.67          0          6
          
-
+SELECT payno, part, sawon, bonbong, tax, bonus, r
+FROM(
+    SELECT payno, part, sawon, bonbong, tax, bonus, ROWNUM AS r
+    FROM (
+        SELECT payno, part, sawon, bonbong, tax, bonus
+        FROM pay2
+        ORDER BY sawon ASC
+    )
+)
+WHERE r >= 7 AND r <= 9;
          
      PAYNO PART                 SAWON              BONBONG        TAX      BONUS          R
 ---------- -------------------- --------------- ---------- ---------- ---------- ----------
