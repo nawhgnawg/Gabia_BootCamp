@@ -1,0 +1,300 @@
+10-Mar-2025 11:01:29.580 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/10.1.39
+10-Mar-2025 11:01:29.582 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Mar 4 2025 19:02:32 UTC
+10-Mar-2025 11:01:29.582 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  10.1.39.0
+10-Mar-2025 11:01:29.582 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     14.4.1
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          aarch64
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/imgwanghwan/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          21.0.1+12-29
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:01:29.583 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Users/imgwanghwan/kd/tomcat-10.1/conf/logging.properties
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dsun.io.useCanonCaches=false
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:01:29.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Users/imgwanghwan/kd/tomcat-10.1/temp
+10-Mar-2025 11:01:29.627 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/imgwanghwan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+10-Mar-2025 11:01:29.768 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-9090"]을(를) 초기화합니다.
+10-Mar-2025 11:01:29.798 INFO [main] org.apache.catalina.startup.Catalina.load [320] 밀리초 내에 서버가 초기화되었습니다.
+10-Mar-2025 11:01:29.815 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+10-Mar-2025 11:01:29.815 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/10.1.39]
+10-Mar-2025 11:01:29.818 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]을(를) 배치합니다.
+10-Mar-2025 11:01:29.940 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]에 대한 배치가 [121] 밀리초에 완료되었습니다.
+10-Mar-2025 11:01:29.940 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]을(를) 배치합니다.
+10-Mar-2025 11:01:29.954 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]에 대한 배치가 [14] 밀리초에 완료되었습니다.
+10-Mar-2025 11:01:29.954 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]을(를) 배치합니다.
+10-Mar-2025 11:01:30.050 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]에 대한 배치가 [96] 밀리초에 완료되었습니다.
+10-Mar-2025 11:01:30.050 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]을(를) 배치합니다.
+10-Mar-2025 11:01:30.056 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]에 대한 배치가 [6] 밀리초에 완료되었습니다.
+10-Mar-2025 11:01:30.056 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]을(를) 배치합니다.
+10-Mar-2025 11:01:30.063 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+10-Mar-2025 11:01:30.065 INFO [main] org.apache.coyote.AbstractProtocol.start 프로토콜 핸들러 ["http-nio-9090"]을(를) 시작합니다.
+10-Mar-2025 11:01:30.070 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [271] 밀리초 내에 시작되었습니다.
+10-Mar-2025 11:11:50.514 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]을(를) 배치합니다.
+10-Mar-2025 11:11:50.549 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]에 대한 배치가 [35] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:37.939 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/10.1.39
+10-Mar-2025 11:13:37.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Mar 4 2025 19:02:32 UTC
+10-Mar-2025 11:13:37.940 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  10.1.39.0
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     14.4.1
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          aarch64
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/imgwanghwan/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          21.0.1+12-29
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:13:37.941 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Users/imgwanghwan/kd/tomcat-10.1/conf/logging.properties
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dsun.io.useCanonCaches=false
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:13:37.945 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Users/imgwanghwan/kd/tomcat-10.1/temp
+10-Mar-2025 11:13:37.949 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/imgwanghwan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+10-Mar-2025 11:13:38.071 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-9090"]을(를) 초기화합니다.
+10-Mar-2025 11:13:38.078 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException 구성요소 [Connector["http-nio-9090"]]을(를) 초기화하지 못했습니다.
+	org.apache.catalina.LifecycleException: 프로토콜 핸들러 초기화가 실패했습니다.
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1051)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:525)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:957)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:712)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:735)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:302)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:565)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:344)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:301)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:194)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1304)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1317)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:82)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1049)
+		... 11 more
+10-Mar-2025 11:13:38.079 INFO [main] org.apache.catalina.startup.Catalina.load [217] 밀리초 내에 서버가 초기화되었습니다.
+10-Mar-2025 11:13:38.092 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+10-Mar-2025 11:13:38.092 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/10.1.39]
+10-Mar-2025 11:13:38.095 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]을(를) 배치합니다.
+10-Mar-2025 11:13:38.207 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]에 대한 배치가 [110] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.207 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]을(를) 배치합니다.
+10-Mar-2025 11:13:38.216 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]에 대한 배치가 [9] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.216 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]을(를) 배치합니다.
+10-Mar-2025 11:13:38.229 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]에 대한 배치가 [13] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.229 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]을(를) 배치합니다.
+10-Mar-2025 11:13:38.320 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]에 대한 배치가 [91] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.320 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]을(를) 배치합니다.
+10-Mar-2025 11:13:38.326 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]에 대한 배치가 [6] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.326 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]을(를) 배치합니다.
+10-Mar-2025 11:13:38.333 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+10-Mar-2025 11:13:38.334 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [255] 밀리초 내에 시작되었습니다.
+10-Mar-2025 11:13:38.337 SEVERE [main] org.apache.catalina.core.StandardServer.await 주소 [localhost]와(과) 포트 [8005]에, 서버 셧다운 소켓을 생성하지 못했습니다. (base 포트 [8005], offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:565)
+		at java.base/sun.nio.ch.Net.bind(Net.java:554)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:278)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:533)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:851)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:799)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+10-Mar-2025 11:13:38.337 INFO [main] org.apache.coyote.AbstractProtocol.pause 프로토콜 핸들러 ["http-nio-9090"]을(를) 일시 정지 중
+10-Mar-2025 11:13:38.337 INFO [main] org.apache.catalina.core.StandardService.stopInternal 서비스 [Catalina]을(를) 중지시킵니다.
+10-Mar-2025 11:13:38.346 INFO [main] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["http-nio-9090"]을(를) 중지시킵니다.
+10-Mar-2025 11:13:38.347 INFO [main] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["http-nio-9090"]을(를) 소멸시킵니다.
+10-Mar-2025 11:14:03.463 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:14:03.464 WARNING [http-nio-9090-exec-1] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:14:03.466 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:14:03.467 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:14:03.468 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:14:09.137 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:15:12.170 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:15:12.170 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:15:12.170 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:15:12.170 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:15:12.172 WARNING [http-nio-9090-exec-9] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:16.614 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:16.615 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:16.615 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:16.616 WARNING [http-nio-9090-exec-9] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:16.616 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:25.796 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:25.799 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:25.799 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:25.798 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:16:25.799 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:19:33.089 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:19:33.089 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:19:33.089 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:19:33.089 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:19:33.090 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:20:05.446 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 서버 버전 이름:    Apache Tomcat/10.1.39
+10-Mar-2025 11:20:05.447 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 빌드 시각:  Mar 4 2025 19:02:32 UTC
+10-Mar-2025 11:20:05.447 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server 버전 번호:  10.1.39.0
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 이름:     Mac OS X
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 운영체제 버전:     14.4.1
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 아키텍처:          aarch64
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 자바 홈:           /Users/imgwanghwan/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 버전:          21.0.1+12-29
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM 벤더:          Oracle Corporation
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:20:05.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:     /Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.config.file=/Users/imgwanghwan/kd/tomcat-10.1/conf/logging.properties
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djdk.tls.ephemeralDHKeySize=2048
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dsun.io.useCanonCaches=false
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.io=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.base=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Dcatalina.home=/Users/imgwanghwan/kd/tomcat-10.1
+10-Mar-2025 11:20:05.452 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log 명령 행 아규먼트:  -Djava.io.tmpdir=/Users/imgwanghwan/kd/tomcat-10.1/temp
+10-Mar-2025 11:20:05.456 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent 프로덕션 환경들에서 최적의 성능을 제공하는, APR 기반 Apache Tomcat Native 라이브러리가, 다음 java.library.path에서 발견되지 않습니다: [/Users/imgwanghwan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+10-Mar-2025 11:20:05.579 INFO [main] org.apache.coyote.AbstractProtocol.init 프로토콜 핸들러 ["http-nio-9090"]을(를) 초기화합니다.
+10-Mar-2025 11:20:05.586 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException 구성요소 [Connector["http-nio-9090"]]을(를) 초기화하지 못했습니다.
+	org.apache.catalina.LifecycleException: 프로토콜 핸들러 초기화가 실패했습니다.
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1051)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:525)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:957)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:122)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:712)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:735)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:302)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:472)
+	Caused by: java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:565)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:344)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:301)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:194)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1304)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1317)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:633)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:82)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1049)
+		... 11 more
+10-Mar-2025 11:20:05.586 INFO [main] org.apache.catalina.startup.Catalina.load [218] 밀리초 내에 서버가 초기화되었습니다.
+10-Mar-2025 11:20:05.600 INFO [main] org.apache.catalina.core.StandardService.startInternal 서비스 [Catalina]을(를) 시작합니다.
+10-Mar-2025 11:20:05.600 INFO [main] org.apache.catalina.core.StandardEngine.startInternal 서버 엔진을 시작합니다: [Apache Tomcat/10.1.39]
+10-Mar-2025 11:20:05.602 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]을(를) 배치합니다.
+10-Mar-2025 11:20:05.713 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/start]에 대한 배치가 [110] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.714 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]을(를) 배치합니다.
+10-Mar-2025 11:20:05.723 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/docs]에 대한 배치가 [9] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.723 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]을(를) 배치합니다.
+10-Mar-2025 11:20:05.735 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/manager]에 대한 배치가 [12] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.736 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]을(를) 배치합니다.
+10-Mar-2025 11:20:05.825 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/examples]에 대한 배치가 [89] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.825 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]을(를) 배치합니다.
+10-Mar-2025 11:20:05.831 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/ROOT]에 대한 배치가 [6] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.831 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]을(를) 배치합니다.
+10-Mar-2025 11:20:05.838 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory 웹 애플리케이션 디렉토리 [/Users/imgwanghwan/kd/tomcat-10.1/webapps/host-manager]에 대한 배치가 [7] 밀리초에 완료되었습니다.
+10-Mar-2025 11:20:05.839 INFO [main] org.apache.catalina.startup.Catalina.start 서버가 [252] 밀리초 내에 시작되었습니다.
+10-Mar-2025 11:20:05.841 SEVERE [main] org.apache.catalina.core.StandardServer.await 주소 [localhost]와(과) 포트 [8005]에, 서버 셧다운 소켓을 생성하지 못했습니다. (base 포트 [8005], offset [0])
+	java.net.BindException: Address already in use
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:565)
+		at java.base/sun.nio.ch.Net.bind(Net.java:554)
+		at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+		at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+		at java.base/java.net.ServerSocket.<init>(ServerSocket.java:278)
+		at org.apache.catalina.core.StandardServer.await(StandardServer.java:533)
+		at org.apache.catalina.startup.Catalina.await(Catalina.java:851)
+		at org.apache.catalina.startup.Catalina.start(Catalina.java:799)
+		at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
+10-Mar-2025 11:20:05.841 INFO [main] org.apache.coyote.AbstractProtocol.pause 프로토콜 핸들러 ["http-nio-9090"]을(를) 일시 정지 중
+10-Mar-2025 11:20:05.841 INFO [main] org.apache.catalina.core.StandardService.stopInternal 서비스 [Catalina]을(를) 중지시킵니다.
+10-Mar-2025 11:20:05.849 INFO [main] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["http-nio-9090"]을(를) 중지시킵니다.
+10-Mar-2025 11:20:05.849 INFO [main] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["http-nio-9090"]을(를) 소멸시킵니다.
+10-Mar-2025 11:20:09.290 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:20:09.290 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:20:09.291 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:20:09.291 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:20:09.291 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:31.842 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:31.843 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:31.843 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:31.844 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:46.722 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:46.722 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:46.722 WARNING [http-nio-9090-exec-1] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:46.722 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:21:46.724 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:25:11.082 WARNING [http-nio-9090-exec-9] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:25:11.082 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:25:11.082 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:25:11.083 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:25:11.083 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:59:07.799 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:59:07.800 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:59:07.800 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:59:07.800 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 11:59:07.800 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:02:50.102 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:02:50.105 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:02:50.105 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:02:50.107 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:02:50.107 WARNING [http-nio-9090-exec-1] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:03:24.555 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:03:24.567 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:03:24.573 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:03:24.573 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:03:24.573 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:19.580 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:19.580 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:19.581 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:19.582 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:19.582 WARNING [http-nio-9090-exec-9] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:24.804 WARNING [http-nio-9090-exec-5] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:24.804 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:24.805 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:24.805 WARNING [http-nio-9090-exec-8] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:24.805 WARNING [http-nio-9090-exec-7] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:32.500 WARNING [http-nio-9090-exec-3] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/류준열01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/류준열01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:32.501 WARNING [http-nio-9090-exec-10] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/송강호01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/송강호01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:32.502 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:32.504 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+10-Mar-2025 12:04:32.505 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
