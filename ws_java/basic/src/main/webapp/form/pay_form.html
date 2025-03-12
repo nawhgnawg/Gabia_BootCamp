@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0,
+                                 maximum-scale=10.0, width=device-width" />
+    <title>http://localhost:9091/form/pay_form.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+    </style>
+</head>
+<body>
+<h2>급여 처리 (광환)</h2>
+<!--
+http://localhost:9091/form/pay_form.html
+http://localhost:9091/form/pay_proc.jsp
+./pay_proc.jsp
+-->
+<form name="frm" action="./pay_proc.jsp" method="get"> <!-- get, post -->
+    성명: <input type="text" name="name" value="왕눈이" autofocus="autofocus"
+               style="width: 30%"><br>
+    본봉: <input type="number" name="pay" min="0" max="100000000" step="1000"
+               value="2400000" style="width: 40%;"><br> <!-- min을 지정해두면 min값보다 낮으면 자동으로 메세지를 만들어준다. -->
+    수당: <input type="number" name="sudang" min="0" max="10000000" step="1000"
+               value="" placeholder="수당, 만원 단위" style="width: 50%;"><br>  <!-- placeholder: 도움말, value: 값 -->
+    기타<br>
+    <textarea name="content" style="width: 50%; height: 200px;">
+    1. 추가 근무 수당: 0원
+    2. 월차 미사용 수당: 0원
+    * 수고하셨습니다. *
+    </textarea>
+    <br>
+    패스워드: <input type="password" name="password" value="123"
+                 style="width: 20%;"><br>
+    <button type="submit">처리</button>
+</form>
+
+</body>
+</html>

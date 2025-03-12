@@ -16,8 +16,19 @@
 <%
 // http://localhost:9091/core/response.jsp?url=kma
 String url = request.getParameter("url");
-out.println("url: " + url);
 
+if (url != null) {
+    if (url.equals("")) {
+            out.println("url 변수값을 입력해주세요.");
+    } else if (url.equals("kma")) {
+        response.sendRedirect("http://www.kma.go.kr");    // 주소 이동
+    } else if (url.equals("daum")) {
+        response.sendRedirect("http://www.daum.net");    // 주소 이동
+    } else if (url.equals("naver")) {
+        response.sendRedirect("http://www.naver.com");    // 주소 이동
+    }
+}
 %>
+<a href="https://www.weather.go.kr/w/index.do">
 </body>
 </html>

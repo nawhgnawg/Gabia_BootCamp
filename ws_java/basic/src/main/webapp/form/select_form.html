@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0,
+                                 maximum-scale=10.0, width=device-width" />
+    <title>http://localhost:9091/form/select_form.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+    </style>
+</head>
+<body>
+<h2>주말 여행지 선택</h2>
+<form name="frm" action="./select_proc.jsp" method="get">
+    1박 2일 여행 직접 입력:
+    <input type="text" name="travel1" value="가평" style="width: 30%;"
+           autofocus="autofocus"><br>
+    <br>
+    지정 여행지 선택:
+    <select name="travel2" multiple="multiple">
+        <option value="A01">일본</option>
+        <option value="A02">태국</option>
+        <option value="B01">제주도</option>
+        <option value="B02" selected="selected">미시령 옛길</option>
+        <option value="B03">부산</option>
+        <option value="B04">여수</option>
+        <option value="B05" selected="selected">신두리 해안사구</option>
+        <option value="B06" selected="selected">양떼 목장</option>
+    </select>
+    <br><br>
+    <button type="submit">확인</button>
+</form>
+</body>
+</html>
