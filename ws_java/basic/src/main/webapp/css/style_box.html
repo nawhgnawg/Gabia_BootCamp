@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, width=device-width">
+    <title>http://localhost:9091/css/style_box.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+        .display_table {
+            color: #FFFFFF;
+            width: 50%;
+            height: 120px;
+            margin: 5px auto;
+            text-align: center;
+            border: solid 2px #FF0000;
+            display: table;
+        }
+        .display_table_cell {
+            background-color: #FFFF00;
+            color: #000000;
+            vertical-align: middle;
+            display: table-cell;
+        }
+    </style>
+</head>
+<body>
+    <div style="background-color: red; color: white;">
+        JAVA 1)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <br>
+    <div style="background-color: red; color: white;
+                width: 300px;">
+        JAVA 2)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <br>
+    <div style="background-color: red; color: white;
+                width: 50%; ">
+        JAVA 3)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <br>
+    <!-- height 는 % 를 지정할 수 없다. 사용 가능한 경우: px 지정후 -> % 지정 -->
+    <div style="background-color: red; color: white;
+                width: 50%; height: 50%;">
+        JAVA 4)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <br>
+    <div style="background-color: #00AA00; color: white;
+                width: 50%; height: 120px;">
+        JAVA 5)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <br>
+    <!-- margin: 위아래 좌우; -->
+    <div style="background-color: blue; color: white;
+                width: 50%; height: 120px;
+                margin: 5px auto; text-align: center;">
+        JAVA 6)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <!-- vertical-align: middle; 속성을 사용하려면 "display: table-cell;" 속성이 선언되어야 함. -->
+    <div style="background-color: blue; color: white;
+                width: 50%; height: 120px;
+                margin: 5px auto; text-align: center;
+                vertical-align: middle;">
+        JAVA 7)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <!-- padding 의 단점은 태그의 크기가 변경된다. -->
+    <div style="background-color: blue; color: white;
+                width: 50%; height: 120px;
+                margin: 5px auto; text-align: center;
+                padding-top: 45px;">
+        JAVA 8)<br>
+        HTML5<br>
+        CSS3
+    </div>
+    <!-- "display: table-cell;" 속성을 사용하려면 "display: table;"이 선어되어 있어야함. -->
+    <!-- 부모 DIV: display: table;  자식 DIV:  display: table-cell; vertical-align: middle; -->
+    <div style="color: #FFFFFF;
+                width: 50%; height: 120px;
+                margin: 5px auto; text-align: center;
+                border: solid 2px #FF0000; display: table;">
+        <div style="background-color: #FFFF00; color: #000000;
+                    vertical-align: middle; display: table-cell;">
+            JAVA 9)<br>
+            HTML5<br>
+            CSS3
+        </div>
+    </div>
+    <!-- 줄이 늘어나도 가운데 정렬 -->
+    <div style="color: #FFFFFF;
+                width: 50%; height: 120px;
+                margin: 5px auto; text-align: center;
+                border: solid 2px #FF0000; display: table;">
+        <div style="background-color: #FFFF00; color: #000000;
+                    vertical-align: middle; display: table-cell;">
+            JAVA 10)<br>
+            HTML5<br>
+            CSS3<br>
+            Javascript
+        </div>
+    </div>
+    <!-- class 를 사용해서 style 지정-->
+    <div class="display_table">
+        <div class="display_table_cell">
+            JAVA 11)<br>
+            HTML5<br>
+            CSS3<br>
+            Javascript
+        </div>
+    </div>
+    <!-- class 에서 자신이 원하는 속성만 변경 or 추가 할 수 있음 -->
+    <div class="display_table" style="border: solid 2px #00AA00;">
+        <div class="display_table_cell" style="background-color: #33FF33;">
+            JAVA 12)<br>
+            HTML5<br>
+            CSS3<br>
+            Javascript
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, width=device-width">
+    <title>http://localhost:9091/css/style_radius.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+        .display_table {
+            color: #FFFFFF;
+            width: 50%;
+            height: 100px;
+            margin: 5px auto;
+            text-align: center;
+            display: table;
+            border: solid 1px #000000;
+        }
+        .display_table_cell {
+            color: #000000;
+            vertical-align: middle;
+            display: table-cell;
+        }
+    </style>
+</head>
+<body>
+    <div class="display_table" style="border-top-left-radius: 10px;
+                                      border-top-right-radius: 10px;
+                                      border-bottom-left-radius: 10px;
+                                      border-bottom-right-radius: 10px;">
+        <div class="display_table_cell">
+            1. HTML<br>
+            2. CSS3<br>
+            3. Menu 설정
+        </div>
+    </div>
+    <!-- img 만 사용시 화면 배치가 어려움. -->
+    <img src="./images/tu01.jpg" style="width: 40%;">
+
+    <!-- img 는 div 안에 선언해야 화면 배치를 하기 편해짐 -->
+    <!-- padding: 안에 있는 content 와 얼마나 떨어뜨리는지 -->
+    <div style="margin: 5px auto;
+                width: 40%;
+                border: solid 2px #000000;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                padding-top: 2.5%;
+                padding-right: 2%;
+                padding-bottom: 2%;
+                padding-left: 2%;">
+        <img src="./images/tu02.jpg" style="width: 100%;">
+    </div>
+
+    <!-- text-align 은 text 뿐만 아니라 img 에도 적용 가능 -->
+    <div style="width: 80%; margin: 5px auto;
+                border: none;
+                text-align: center;">
+        <img src="./images/tu03.jpg" style="width: 31%; border-radius: 5px;">
+        <img src="./images/tu04.jpg" style="width: 31%; border-radius: 5px;">
+        <img src="./images/tu05.jpg" style="width: 31%; border-radius: 5px;">
+    </div>
+    <hr>
+    <div style="width: 80%; margin: 5px auto;
+                border: none;
+                text-align: center;">
+        <img src="./images/tu03.jpg" style="width: 31%; height: 250px; border-radius: 5px;">
+        <img src="./images/tu04.jpg" style="width: 31%; height: 250px; border-radius: 5px;">
+        <img src="./images/tu05.jpg" style="width: 31%; height: 250px; border-radius: 5px;">
+    </div>
+
+    <!-- 이미지 width, height 비율 통일을 위해 최초 이미지 생성시 크기를 지정 -->
+
+    <!-- text-shadow: h-shadow v-shadow blur color; (그림자 속성) -->
+    <div style="border: solid 1px #000000;
+    width: 30%;
+    margin: 30px auto;
+    text-align: center;
+    padding: 2%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-shadow: 1px 1px 5px #0000FF;">
+        1. HTML<br>
+        2. CSS3<br>
+        3. Menu 설정
+    </div>
+
+</body>
+</html>

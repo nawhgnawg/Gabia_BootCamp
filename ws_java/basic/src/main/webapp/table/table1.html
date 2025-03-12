@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/table/table1.html</title>
+    <style>
+        * {
+            font-family: 맑은 고딕;
+            font-size: 20px;
+            color: #555555;
+        }
+
+        table {
+            width: 60%;
+            margin: 0px auto;
+            border-collapse: collapse;
+        }
+
+        th {
+            border: solid 1px #555555;
+            text-align: center;
+        }
+
+        td {
+            border: solid 1px #555555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <caption>Movie Top 10</caption>
+        <colgroup>
+            <col style="width: 15%;">
+            <col style="width: 70%;">
+            <col style="width: 15%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>번호</th><th>제목</th><th>년도</th>
+            </tr>
+            <tr>
+                <th>no</th><th>title</th><th>year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td><td>마션</td><td>2024</td>
+            </tr>
+            <tr>
+                <td>2</td><td>암살</td><td>2025</td>
+            </tr>
+            <tr>
+                <td>3</td><td>안시성</td><td>2026</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" style="border-left: none;
+                                       border-right: none;
+                                       border-bottom: none;">(주)영화 추천 시스템</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

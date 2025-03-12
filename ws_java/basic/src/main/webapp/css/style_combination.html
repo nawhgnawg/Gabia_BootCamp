@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0, maximum-scale=10.0, width=device-width" />
+    <title>http://localhost:9091/css/style_combination.html</title>
+    <style type="text/css">
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+    .css-bold {
+        color: #000000;
+        font-weight: bold;
+        border: solid 1px #333333;
+        margin: 10px
+    }
+
+    .css-red {
+        color: red;
+        border: solid 1px #333333;
+        margin: 10px;
+    }
+
+    .title {
+        color: #00CC00;
+        font-size: 36px;
+        text-decoration: underline;
+        border: solid 1px #333333;
+        margin: 10px;
+    }
+
+    .parent {
+        color: #00CC00;
+        font-size: 36px;
+        text-decoration: underline;
+        border: solid 1px #333333;
+        margin: 10px;
+    }
+
+     .child {
+        color: #00CC00;
+        font-size: 36px;
+        text-decoration: underline;
+        border: solid 1px #333333;
+        margin: 10px;
+    }
+    </style>
+</head>
+<body>
+<div>1. class 속성을 적용하지 않은 경우</div>
+<div class='css-bold'>2. css-bold</div>
+<div class='css-red'>3. css-red</div>
+
+<!-- class 모두 적용 -->
+<div class='css-bold css-red'>4. css-bold css-red</div>
+
+<!-- 동시적용 -->
+<div class='css-bold'>  <!-- 부모 클래스 적용 -->
+    <!-- 부모 자식이 동시에 선언된 .css-bold .title 적용 ★ -->
+    <!-- 같은 속성이면 자식 우선으로 선택 -->
+    <div class='title'>
+        5. css-bold .title
+    </div>
+</div>
+
+<div class='title'>6. CSS 실습</div>
+
+<div class="parent">7. 부모 태그</div>
+<div class="parent">
+    <div class="child">
+        8. 부모 태그 - 자식 태그 <!-- 자식 우선 -->
+        <div style="color: #cc9c00;">  <!-- 자식 우선 -->
+            9-1. 부모 태그 - 자식 태그 - 손자
+        </div>
+        <div style="color: #cc9c00;
+                  border: solid 3px #333333;
+                  margin: 10px;">  <!-- 자식 우선 -->
+            9-2. 부모 태그 - 자식 태그 - 손자
+        </div>
+
+    </div>
+</div>
+
+<div style="width: 80%;
+              background-color: #00FF00;
+              padding: 10px;"> <!-- width: 80% -->
+    <div style="width: 80%;
+                background-color: #00CC00;
+                padding: 10px;"> <!-- 부모기준 width: 80% -->
+        <div style="width: 80%;
+                  background-color: #00AA00;
+                  padding: 10px;">80%
+        </div> <!-- 부모기준 width: 80% -->
+    </div>
+</div>
+</body>
+</html>
