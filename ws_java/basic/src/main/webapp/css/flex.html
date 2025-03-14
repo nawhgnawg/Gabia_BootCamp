@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, minimum-scale=1.0,
+                                 maximum-scale=10.0, width=device-width" />
+    <title>http://localhost:9091/css/flex.html</title>
+    <style type="text/css">
+        .flex-container1 {
+          display: flex;
+          align-items: center; /* 아이템을 수직 중앙 정렬 */
+          border: solid 1px #0000FF;
+          height: 100px;
+        }
+
+        .flex-container2 {
+          display: flex;
+          justify-content: space-between; /* 아이템 간의 공간을 동일하게 분배 */
+          align-items: center; /* 아이템을 수직 중앙 정렬 */
+          border: solid 1px #0000FF;
+          height: 100px;
+        }
+
+        .flex-item {
+          width: 50px;
+          height: 50px;
+          background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-container1">
+    <div class="flex-item">메모 1</div>
+    <div class="flex-item">메모 2</div>
+    <div class="flex-item">메모 3</div>
+</div>
+<hr>
+<div class="flex-container2">
+    <div class="flex-item">메모 1</div>
+    <div class="flex-item">메모 2</div>
+    <div class="flex-item">메모 3</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/position/fixed.html</title>
+    <head>
+        <style>
+            *{ font-size: 20px;}
+
+            #relative {
+                width: 300px;
+                height: 2000px;
+                background-color: green;
+                color: #FFFFFF;
+                position: relative;
+                top: 10px;
+                left: 10px;
+            }
+
+            #absolute1 {
+                width: 100px;
+                height: 100px;
+                background-color: yellow;
+                color: #000000;
+                position: absolute;
+                top: 0px;  /* 상단 시작면 0px 기준 */
+                left: 100px; /* 좌측 시작면 0px 기준 */
+            }
+
+            #fixed1 {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                color: #FFFFFF;
+                position: fixed;
+                top: 40%;  /* 화면 상단 시작면 40% 기준 */
+                right: 1%; /* 화면 우측 시작면 0px 기준 */
+                opacity: 0.3;  /* 투명도 */
+            }
+
+            .basiclink:link { /* 링크 */
+                text-decoration: none; /* 밑줄 삭제 */
+                color: #FFFFFF;
+            }
+
+            .basiclink:visited { /* 방문 했음 */
+                text-decoration: none; /* 밑줄 삭제 */
+                color: #FFFFFF;
+            }
+
+            .basiclink:hover { /* 마우스가 링크위에 있는 경우 */
+                text-decoration: none; /* 밑줄 삭제 */
+                color: #FFFFFF;
+            }
+
+            .basiclink:active { /* 클릭한 상태 */
+                text-decoration: none; /* 밑줄 삭제 */
+                color: #FFFFFF;
+            }
+
+        </style>
+    </head>
+<body>
+<div id="relative">
+    <div id="absolute1">
+        2. absolute
+    </div>
+    <!-- menubar 같은거에 적용 -->
+    <div id="fixed1">
+        3. fixed<br>
+        Logo,<br>
+        <a href="http://www.kma.go.kr" class="basiclink">KMA</a>
+    </div>
+</div>
+</body>
+</html>

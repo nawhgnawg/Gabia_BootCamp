@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, width=device-width">
+    <title>http://localhost:9091/form/datetime_form.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 20px;}
+    </style>
+</head>
+<body>
+
+<form name="read" action="./datetime_proc.jsp" method="GET">
+    예약:
+    <input type="date" name="reser_date" min="2025-02-01" max="2025-08-31">
+    <input type="time" name="reser_time" value="09:30">
+    <br><br>
+    구입 내역 검색:
+    <br>
+    시작:
+    <input type="date" name="shopping_begin" min="2025-02-01" max="2025-08-31">
+    종료:
+    <input type="date" name="shopping_end" min="2025-02-01" max="2025-08-31">
+    <br><br>
+    <input type="submit"> 조회</button>
+</form>
+</body>
+</html>

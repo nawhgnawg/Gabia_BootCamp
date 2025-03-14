@@ -16,6 +16,12 @@
             border-collapse: collapse;
         }
 
+        caption {
+            margin: 10px auto;
+            border-bottom: solid 1px #555555;
+            width: 50%;
+        }
+
         th {
             border: solid 1px #555555;
             text-align: center;
@@ -56,9 +62,12 @@
         </tbody>
         <tfoot>
             <tr>
+                <!-- colspan="3" -> column 3개를 합친다는 뜻 -->
+                <!-- td일 경우 거리를 떨어뜨릴 때 margin 이 아닌 padding 을 이용한다. -->
                 <td colspan="3" style="border-left: none;
                                        border-right: none;
-                                       border-bottom: none;">(주)영화 추천 시스템</td>
+                                       border-bottom: none;
+                                       padding-top: 10px;">(주)영화 추천 시스템</td>
             </tr>
         </tfoot>
     </table>

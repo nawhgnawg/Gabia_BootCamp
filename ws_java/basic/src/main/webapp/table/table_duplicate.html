@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/table/table_duplicate.html</title>
+    <style>
+        /* 폰트 선언 */
+        @font-face {
+          font-family: 'Ownglyph_jiwoosonang';
+          src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/Ownglyph_jiwoosonang.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        *{ font-family: Ownglyph_jiwoosonang; font-size: 22px;}
+
+        table {
+          margin: 0px auto;
+          width: 96%;
+          border-collapse: collapse;
+        }
+
+        th {
+          border: solid 1px #555555;
+        }
+        td {
+          border: solid 1px #555555;
+          text-align: center;
+          padding-left: 5px;
+          padding-right: 5px;
+          vertical-align: top;
+          height: 100px;
+          width: 120px;
+        }
+        .huil {
+          color: red;
+        }
+        .sat {
+          color: blue;
+        }
+        .content {
+          border: none;
+          color: #555555;
+          font-size: 0.8em; /* 부모의 80% 크기로 출력 */
+          height: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<table>
+    <caption>9월 캠핑장 예약 일정</caption>
+    <tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+    <tr><td class="huil">1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td class="sat">7</td></tr>
+    <tr>
+        <td class="huil">8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td class="sat">
+            14<br>
+            <table style="border: none;">
+                <tr><td class="content">벌초</td></tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="huil">15</td>
+        <td class="huil">16</td>
+        <td class="huil">
+            17<br>
+            <table style="border: none;">
+                <tr><td class="content">추석</td></tr>
+                <tr><td class="content">고향 방문</td></tr>
+                <tr><td class="content">여행</td></tr>
+            </table>
+        </td>
+        <td class="huil">18</td>
+        <td>19</td>
+        <td>20</td>
+        <td class="sat">21</td>
+    </tr>
+    <tr><td class="huil">22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td class="sat">28</td></tr>
+    <tr><td class="huil">29</td><td>30</td><td></td><td></td><td></td><td></td><td class="sat"></td></tr>
+    <tr><td class="huil"> </td><td></td><td></td><td></td><td></td><td></td><td class="sat"></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/position/absolute1.html</title>
+    <style>
+        *{ font-size: 20px;}
+
+        #static { /* # : 특정 태그에 한번만 사용한다. */
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            color: #FFFFFF;
+            position: static; /* 기본값 */
+        }
+
+        #absolute1 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            color: #000000;
+            position: absolute;
+            top: 50px;         /* 상단 시작면 0px 기준 */
+            left: 150px;      /* 좌측 시작면 0px 기준 */
+        }
+
+        #absolute2 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            color: #000000;
+            position: absolute;
+            top: 100px;        /* 상단 시작면 0px 기준 */
+            left: 220px;      /* 좌측 시작면 0px 기준 */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="static"> <!-- #static{   } -->
+        1. static
+    </div>
+    <div id="absolute1">
+        2. absolute
+    </div>
+    <div id="absolute2">
+        3. absolute
+    </div>
+</body>
+</html>

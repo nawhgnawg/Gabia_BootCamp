@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/table/table_colspan.html</title>
+    <style>
+        *{ font-family: Malgun Gothic; font-size: 22px;}
+        table {
+            margin: 0px auto;
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th {
+            border: solid 1px #555555;
+        }
+
+        td {
+            border: solid 1px #555555;
+            text-align: center;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 강사님 Version -->
+    <table>
+        <tr><th colspan="3">Frontend</th><th colspan="2">Backend</th><th>인공지능</th></tr>
+        <tr><td>HTML</td><td>CSS</td><td>Javascript</td><td>JAVA</td><td>DBMS</td><td>LLM</td></tr>
+        <tr><td colspan="2">⭐️</td><td colspan="3">⭐️⭐️</td><td>⭐️⭐️⭐️</td></tr>
+    </table>
+
+
+    <!-- My Version -->
+    <table style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th colspan="3">Frontend</th><th colspan="2">Backend</th><th colspan="1">인공지능</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>HTML</td><td>CSS</td><td>Javascript</td>
+                <td>JAVA</td><td>DBMS</td>
+                <td>LLM</td>
+            </tr>
+            <tr>
+                <td colspan="2">⭐️</td><td colspan="3">⭐️⭐️</td><td colspan="1">⭐️⭐⭐️️</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

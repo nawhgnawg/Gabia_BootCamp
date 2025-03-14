@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>http://localhost:9091/position/relative.html</title>
+    <style>
+        *{ font-size: 20px;}
+
+        #static { /* # : 특정 태그에 한번만 사용한다. */
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            color: #FFFFFF;
+            position: static; /* 기본값 */
+        }
+
+        #relative1 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            color: #000000;
+            position: relative;
+            top: 0px;         /* 상단에 인접한 태그 기준 */
+            left: 100px;      /* 좌측 시작면 0px 기준 */
+        }
+
+        #relative2 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            color: #000000;
+            position: relative;
+            top: 20px;        /* 상단에 인접한 태그 기준 */
+            left: 200px;      /* 좌측 시작면 0px 기준 */
+        }
+
+        #relative3 {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            color: #000000;
+            position: relative;
+            top: -30px;        /* 상단에 인접한 태그 기준 */
+            left: 280px;      /* 좌측 시작면 0px 기준 */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="static"> <!-- #static{   } -->
+        1. static
+    </div>
+    <div id="relative1">
+        2. relative
+    </div>
+    <div id="relative2">
+        3. relative
+    </div>
+    <div id="relative3">
+        4. relative
+    </div>
+</body>
+</html>
