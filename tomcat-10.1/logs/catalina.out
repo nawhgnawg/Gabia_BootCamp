@@ -298,3 +298,8 @@
 10-Mar-2025 12:04:32.502 WARNING [http-nio-9090-exec-2] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/안재홍01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/안재홍01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
 10-Mar-2025 12:04:32.504 WARNING [http-nio-9090-exec-6] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/이유리01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/이유리01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
 10-Mar-2025 12:04:32.505 WARNING [http-nio-9090-exec-4] org.apache.catalina.webresources.AbstractFileResourceSet.logIgnoredSymlink 경로 [/html/images/정우01.jpg]에 위치한 웹 애플리케이션 [/start]을(를) 위한 리소스가, 표준 경로 [/html/images/정우01.jpg]와(과) 일치하지 않아서, 로드되지 못했습니다. 심벌릭 링크 사용이 원인 중 하나일 수 있습니다.
+18-Mar-2025 11:51:22.034 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause 프로토콜 핸들러 ["http-nio-9090"]을(를) 일시 정지 중
+18-Mar-2025 11:51:24.101 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal 서비스 [Catalina]을(를) 중지시킵니다.
+18-Mar-2025 11:51:24.245 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop 프로토콜 핸들러 ["http-nio-9090"]을(를) 중지시킵니다.
+18-Mar-2025 11:51:24.852 WARNING [Thread-1] org.apache.tomcat.util.net.Acceptor.stopMillis acceptor 쓰레드 [http-nio-9090-Acceptor](이)가 깨끗이 중지되지 않았습니다.
+18-Mar-2025 11:51:24.886 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy 프로토콜 핸들러 ["http-nio-9090"]을(를) 소멸시킵니다.
