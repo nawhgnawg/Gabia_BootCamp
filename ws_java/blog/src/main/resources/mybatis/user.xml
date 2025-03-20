@@ -5,7 +5,7 @@
 <mapper namespace="dev.mvc.bloguser.UserDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
     <insert id="create" parameterType="dev.mvc.bloguser.UserVO">
         INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade,rdate)
-        VALUES(BLOGUSER_SEQ.nextval, #{userName}, #{userEmail}, #{userPassword}, #{userGrade}, SYSDATE)
+        VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, SYSDATE)
     </insert>
 
 </mapper>
