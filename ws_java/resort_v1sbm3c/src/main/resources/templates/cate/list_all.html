@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
+<div layout:fragment="content">
+    <div class="title_line">카테고리</div>
+
+    <table class="table table-hover">
+        <colgroup>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="th_bs">순서</th>
+            <th class="th_bs">카테고리 그룹</th>
+            <th class="th_bs">카테고리</th>
+            <th class="th_bs">자료수</th>
+            <th class="th_bs">등록일</th>
+            <th class="th_bs">기타</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cateVO:${list}">   <!-- cateVO 갯수 만큼 <tr> 태그가 생성됨 -->
+                <td class="td_bs" th:text="${cateVO.cateno}"></td>
+                <td class="td_bs" th:text="${cateVO.grp}"></td>
+                <td class="td_bs" th:text="${cateVO.name}"></td>
+                <td class="td_bs" th:text="${cateVO.cnt}"></td>
+                <td class="td_bs" th:text="${cateVO.rdate}"></td>
+                <td class="td_bs">수정/삭제</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</html>

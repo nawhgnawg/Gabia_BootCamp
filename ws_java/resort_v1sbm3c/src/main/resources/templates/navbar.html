@@ -1,7 +1,7 @@
 <nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
      xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">요리 블로그 ver 1.0</a>
+        <a class="navbar-brand" href="/">오버랜딩 ver 1.0</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,16 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">    <!-- me-auto = 메뉴 왼쪽 기준으로 출력, mb-2 = margin-bottom 8px; -->
                 <li class="nav-item">
-                    <a th:href="@{/bloguser/create}" class="nav-link">회원 등록</a>
+                    <a th:href="@{/cate/create}" class="nav-link">카테고리 등록</a>
                 </li>
                 <li class="nav-item">
-                    <a th:href="@{/bloguser/list_all}" class="nav-link">회원 목록</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/bloguser/article}" class="nav-link">글 등록</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/bloguser/article_list_all}" class="nav-link">글 목록</a>
+                    <a th:href="@{/cate/list_all}" class="nav-link">카테고리 목록</a>
                 </li>
             </ul>
         </div>

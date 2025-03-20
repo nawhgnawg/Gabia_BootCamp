@@ -12,18 +12,17 @@ public class UserVO {
     private Integer userno = 0;
 
     /** 회원 이름 */
-    @NotEmpty(message="회원 이름은 필수 항목입니다.")
-    @Size(min=2, max=10, message="회원 번호은 최소 2자에서 최대 10자입니다.")
+    @NotEmpty(message="이름은 필수 항목입니다.")
+    @Size(min=2, max=10, message="이름은 최소 2자에서 최대 10자입니다.")
     private String username;
 
     /** 회원 이메일 */
-    @NotEmpty(message="회원 이메일은 필수 항목입니다.")
-    @Size(min=2, max=10, message="회원 이메일은 최소 2자에서 최대 10자입니다.")
+    @NotEmpty(message="이메일은 필수 항목입니다.")
     private String useremail;
 
     /** 회원 비밀번호 */
-    @NotEmpty(message="카테고리 입력은 필수 항목입니다.")
-    @Size(min=2, max=10, message="회원 비밀번호는 최소 2자에서 최대 10자입니다.")
+    @NotEmpty(message="비밀번호 입력은 필수 항목입니다.")
+    @Size(min=2, max=10, message="비밀번호는 최소 2자에서 최대 10자입니다.")
     private String userpassword;
 
     /** 회원 등급 */
