@@ -26,11 +26,15 @@
         <tbody>
             <tr th:each="cateVO:${list}">   <!-- cateVO 갯수 만큼 <tr> 태그가 생성됨 -->
                 <td class="td_bs" th:text="${cateVO.cateno}"></td>
-                <td class="td_bs" th:text="${cateVO.grp}"></td>
-                <td class="td_bs" th:text="${cateVO.name}"></td>
+                <td class="td_bs">
+                    <a th:href="@{|./read?cateno=${cateVO.cateno}|}" th:text="${cateVO.grp}" style="display: block"></a>
+                </td>
+                <td class="td_bs">
+                    <a th:href="@{|./read?cateno=${cateVO.cateno}|}" th:text="${cateVO.name}" style="display: block"></a>
+                </td>
                 <td class="td_bs" th:text="${cateVO.cnt}"></td>
                 <td class="td_bs" th:text="${cateVO.rdate}"></td>
-                <td class="td_bs">수정/삭제</td>
+                <td class="td_bs"><a th:href="@{|./update?cateno=${cateVO.cateno}|}">수정</a>/<a th:href="@{|./update?cateno=${cateVO.cateno}|}">삭제</a></td>
             </tr>
         </tbody>
     </table>

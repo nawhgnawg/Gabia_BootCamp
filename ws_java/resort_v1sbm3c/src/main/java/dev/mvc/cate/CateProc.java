@@ -22,4 +22,16 @@ public class CateProc implements CateProcInter {
     public ArrayList<CateVO> list_all() {
         return cateDAO.list_all();
     }
+
+    @Override
+    public CateVO read(int cateno) {
+        return cateDAO.read(cateno);
+    }
+
+    @Override
+    public int update(CateVO cateVO) {
+        return cateDAO.update(cateVO);
+    }
+
+
 }

@@ -26,11 +26,15 @@
         <tbody>
             <tr th:each="userVO:${list}">
                 <td class="td_bs" th:text="${userVO.userno}"></td>
-                <td class="td_bs" th:text="${userVO.username}"></td>
-                <td class="td_bs" th:text="${userVO.useremail}"></td>
+                <td class="td_bs">
+                    <a th:href="@{|./read?userno=${userVO.userno}|}" th:text="${userVO.username}" style="display: block"></a>
+                </td>
+                <td class="td_bs">
+                    <a th:href="@{|./read?userno=${userVO.userno}|}" th:text="${userVO.useremail}" style="display: block"></a>
+                </td>
                 <td class="td_bs" th:text="${userVO.usergrade}"></td>
                 <td class="td_bs" th:text="${userVO.rdate}"></td>
-                <td class="td_bs">수정/삭제</td>
+                <td class="td_bs"><a th:href="@{|./update?userno=${userVO.userno}|}">수정</a>/<a th:href="@{|./update?userno=${userVO.userno}|}">삭제</a></td>
             </tr>
         </tbody>
     </table>

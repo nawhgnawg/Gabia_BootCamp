@@ -19,4 +19,14 @@ public class UserProc implements UserProcInter{
     public ArrayList<UserVO> list_all() {
         return userDAO.list_all();
     }
+
+    @Override
+    public UserVO read(int userno) {
+        return userDAO.read(userno);
+    }
+
+    @Override
+    public int update(UserVO userVO) {
+        return userDAO.update(userVO);
+    }
 }

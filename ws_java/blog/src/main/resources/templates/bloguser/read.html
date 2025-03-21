@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
+<div layout:fragment="content">
+    <div class="title_line">카테고리 조회</div>
+
+    <div class="container mt-3"> <!--/* mt-3: margin top 16px */-->
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">회원 번호: <span th:text="${userVO.userno}"></span></li>
+            <li class="list-group-item">회원 이름: <span th:text="${userVO.username}"></span></li>
+            <li class="list-group-item">회원 이메일: <span th:text="${userVO.useremail}"></span></li>
+            <li class="list-group-item">회원 등급: <span th:text="${userVO.usergrade}"></span></li>
+            <li class="list-group-item">회원 등록일: <span th:text="${userVO.rdate}"></span></li>
+        </ul>
+    </div>
+
+    <div class="content_body_bottom">
+        <button type="button" onclick="location.href='/bloguser/list_all'" class="btn btn-secondary btn-sm">목록</button>
+        <button type="button" th:onclick="|location.href='./update?userno=${userVO.userno}'|" class="btn btn-secondary btn-sm">수정</button>
+        <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+        <button type="button" onclick="location.href='/bloguser/create'" class="btn btn-secondary btn-sm">등록</button>
+    </div>
+
+</div>
+</html>

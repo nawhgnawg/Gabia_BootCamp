@@ -17,4 +17,9 @@ public interface CateDAOInter {
     public int create(CateVO cateVO);
 
     public ArrayList<CateVO> list_all();
+
+    public CateVO read(int cateno);
+
+    public int update(CateVO cateVO);
+
 }

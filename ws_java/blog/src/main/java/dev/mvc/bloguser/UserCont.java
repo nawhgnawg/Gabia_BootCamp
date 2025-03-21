@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -66,6 +63,40 @@ public class UserCont {
         model.addAttribute("list", list);
 
         return "/bloguser/article_list_all";
+    }
+
+    @GetMapping("/read")
+    public String read(Model model, @RequestParam(value = "userno", defaultValue = "1") int userno) {
+        UserVO userVO = userProc.read(userno);
+        model.addAttribute("userVO", userVO);
+
+        return "/bloguser/read";
+    }
+
+    @GetMapping("/update")
+    public String update(Model model, @RequestParam(value = "userno", defaultValue = "0") int userno) {
+        UserVO userVO = userProc.read(userno);
+        model.addAttribute("userVO", userVO);
+
+        return "/bloguser/update";
+    }
+
+    @PostMapping("/update")
+    public String update(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/bloguser/update";
+        }
+        int cnt = userProc.update(userVO);
+
+        if (cnt == 1) {
+            model.addAttribute("code", Tool.UPDATE_SUCCESS);
+            model.addAttribute("username", userVO.getUsername());
+            model.addAttribute("useremail", userVO.getUseremail());
+        } else {
+            model.addAttribute("code", Tool.UPDATE_FAIL);
+        }
+
+        return "/bloguser/msg";
     }
 }
 

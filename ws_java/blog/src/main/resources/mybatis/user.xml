@@ -7,10 +7,24 @@
         INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade,rdate)
         VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, SYSDATE)
     </insert>
+    <!-- -->
     <select id="list_all" resultType="dev.mvc.bloguser.UserVO">
         SELECT userno, username, useremail, userpassword, usergrade, rdate
         FROM bloguser
         ORDER BY userno ASC
     </select>
+    <!-- -->
+    <select id="read" resultType="dev.mvc.bloguser.UserVO" parameterType="int">
+        SELECT userno, username, useremail, userpassword, usergrade, rdate
+        FROM bloguser
+        WHERE userno = #{userno}
+    </select>
+    <!-- -->
+    <update id="update" parameterType="dev.mvc.bloguser.UserVO">
+        UPDATE bloguser
+        SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, rdate=SYSDATE
+        WHERE userno=#{userno}
+    </update>
+
 
 </mapper>

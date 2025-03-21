@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchIllegalArgumentException;
 
 @SpringBootTest
 class ResortV1sbm3cApplicationTests {
@@ -58,5 +59,28 @@ class ResortV1sbm3cApplicationTests {
 
 		System.out.printf("-> cnt: " + cnt);
 		assertThat(cnt).isEqualTo(1);
+	}
+
+	@Test
+	void readTest() {
+		// given
+		CateVO cateVO = new CateVO();
+		cateVO.setCateno(1);
+		cateVO.setGrp("2");
+		cateVO.setName("카테2");
+		cateVO.setCnt(1);
+		cateVO.setSeqno(1);
+		cateVO.setVisible("Y");
+		cateVO.setRdate("2025-03-19 10:00:00");
+		cateProc.create(cateVO);
+
+		// when
+		CateVO read = cateProc.read(1);
+
+		// then
+		System.out.println(cateVO);
+		System.out.println(read);	// 진짜 DB에서 가져옴
+		assertThat(read.getCateno()).isEqualTo(1);
+		assertThat(read.getGrp()).isEqualTo("드라마");
 	}
 }

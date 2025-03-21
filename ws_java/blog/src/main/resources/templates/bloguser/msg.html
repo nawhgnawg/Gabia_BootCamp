@@ -18,6 +18,15 @@
                         <span class="span_success">회원 등록을 실패했습니다.</span><br>
                         등록 실패된 회원: <span th:text="${username}"></span>
                     </div>
+                    <div th:case="update_success">
+                        <span class="span_success">회원 정보 수정을 성공했습니다.</span><br>
+                        수정 성공된 회원 이름: <span th:text="${username}"></span><br>
+                        수정 성공된 회원 이메일: <span th:text="${useremail}"></span>
+                    </div>
+                    <div th:case="update_fail">
+                        <span class="span_success">회원 정보 수정을 실패했습니다.</span><br>
+                        수정 실패된 회원: <span th:text="${username}"></span>
+                    </div>
                 </li>
             </ul>
         </fieldset>
