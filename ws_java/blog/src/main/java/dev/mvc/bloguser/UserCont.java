@@ -19,28 +19,28 @@ public class UserCont {
     @Autowired
     private UserProc userProc;
 
+    /**
+     * 회원 등록 폼 (GET)
+     * http://loacalhost:9092/bloguser/create
+     */
     @GetMapping("/create")
     public String create(@ModelAttribute("userVO") UserVO userVO) {
         return "/bloguser/create";
     }
 
-    @GetMapping("/article")
-    public String createArticle(@ModelAttribute("userVO") UserVO userVO) {
-        return "/bloguser/article";
-    }
-
+    /**
+     * 회원 등록 처리 (POST)
+     * http://loacalhost:9092/bloguser/create
+     */
     @PostMapping("/create")
     public String create(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/bloguser/create";
         }
         int cnt = userProc.create(userVO);
-        log.info("cnt: {}", cnt);
 
         if (cnt == 1) {
-            model.addAttribute("code", Tool.CREATE_SUCCESS);
-            model.addAttribute("username", userVO.getUsername());
-            model.addAttribute("useremail", userVO.getUseremail());
+            return "redirect:/bloguser/list_all";
         } else {
             model.addAttribute("code", Tool.CREATE_FAIL);
         }
@@ -49,22 +49,22 @@ public class UserCont {
         return "/bloguser/msg";
     }
 
+    /**
+     * 회원 전체 조회
+     * http://loacalhost:9092/bloguser/list_all
+     */
     @GetMapping("/list_all")
-    public String list_all(Model model) {
+    public String list_all(Model model, @ModelAttribute("userVO") UserVO userVO) {
         ArrayList<UserVO> list = userProc.list_all();
         model.addAttribute("list", list);
 
         return "/bloguser/list_all";
     }
 
-    @GetMapping("/article_list_all")
-    public String article_list_all(Model model) {
-        ArrayList<UserVO> list = userProc.list_all();
-        model.addAttribute("list", list);
-
-        return "/bloguser/article_list_all";
-    }
-
+    /**
+     * 단일 회원 조회
+     * http://loacalhost:9092/bloguser/read?userno=1
+     */
     @GetMapping("/read")
     public String read(Model model, @RequestParam(value = "userno", defaultValue = "1") int userno) {
         UserVO userVO = userProc.read(userno);
@@ -73,6 +73,10 @@ public class UserCont {
         return "/bloguser/read";
     }
 
+    /**
+     * 회원 수정 폼 (GET)
+     * http://loacalhost:9092/bloguser/update?userno=1
+     */
     @GetMapping("/update")
     public String update(Model model, @RequestParam(value = "userno", defaultValue = "0") int userno) {
         UserVO userVO = userProc.read(userno);
@@ -81,6 +85,10 @@ public class UserCont {
         return "/bloguser/update";
     }
 
+    /**
+     * 회원 수정 처리 (POST)
+     * http://loacalhost:9092/bloguser/update?userno=1
+     */
     @PostMapping("/update")
     public String update(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -90,13 +98,43 @@ public class UserCont {
 
         if (cnt == 1) {
             model.addAttribute("code", Tool.UPDATE_SUCCESS);
-            model.addAttribute("username", userVO.getUsername());
-            model.addAttribute("useremail", userVO.getUseremail());
         } else {
             model.addAttribute("code", Tool.UPDATE_FAIL);
         }
+        model.addAttribute("username", userVO.getUsername());
+        model.addAttribute("useremail", userVO.getUseremail());
+        model.addAttribute("cnt", cnt);
 
         return "/bloguser/msg";
     }
+
+    @GetMapping("/delete")
+    public String delete(Model model, @RequestParam("userno") int userno) {
+        UserVO userVO = userProc.read(userno);
+        model.addAttribute("userVO", userVO);
+
+        return "/bloguser/delete";
+    }
+
+    @PostMapping("/delete")
+    public String delete_process(Model model, @RequestParam("userno") int userno) {
+        UserVO userVO = userProc.read(userno);
+        model.addAttribute("userVO", userVO);
+
+        int cnt = userProc.delete(userno);
+
+        if (cnt == 1) {
+            model.addAttribute("code", Tool.DELETE_SUCCESS);
+        } else {
+            model.addAttribute("code", Tool.DELETE_FAIL);
+        }
+        model.addAttribute("username", userVO.getUsername());
+        model.addAttribute("useremail", userVO.getUseremail());
+        model.addAttribute("cnt", cnt);
+
+        return "/bloguser/msg";
+    }
+
+
 }
 

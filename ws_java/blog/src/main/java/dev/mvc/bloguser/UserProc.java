@@ -29,4 +29,9 @@ public class UserProc implements UserProcInter{
     public int update(UserVO userVO) {
         return userDAO.update(userVO);
     }
+
+    @Override
+    public int delete(int userno) {
+        return userDAO.delete(userno);
+    }
 }

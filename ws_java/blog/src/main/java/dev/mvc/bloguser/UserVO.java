@@ -31,7 +31,7 @@ public class UserVO {
     @Max(value=5)
     private Integer usergrade = 1;
 
-    /** 등록일, sysdate 자동 생성 */
+    /** 회원 등록일, sysdate 자동 생성 */
     private String rdate = "";
 
 }

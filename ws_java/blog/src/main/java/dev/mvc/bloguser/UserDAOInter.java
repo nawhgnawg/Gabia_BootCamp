@@ -11,4 +11,7 @@ public interface UserDAOInter {
     public UserVO read(int userno);
 
     public int update(UserVO userVO);
+
+    public int delete(int userno);
+
 }

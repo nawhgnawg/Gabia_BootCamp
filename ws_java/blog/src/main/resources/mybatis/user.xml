@@ -25,6 +25,12 @@
         SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, rdate=SYSDATE
         WHERE userno=#{userno}
     </update>
+    <!-- -->
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM bloguser
+        WHERE userno = #{userno}
+    </delete>
 
 
 </mapper>

@@ -34,7 +34,10 @@
                 </td>
                 <td class="td_bs" th:text="${cateVO.cnt}"></td>
                 <td class="td_bs" th:text="${cateVO.rdate}"></td>
-                <td class="td_bs"><a th:href="@{|./update?cateno=${cateVO.cateno}|}">수정</a>/<a th:href="@{|./update?cateno=${cateVO.cateno}|}">삭제</a></td>
+                <td class="td_bs">
+                    <a th:href="@{|./update?cateno=${cateVO.cateno}|}"><img src="/cate/images/update.png" class="icon" title="수정"></a>/
+                    <a th:href="@{|./delete?cateno=${cateVO.cateno}|}"><img src="/cate/images/delete.png" class="icon" title="삭제"></a>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -11,5 +11,7 @@ public interface UserProcInter {
     public UserVO read(int userno);
     /** 수정 */
     public int update(UserVO userVO);
+    /** 삭제 */
+    public int delete(int userno);
 }
 

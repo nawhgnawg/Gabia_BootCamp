@@ -130,4 +130,40 @@ public class CateCont {
         return "/cate/msg";  // templates/cate/msg.html
     }
 
+    /**
+     * 삭제 폼
+     * http://localhost:9091/cate/delete?cateno=1
+     */
+    @GetMapping("/delete")
+    public String delete(Model model, @RequestParam(name="cateno") int cateno) {
+        CateVO cateVO = cateProc.read(cateno);
+        model.addAttribute("cateVO", cateVO);
+
+        return "/cate/delete";      // templates/cate/delete.html
+    }
+
+    /**
+     * 삭제 처리
+     */
+    @PostMapping("/delete")
+    public String delete_process(Model model, @RequestParam("cateno") int cateno) {
+
+        CateVO cateVO = cateProc.read(cateno);  // cateno로 cateVO 객체 가져옴
+        model.addAttribute("cateVO", cateVO);
+
+        int cnt = cateProc.delete(cateno);
+
+        if (cnt == 1) {
+            model.addAttribute("code", Tool.DELETE_SUCCESS);
+        } else {
+            model.addAttribute("code", Tool.DELETE_FAIL);
+        }
+
+        model.addAttribute("grp", cateVO.getGrp());
+        model.addAttribute("name", cateVO.getName());
+        model.addAttribute("cnt", cnt);
+
+        return "/cate/msg";
+    }
+
 }
