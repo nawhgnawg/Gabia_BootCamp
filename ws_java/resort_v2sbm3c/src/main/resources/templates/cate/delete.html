@@ -3,6 +3,18 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
 <div layout:fragment="content">
     <div class="title_line">카테고리 삭제</div>
+
+    <aside class="aside_right">
+        <a th:href="@{|/cate/list_all|}">목록</a>
+        <span class="menu_divide"> | </span>
+        <a th:href="@{|/cate/update?cateno=${cateVO.cateno}|}">수정</a>
+        <span class="menu_divide"> | </span>
+        <a th:href="@{|/cate/create|}">등록</a>
+        <span class="menu_divide"> | </span>
+        <a href="javascript: location.reload();">새로 고침</a>
+    </aside>
+    <div class="menu_line"></div>
+
     <div style="width: 50%; margin: 0px auto;">
         <form name="frm" method="post" action="/cate/delete" th:object="${cateVO}">
             <input type="hidden" name="cateno" th:value="${cateVO.cateno}"> <!--/* 값 유지 */-->
@@ -22,5 +34,44 @@
 
         </form>
     </div>
+    <div class="menu_line"></div>
+
+    <table class="table table-hover" style="width: 100%;">
+        <colgroup>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="th_bs">순서</th>
+            <th class="th_bs">카테고리 그룹</th>
+            <th class="th_bs">카테고리</th>
+            <th class="th_bs">자료수</th>
+            <th class="th_bs">등록일</th>
+            <th class="th_bs">기타</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cateVO:${list}">
+            <td class="td_bs" th:text="${cateVO.cateno}"></td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/read?cateno=${cateVO.cateno}|}" style="display:block;" th:text="${cateVO.grp}"></a>
+            </td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/read?cateno=${cateVO.cateno}|}" style="display:block;" th:text="${cateVO.name}"></a>
+            </td>
+            <td class="td_bs" th:text="${cateVO.cnt}"></td>
+            <td class="td_bs" th:text="${cateVO.rdate.substring(0, 10)}"></td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/update?cateno=${cateVO.cateno}|}"><img src="/cate/images/update.png" class="icon" title="수정"></a> <!-- /static 기준 -->
+                <a th:href="@{|/cate/delete?cateno=${cateVO.cateno}|}"><img src="/cate/images/delete.png" class="icon" title="삭제"></a> <!--/* /static 기준 */-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </html>

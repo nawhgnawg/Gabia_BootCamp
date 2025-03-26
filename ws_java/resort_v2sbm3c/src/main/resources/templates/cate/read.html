@@ -4,25 +4,80 @@
 <div layout:fragment="content">
     <div class="title_line">카테고리 조회</div>
 
-    <div class="container mt-3"> <!--/* mt-3: margin top 16px */-->
+    <aside class="aside_right">
+        <a th:href="@{|/cate/list_all|}">목록</a>
+        <span class="menu_divide"> | </span>
+        <a th:href="@{|/cate/update?cateno=${cateVO.cateno}|}">수정</a>
+        <span class="menu_divide"> | </span>
+        <a th:href="@{|/cate/delete?cateno=${cateVO.cateno}|}">삭제</a>
+        <span class="menu_divide"> | </span>
+        <a th:href="@{|/cate/create|}">등록</a>
+        <span class="menu_divide"> | </span>
+        <a href="javascript: location.reload();">새로 고침</a>
+    </aside>
+    <div class="menu_line"></div>
+
+    <div class="container mt-3" style="width: 70%; margin: 5px auto;"> <!--/* mt-3: margin top 16px */-->
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">번호: <span th:text="${cateVO.cateno}"></span></li>
-            <li class="list-group-item">카테고리 그룹/장르/분류: <span th:text="${cateVO.grp}"></span></li>
-            <li class="list-group-item">카테고리: <span th:text="${cateVO.name}"></span></li>
-            <li class="list-group-item">관련 자료수: <span th:text="${cateVO.cnt}"></span></li>
-            <li class="list-group-item">출력 순서: <span th:text="${cateVO.seqno}"></span></li>
-            <li class="list-group-item">출력 모드: <span th:text="${cateVO.visible}"></span></li>
-            <li class="list-group-item">등록일: <span th:text="${cateVO.rdate}"></span></li>
+            <li class="list-group-item" style="margin: 0px auto">
+                카테고리 그룹: <span th:text="${cateVO.grp}" style="margin-right: 20px;"></span>
+                카테고리: <span th:text="${cateVO.name}"></span>
+            </li>
+            <li class="list-group-item" style="margin: 0px auto">
+                관련 자료수: <span th:text="${cateVO.cnt}" style="margin-right: 20px;"></span>
+                출력 순서: <span th:text="${cateVO.seqno}" style="margin-right: 20px;"></span>
+                출력 모드: <span th:text="${cateVO.visible}" style="margin-right: 20px;"></span>
+                등록일: <span th:text="${cateVO.rdate}"></span>
+            </li>
         </ul>
     </div>
-
+    <div class="menu_line"></div>
+<!-- /*
     <div class="content_body_bottom">
         <button type="button" onclick="location.href='/cate/list_all'" class="btn btn-secondary btn-sm">목록</button>
-        <!-- 단순 이동(onclick)이 아닌 정보를 가지고 가야한다. -->
+        &lt;!&ndash; 단순 이동(onclick)이 아닌 정보를 가지고 가야한다. &ndash;&gt;
         <button type="button" th:onclick="|location.href='./update?cateno=${cateVO.cateno}'|" class="btn btn-secondary btn-sm">수정</button>
         <button type="button" class="btn btn-secondary btn-sm">삭제</button>
         <button type="button" onclick="location.href='/cate/create'" class="btn btn-secondary btn-sm">등록</button>
     </div>
+*/ -->
+    <table class="table table-hover" style="width: 100%;">
+        <colgroup>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="th_bs">순서</th>
+            <th class="th_bs">카테고리 그룹</th>
+            <th class="th_bs">카테고리</th>
+            <th class="th_bs">자료수</th>
+            <th class="th_bs">등록일</th>
+            <th class="th_bs">기타</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cateVO:${list}">
+            <td class="td_bs" th:text="${cateVO.cateno}"></td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/read?cateno=${cateVO.cateno}|}" style="display:block;" th:text="${cateVO.grp}"></a>
+            </td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/read?cateno=${cateVO.cateno}|}" style="display:block;" th:text="${cateVO.name}"></a>
+            </td>
+            <td class="td_bs" th:text="${cateVO.cnt}"></td>
+            <td class="td_bs" th:text="${cateVO.rdate.substring(0, 10)}"></td>
+            <td class="td_bs">
+                <a th:href="@{|/cate/update?cateno=${cateVO.cateno}|}"><img src="/cate/images/update.png" class="icon" title="수정"></a> <!-- /static 기준 -->
+                <a th:href="@{|/cate/delete?cateno=${cateVO.cateno}|}"><img src="/cate/images/delete.png" class="icon" title="삭제"></a> <!--/* /static 기준 */-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 </html>

@@ -1,4 +1,4 @@
-package dev.mvc.resort_v2sbm3c;
+package dev.mvc.resort_v3sbm3c;
 
 import dev.mvc.cate.CateDAOInter;
 import dev.mvc.cate.CateProcInter;
@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class ResortV1sbm3cApplicationTests {
+class ResortV2sbm3cApplicationTests {
 
 	// CateDAOInter interface 객체를 만들 수 없으나,
 	// Spring 이 CateDAOInter interface를 자동으로 구현하여 객체를 생성하여 cateDAO 변수에 할당함

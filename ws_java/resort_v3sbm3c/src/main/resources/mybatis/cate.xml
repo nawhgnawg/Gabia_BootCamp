@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위에는 MyBatis 선언문 -->
+<mapper namespace="dev.mvc.cate.CateDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
+    <insert id="create" parameterType="dev.mvc.cate.CateVO">
+       INSERT INTO cate(cateno, grp, name, cnt, seqno, visible, rdate)
+       VALUES(CATE_SEQ.nextval, #{grp}, #{name}, 0, #{seqno}, #{visible}, SYSDATE)
+    </insert>
+    <!-- 레코드 갯수만큼 CateVO class 객체가 생성됨 -> ArrayList<CateVO> 생성됨 -->
+    <select id="list_all" resultType="dev.mvc.cate.CateVO">
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        ORDER BY cateno ASC
+    </select>
+    <!-- 하나의 CateVO class 객체가 생성됨 -->
+    <select id="read" resultType="dev.mvc.cate.CateVO" parameterType="Integer">
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE cateno = #{cateno}
+    </select>
+    <!-- return: 수정한 레코드 갯수, parameterType: 수정할 레코드 정보 -->
+    <update id="update" parameterType="dev.mvc.cate.CateVO">
+        UPDATE cate
+        SET grp=#{grp}, name=#{name}, seqno=#{seqno}, visible=#{visible}, rdate=SYSDATE
+        WHERE cateno = #{cateno}
+    </update>
+    <!-- -->
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM cate
+        WHERE cateno = #{cateno}
+    </delete>
+
+
+</mapper>

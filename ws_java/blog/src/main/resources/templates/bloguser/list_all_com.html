@@ -1,0 +1,43 @@
+<!--/*
+<div th:replace="~{cate/list_all_com::list_all_fragment}"></div>
+'/cate/list_all_com.html' 파일의 list_all_fragment를 가져다 사용
+*/-->
+<div th:fragment="list_all_fragment" xmlns:th="http://www.w3.org/1999/xhtml">
+    <table class="table table-hover">
+        <colgroup>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 10%;'/>
+            <col style='width: 20%;'/>
+            <col style='width: 20%;'/>
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="th_bs">회원 번호</th>
+            <th class="th_bs">회원 이름</th>
+            <th class="th_bs">회원 이메일</th>
+            <th class="th_bs">회원 등급</th>
+            <th class="th_bs">등록일</th>
+            <th class="th_bs">기타</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userVO:${list}">
+            <td class="td_bs" th:text="${userVO.userno}"></td>
+            <td class="td_bs">
+                <a th:href="@{|./read/${userVO.userno}|}" th:text="${userVO.username}" style="display: block"></a>
+            </td>
+            <td class="td_bs">
+                <a th:href="@{|./read/${userVO.userno}|}" th:text="${userVO.useremail}" style="display: block"></a>
+            </td>
+            <td class="td_bs" th:text="${userVO.usergrade}"></td>
+            <td class="td_bs" th:text="${userVO.rdate}"></td>
+            <td class="td_bs">
+                <a th:href="@{|./update/${userVO.userno}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>/
+                <a th:href="@{|./delete/${userVO.userno}|}"><img src="/bloguser/images/delete.png" class="icon" title="삭제"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -63,41 +63,50 @@ public class UserCont {
 
     /**
      * 단일 회원 조회
-     * http://loacalhost:9092/bloguser/read?userno=1
+     * http://loacalhost:9092/bloguser/read/1
      */
-    @GetMapping("/read")
-    public String read(Model model, @RequestParam(value = "userno", defaultValue = "1") int userno) {
+    @GetMapping("/read/{userno}")
+    public String read(Model model, @PathVariable("userno") int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
+
+        ArrayList<UserVO> list = userProc.list_all();
+        model.addAttribute("list", list);
 
         return "/bloguser/read";
     }
 
     /**
      * 회원 수정 폼 (GET)
-     * http://loacalhost:9092/bloguser/update?userno=1
+     * http://loacalhost:9092/bloguser/update/1
      */
-    @GetMapping("/update")
-    public String update(Model model, @RequestParam(value = "userno", defaultValue = "0") int userno) {
+    @GetMapping("/update/{userno}")
+    public String update(Model model, @PathVariable("userno") int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
+
+        ArrayList<UserVO> list = userProc.list_all();
+        model.addAttribute("list", list);
 
         return "/bloguser/update";
     }
 
     /**
      * 회원 수정 처리 (POST)
-     * http://loacalhost:9092/bloguser/update?userno=1
+     * http://loacalhost:9092/bloguser/update/1
      */
     @PostMapping("/update")
     public String update(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
+            ArrayList<UserVO> list = userProc.list_all();
+            model.addAttribute("list", list);
             return "/bloguser/update";
         }
         int cnt = userProc.update(userVO);
 
         if (cnt == 1) {
-            model.addAttribute("code", Tool.UPDATE_SUCCESS);
+            return "redirect:/bloguser/update/" + userVO.getUserno();
         } else {
             model.addAttribute("code", Tool.UPDATE_FAIL);
         }
@@ -108,23 +117,26 @@ public class UserCont {
         return "/bloguser/msg";
     }
 
-    @GetMapping("/delete")
-    public String delete(Model model, @RequestParam("userno") int userno) {
+    @GetMapping("/delete/{userno}")
+    public String delete(Model model, @PathVariable("userno") int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
+
+        ArrayList<UserVO> list = userProc.list_all();
+        model.addAttribute("list", list);
 
         return "/bloguser/delete";
     }
 
-    @PostMapping("/delete")
-    public String delete_process(Model model, @RequestParam("userno") int userno) {
+    @PostMapping("/delete/{userno}")
+    public String delete_process(Model model, @PathVariable("userno") int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
 
         int cnt = userProc.delete(userno);
 
         if (cnt == 1) {
-            model.addAttribute("code", Tool.DELETE_SUCCESS);
+            return "redirect:/bloguser/list_all";
         } else {
             model.addAttribute("code", Tool.DELETE_FAIL);
         }

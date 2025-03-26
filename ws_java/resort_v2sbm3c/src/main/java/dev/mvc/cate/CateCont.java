@@ -31,8 +31,6 @@ public class CateCont {
      */
     @GetMapping("/create")
     public String create(@ModelAttribute("cateVO") CateVO cateVO) {
-        cateVO.setName("SF");
-        cateVO.setGrp("영화/여행/개발...");
         return "/cate/create";  // templates/cate/create.html
     }
 
@@ -80,8 +78,11 @@ public class CateCont {
     @GetMapping("/read")
     public String read(Model model, @RequestParam(value = "cateno", defaultValue = "0") int cateno) {
         log.info("-> read cateno: {}", cateno);
-        CateVO cateVO = cateProc.read(cateno);
 
+        CateVO cateVO = cateProc.read(cateno);
+        ArrayList<CateVO> list = cateProc.list_all();
+
+        model.addAttribute("list", list);
         model.addAttribute("cateVO", cateVO);
 
         return "/cate/read";    // templates/cate/read.html
@@ -95,8 +96,10 @@ public class CateCont {
     public String update(Model model, @RequestParam(value = "cateno", defaultValue = "0") int cateno) {
         log.info("-> update read cateno: {}", cateno);
         CateVO cateVO = cateProc.read(cateno);
+        ArrayList<CateVO> list = cateProc.list_all();
 
         model.addAttribute("cateVO", cateVO);
+        model.addAttribute("list", list);
 
         return "/cate/update";    // templates/cate/update.html
     }
@@ -108,19 +111,23 @@ public class CateCont {
     @PostMapping("/update")
     public String update(Model model, @Valid CateVO cateVO, BindingResult bindingResult) {
         log.info("-> update cateVO: {}", cateVO);
+
         if (bindingResult.hasErrors()) {
+            ArrayList<CateVO> list = cateProc.list_all();
+            model.addAttribute("list", list);
             return "cate/update";   // templates/cate/update.html
         }
+
         int cnt = cateProc.update(cateVO);
         log.info("-> update cnt: {}", cnt);
 
         if (cnt == 1) {
-            model.addAttribute("code", Tool.UPDATE_SUCCESS);
-            model.addAttribute("name", cateVO.getName());
+            return "redirect:/cate/update?cateno=" + cateVO.getCateno();
         } else {
             model.addAttribute("code", Tool.UPDATE_FAIL);
         }
         model.addAttribute("cnt", cnt);
+
         return "/cate/msg";  // templates/cate/msg.html
     }
 
@@ -132,6 +139,9 @@ public class CateCont {
     public String delete(Model model, @RequestParam(name="cateno") int cateno) {
         CateVO cateVO = cateProc.read(cateno);
         model.addAttribute("cateVO", cateVO);
+
+        ArrayList<CateVO> list = cateProc.list_all();
+        model.addAttribute("list", list);
 
         return "/cate/delete";      // templates/cate/delete.html
     }
@@ -149,7 +159,7 @@ public class CateCont {
         int cnt = cateProc.delete(cateno);
 
         if (cnt == 1) {
-            model.addAttribute("code", Tool.DELETE_SUCCESS);
+            return "redirect:/cate/list_all";
         } else {
             model.addAttribute("code", Tool.DELETE_FAIL);
         }
