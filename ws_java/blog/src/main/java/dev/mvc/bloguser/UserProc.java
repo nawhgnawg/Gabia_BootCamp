@@ -34,4 +34,14 @@ public class UserProc implements UserProcInter{
     public int delete(int userno) {
         return userDAO.delete(userno);
     }
+
+    @Override
+    public int update_grade_forward(int userno) {
+        return userDAO.update_grade_forward(userno);
+    }
+
+    @Override
+    public int update_grade_backward(int userno) {
+        return userDAO.update_grade_backward(userno);
+    }
 }

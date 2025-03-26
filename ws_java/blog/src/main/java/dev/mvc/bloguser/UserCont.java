@@ -147,6 +147,20 @@ public class UserCont {
         return "/bloguser/msg";
     }
 
+    @GetMapping("/update_grade_forward/{userno}")
+    public String update_grade_forward(Model model, @PathVariable("userno") int userno) {
 
+        userProc.update_grade_forward(userno);
+
+        return "redirect:/bloguser/list_all";
+    }
+
+    @GetMapping("/update_grade_backward/{userno}")
+    public String update_grade_backward(Model model, @PathVariable("userno") int userno) {
+
+        userProc.update_grade_backward(userno);
+
+        return "redirect:/bloguser/list_all";
+    }
 }
 

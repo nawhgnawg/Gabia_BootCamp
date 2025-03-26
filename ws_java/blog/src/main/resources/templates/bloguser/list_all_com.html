@@ -32,10 +32,13 @@
                 <a th:href="@{|./read/${userVO.userno}|}" th:text="${userVO.useremail}" style="display: block"></a>
             </td>
             <td class="td_bs" th:text="${userVO.usergrade}"></td>
-            <td class="td_bs" th:text="${userVO.rdate}"></td>
+            <td class="td_bs" th:text="${userVO.rdate.substring(0, 10)}"></td>
             <td class="td_bs">
-                <a th:href="@{|./update/${userVO.userno}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>/
-                <a th:href="@{|./delete/${userVO.userno}|}"><img src="/bloguser/images/delete.png" class="icon" title="삭제"></a>
+                <span th:text="${userVO.usergrade}"></span>
+                <a th:href="@{|/bloguser/update_grade_forward/${userVO.userno}|}"><img src="/bloguser/images/decrease.png" class="icon" title="등급 상승"></a>/
+                <a th:href="@{|/bloguser/update_grade_backward/${userVO.userno}|}"><img src="/bloguser/images/increase.png" class="icon" title="등급 감소"></a>/
+                <a th:href="@{|/bloguser/update/${userVO.userno}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>/
+                <a th:href="@{|/bloguser/delete/${userVO.userno}|}"><img src="/bloguser/images/delete.png" class="icon" title="삭제"></a>
             </td>
         </tr>
         </tbody>

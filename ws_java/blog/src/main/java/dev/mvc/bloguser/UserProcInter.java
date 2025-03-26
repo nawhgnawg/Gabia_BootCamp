@@ -13,5 +13,9 @@ public interface UserProcInter {
     public int update(UserVO userVO);
     /** 삭제 */
     public int delete(int userno);
+    /** 등급 높임 */
+    public int update_grade_forward(int userno);
+    /** 등급 낮춤 */
+    public int update_grade_backward(int userno);
 }
 

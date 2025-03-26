@@ -7,30 +7,42 @@
         INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade,rdate)
         VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, SYSDATE)
     </insert>
-    <!-- -->
+    <!-- 회원 전체 조회-->
     <select id="list_all" resultType="dev.mvc.bloguser.UserVO">
         SELECT userno, username, useremail, userpassword, usergrade, rdate
         FROM bloguser
-        ORDER BY userno ASC
+        ORDER BY usergrade DESC
     </select>
-    <!-- -->
+    <!-- 회원 단일 조회 -->
     <select id="read" resultType="dev.mvc.bloguser.UserVO" parameterType="int">
         SELECT userno, username, useremail, userpassword, usergrade, rdate
         FROM bloguser
         WHERE userno = #{userno}
     </select>
-    <!-- -->
+    <!-- 회원 수정 -->
     <update id="update" parameterType="dev.mvc.bloguser.UserVO">
         UPDATE bloguser
         SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, rdate=SYSDATE
         WHERE userno=#{userno}
     </update>
-    <!-- -->
+    <!-- 회원 삭제 -->
     <delete id="delete" parameterType="int">
         DELETE
         FROM bloguser
         WHERE userno = #{userno}
     </delete>
+    <!-- 회원 등급 상승, 1 -> 5 -->
+    <update id="update_grade_forward" parameterType="int">
+        UPDATE bloguser
+        SET usergrade = usergrade + 1
+        WHERE userno = #{userno}
+    </update>
+    <!-- 회원 등급 낮춤, 5 -> 1 -->
+    <update id="update_grade_backward" parameterType="int">
+        UPDATE bloguser
+        SET usergrade = usergrade - 1
+        WHERE userno = #{userno}
+    </update>
 
 
 </mapper>

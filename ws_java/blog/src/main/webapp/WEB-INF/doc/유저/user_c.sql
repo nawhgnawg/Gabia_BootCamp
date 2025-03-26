@@ -5,7 +5,7 @@ CREATE TABLE bloguser (
 	username	    VARCHAR(80)		NOT NULL,
 	useremail	    VARCHAR(30)		NOT NULL,
 	userpassword    VARCHAR(30)	   	NOT NULL,
-    usergrade       NUMBER(1)       DEFAULT 1   NOT NULL,
+    usergrade       NUMBER(5)       DEFAULT 1   NOT NULL,
 	rdate	        DATE		    NOT NULL
 );
 
@@ -26,3 +26,4 @@ VALUES(BLOGUSER_SEQ.nextval, '임광환', 'ghlim100@naver.com', '1234', 2, SYSDA
 SELECT userno, username, useremail, userpassword, usergrade, rdate 
 FROM bloguser
 ORDER BY userno ASC;
+

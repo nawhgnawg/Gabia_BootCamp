@@ -38,5 +38,15 @@ public class CateProc implements CateProcInter {
         return cateDAO.delete(cateno);
     }
 
+    @Override
+    public int update_seqno_forward(int cateno) {
+        return cateDAO.update_seqno_forward(cateno);
+    }
+
+    @Override
+    public int update_seqno_backward(int cateno) {
+        return cateDAO.update_seqno_backward(cateno);
+    }
+
 
 }

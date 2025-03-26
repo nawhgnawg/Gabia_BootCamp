@@ -18,4 +18,11 @@ public interface CateProcInter {
     /** 삭제 */
     public int delete(int cateno);
 
+    /** 우선 순위 높임 */
+    public int update_seqno_forward(int cateno);
+
+
+    /** 우선 순위 낮춤 */
+    public int update_seqno_backward(int cateno);
+
 }

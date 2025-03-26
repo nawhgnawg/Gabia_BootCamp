@@ -28,7 +28,7 @@ public class UserVO {
     /** 회원 등급 */
     @NotNull
     @Min(value=1)
-    @Max(value=5)
+    @Max(value=10)
     private Integer usergrade = 1;
 
     /** 회원 등록일, sysdate 자동 생성 */

@@ -2,6 +2,7 @@ package dev.mvc.cate;
 
 import dev.mvc.tool.Tool;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,6 +38,7 @@ public class CateCont {
     /**
      * 등록 처리
      * Model model: controller -> html로 데이터 전송 제공
+     *
      * @Valid: @NotEmpty, @Size, @NotNull, @Min, @Max, @Pattern.. 규칙 위반 검사 지원
      * CateVO cateVO: Form 태그의 값이 자동 저장, Integer.parseInt(request.getParameter("seqno")) 자동 실행
      */
@@ -191,4 +193,27 @@ public class CateCont {
         return "/cate/msg";
     }
 
+    /**
+     * 우선 순위 높임, 10등 -> 1등
+     * http://localhost:9091/cate/update_seqno_forward/1
+     */
+    @GetMapping("/update_seqno_forward/{cateno}")
+    public String update_seqno_forward(Model model, @PathVariable("cateno") int cateno) {
+
+        cateProc.update_seqno_forward(cateno);
+
+        return "redirect:/cate/list_all";       // @GetMapping("/list_all")
+    }
+
+    /**
+     * 우선 순위 낮춤, 1등 -> 10등
+     * http://localhost:9091/cate/update_seqno_backward/1
+     */
+    @GetMapping("/update_seqno_backward/{cateno}")
+    public String update_seqno_backward(Model model, @PathVariable("cateno") int cateno) {
+
+        cateProc.update_seqno_backward(cateno);
+
+        return "redirect:/cate/list_all";       // @GetMapping("/list_all")
+    }
 }

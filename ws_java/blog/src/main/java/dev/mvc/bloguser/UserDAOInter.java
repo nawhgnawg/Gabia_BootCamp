@@ -14,4 +14,8 @@ public interface UserDAOInter {
 
     public int delete(int userno);
 
+    public int update_grade_forward(int userno);
+
+    public int update_grade_backward(int userno);
+
 }

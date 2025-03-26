@@ -74,3 +74,63 @@ WHERE cateno=5;
 SELECT COUNT(*) AS cnt FROM cate;
 
 COMMIT;
+
+DELETE FROM cate;
+COMMIT;
+
+-- 데이터 준비
+INSERT INTO cate(cateno, grp, name, cnt, seqno, visible, rdate) 
+VALUES(cate_seq.nextval, '여행', '--', 0, 0, 'Y', sysdate);
+
+INSERT INTO cate(cateno, grp, name, cnt, seqno, visible, rdate) 
+VALUES(cate_seq.nextval, '까페', '--', 0, 0, 'Y', sysdate);
+
+INSERT INTO cate(cateno, grp, name, cnt, seqno, visible, rdate) 
+VALUES(cate_seq.nextval, '영화', '--', 0, 0, 'Y', sysdate);
+
+-- 목록 변경됨
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        22 여행                            --                                      0          0 Y 2025-03-26 01:15:50
+        24 영화                            --                                      0          0 Y 2025-03-26 01:15:50
+        23 까페                            --                                      0          0 Y 2025-03-26 01:15:50
+        
+-- 출력 우선순위 낮춤
+UPDATE cate SET seqno=seqno+1 WHERE cateno=22;
+UPDATE cate SET seqno=seqno+1 WHERE cateno=24;
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        23 까페                            --                                      0          0 Y 2025-03-26 01:15:50
+        24 영화                            --                                      0          1 Y 2025-03-26 01:15:50
+        22 여행                            --                                      0          1 Y 2025-03-26 01:15:50
+
+UPDATE cate SET seqno=seqno+1 WHERE cateno=22;
+UPDATE cate SET seqno=seqno+1 WHERE cateno=22;
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        23 까페                            --                                      0          0 Y 2025-03-26 01:15:50
+        24 영화                            --                                      0          1 Y 2025-03-26 01:15:50
+        22 여행                            --                                      0          3 Y 2025-03-26 01:15:50
+         
+-- 테스트를 위하여 우선순의 2단계 낮춤
+UPDATE cate SET seqno=seqno+2;
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        23 까페                            --                                      0          2 Y 2025-03-26 01:15:50
+        24 영화                            --                                      0          3 Y 2025-03-26 01:15:50
+        22 여행                            --                                      0          5 Y 2025-03-26 01:15:50
+         
+-- 출력 우선순위 높임
+UPDATE cate SET seqno=seqno-1 WHERE cateno=22;
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        23 까페                            --                                      0          2 Y 2025-03-26 01:15:50
+        24 영화                            --                                      0          3 Y 2025-03-26 01:15:50
+        22 여행                            --                                      0          4 Y 2025-03-26 01:15:50
+
+COMMIT;

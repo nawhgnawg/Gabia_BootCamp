@@ -126,7 +126,7 @@
 
     /* ASIDE 메뉴 세로 구분선 */
   .menu_divide { /* 서브 메뉴의 세로 구분선 */
-    color: #777777;
+    color: #AAAAAA;
     font-size: 0.8em; /* 부모 글자 크기에 비해서 80%로 출력 */
     vertical-align: 0%;  /* 0%는 bottom 기준 */
   }
