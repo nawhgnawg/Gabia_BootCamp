@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 위에는 MyBatis 선언문 -->
+<mapper namespace="dev.mvc.category.CategoryDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
+    <insert id="create" parameterType="dev.mvc.category.CategoryVO">
+        INSERT INTO category (categoryno, categorygrp, categoryname, sortno, visible, rdate)
+        VALUES(BLOGUSER_SEQ.nextval, #{categoryGrp}, #{categoryName}, #{sortNo}, #{visible}, SYSDATE)
+    </insert>
+    <!-- 회원 전체 조회-->
+    <select id="list_all" resultType="dev.mvc.category.CategoryVO">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        FROM category
+        ORDER BY sortno ASC
+    </select>
+    <!-- 회원 단일 조회 -->
+    <select id="read" resultType="dev.mvc.category.CategoryVO" parameterType="int">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        FROM category
+        WHERE categoryno = #{categoryNo}
+    </select>
+    <!-- 회원 수정 -->
+    <update id="update" parameterType="dev.mvc.category.CategoryVO">
+        UPDATE category
+        SET categorygrp = #{categoryGrp}, categoryname = #{categoryName}, sortno = #{sortno}, visible = #{visible}, rdate = SYSDATE
+        WHERE categoryno = #{categoryNo}
+    </update>
+    <!-- 회원 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM category
+        WHERE categoryno = #{categoryNo}
+    </delete>
+    <!-- 정렬 순서 높임, 10등 -> 1등 -->
+    <update id="update_sortNo_forward" parameterType="int">
+        UPDATE category
+        SET sortno = sortno - 1
+        WHERE categoryno = #{categoryno}
+    </update>
+    <!-- 정렬 순서 낮춤, 1등 -> 10등 -->
+    <update id="update_sortNo_backward" parameterType="int">
+        UPDATE category
+        SET sortno = sortno + 1
+        WHERE categoryno = #{categoryNo}
+    </update>
+    <!-- 회원 공개 -->
+    <update id="update_visible_y" parameterType="int">
+        UPDATE category
+        SET visible = 'Y'
+        WHERE categoryno = #{categoryNo}
+    </update>
+    <!-- 회원 비공개 -->
+    <update id="update_visible_n" parameterType="int">
+        UPDATE category
+        SET visible = 'N'
+        WHERE categoryno = #{categoryNo}
+    </update>
+    <!-- 공개된 대분류만 출력 -->
+    <select id="list_all_categoryGrp_y" resultType="dev.mvc.category.CategoryVO">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        FROM category
+        WHERE categoryname='--' and visible='Y'
+        ORDER BY sortno ASC
+    </select>
+    <!-- 특정 그룹의 중분류 출력 -->
+    <select id="list_all_categoryName_y" resultType="dev.mvc.category.CategoryVO" parameterType="String">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        FROM category
+        WHERE categorygrp= #{categoryGrp} and categoryname != '--' and visible='Y'
+        ORDER BY sortno ASC
+    </select>
+
+</mapper>

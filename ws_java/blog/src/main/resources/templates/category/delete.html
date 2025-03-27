@@ -6,30 +6,30 @@
 
     <!-- 퀵 바 -->
     <aside class="aside_right">
-        <a th:href="@{|/bloguser/create|}"><img src="/bloguser/images/user_create.png" class="icon" title="회원 등록"></a>
+        <a th:href="@{|/category/create|}"><img src="/bloguser/images/user_create.png" class="icon" title="카테고리 등록"></a>
         <span class="menu_divide"> | </span>
-        <a th:href="@{|/bloguser/list_all|}"><img src="/bloguser/images/list.png" class="icon" title="목록"></a>
+        <a th:href="@{|/category/list_all|}"><img src="/bloguser/images/list.png" class="icon" title="목록"></a>
         <span class="menu_divide"> | </span>
-        <a th:href="@{|/bloguser/update?userno=${userVO.userno}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>
+        <a th:href="@{|/category/update?userno=${userVO.userno}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>
         <span class="menu_divide"> | </span>
         <a href="javascript: location.reload();"><img src="/bloguser/images/refresh.png" class="icon" title="새로 고침"></a>
     </aside>
     <div class="menu_line"></div>
 
     <div style="width: 50%; margin: 0px auto;">
-        <form name="frm" method="post" th:action="|/bloguser/delete/${userVO.userno}|" th:object="${userVO}">
-            <input type="hidden" name="userno" th:value="${userVO.userno}"> <!--/* 값 유지 */-->
+        <form name="frm" method="post" th:action="|/category/delete/${categoryVO.categoryNo}|" th:object="${categoryVO}">
+            <input type="hidden" name="categoryNo" th:value="${categoryVO.categoryNo}"> <!--/* 값 유지 */-->
 
             <div class="msg_warning">
-                회원을 탈퇴하면 복구 할 수 없습니다.<br>탈퇴하시려면 [탈퇴] 버튼을 클릭하세요.
+                카테고리를 삭제하면 복구 할 수 없습니다.<br>삭제하시려면 [삭제] 버튼을 클릭하세요.
             </div>
             <div style="width: 60%; margin: 0px auto; background-color: #DDDDDD;">
-                <label>유저 이름</label>: <span th:text="${userVO.username}"></span> <br>
-                <label>유저 이메일</label>: <span th:text="${userVO.useremail}"></span><br>
+                <label>카테고리 그룹</label>: <span th:text="${categoryVO.categoryGrp}"></span> <br>
+                <label>카테고리</label>: <span th:text="${categoryVO.categoryName}"></span><br>
             </div>
 
             <div class="content_body_bottom">
-                <button type="submit" class="btn btn-secondary btn-sm">탈퇴</button>
+                <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
                 <button type="button" onclick="location.href='/cate/list_all'" class="btn btn-secondary btn-sm">목록</button>
             </div>
 
@@ -39,6 +39,6 @@
 
     <!-- 회원 목록 -->
     <div class="menu_line"></div>
-    <div th:replace="~{bloguser/list_all_com::list_all_fragment}"></div>
+    <div th:replace="~{category/list_all_com::list_all_fragment}"></div>
 </div>
 </html>

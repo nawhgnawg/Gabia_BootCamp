@@ -16,11 +16,6 @@ public class MsgCont {
     public String msg() {
         return "<h2>콘트롤러 정상 작동됨.</h2>";
     }
-
-    @GetMapping("")
-    public String home() {
-        return "index";
-    }
 }
 
 

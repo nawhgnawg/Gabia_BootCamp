@@ -29,6 +29,30 @@
                     <div th:each="err: ${#lists.sort(#fields.errors('userpassword'))}" th:text="${err}"></div>
                 </div>
             </div>
+            <div>
+                <label>성별</label>
+                <input type="text" name="usersex" value="" autofocus="autofocus"
+                       class="form-control fom-control-sm" style="width: 50%;" th:field="*{username}">
+                <div th:if="${#fields.hasErrors('usersex')}" class="alert alert-danger" role="alert" style="margin-top: 5px;">
+                    <div th:each="err: ${#lists.sort(#fields.errors('usersex'))}" th:text="${err}"></div>
+                </div>
+            </div>
+            <div>
+                <label>나이</label>
+                <input type="number" name="userage" value="1" min="1" max="1000000" step="1"
+                       class="form-control fom-control-sm" style="width: 50%;" th:field="*{userage}">
+                <div th:if="${#fields.hasErrors('userage')}" class="alert alert-danger" role="alert" style="margin-top: 5px;">
+                    <div th:each="err: ${#lists.sort(#fields.errors('userage'))}" th:text="${err}"></div>
+                </div>
+            </div>
+            <div>
+                <label>출력 모드(Y/N)</label>
+                <input type="text" name="visible" value="Y"
+                       class="form-control fom-control-sm" style="width: 50%;" th:field="*{visible}">
+                <div th:if="${#fields.hasErrors('visible')}" class="alert alert-danger" role="alert" style="margin-top: 5px;">
+                    <div th:each="err: ${#lists.sort(#fields.errors('visible'))}" th:text="${err}"></div>
+                </div>
+            </div>
 
             <div class="content_body_bottom">
                 <button type="submit" class="btn btn-secondary btn-sm">등록</button>

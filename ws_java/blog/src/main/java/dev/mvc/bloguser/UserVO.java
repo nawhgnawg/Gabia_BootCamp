@@ -31,6 +31,23 @@ public class UserVO {
     @Max(value=10)
     private Integer usergrade = 1;
 
+    /**
+     * 회원 성별
+     */
+    private String usersex;
+
+    /**
+     * 회원 나이
+     */
+    private Integer userage;
+
+    /**
+     * 회원 숨김
+     */
+    @NotEmpty(message = "출력 모드는 필수 항목입니다.")
+    @Pattern(regexp = "^[YN]$", message = "Y 또는 N만 입력 가능합니다.")
+    private String visible;
+
     /** 회원 등록일, sysdate 자동 생성 */
     private String rdate = "";
 

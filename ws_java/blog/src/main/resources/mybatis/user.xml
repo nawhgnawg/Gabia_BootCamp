@@ -4,25 +4,25 @@
 <!-- 위에는 MyBatis 선언문 -->
 <mapper namespace="dev.mvc.bloguser.UserDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
     <insert id="create" parameterType="dev.mvc.bloguser.UserVO">
-        INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade,rdate)
-        VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, SYSDATE)
+        INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate)
+        VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, #{usersex}, #{userage}, #{visible}, SYSDATE)
     </insert>
     <!-- 회원 전체 조회-->
     <select id="list_all" resultType="dev.mvc.bloguser.UserVO">
-        SELECT userno, username, useremail, userpassword, usergrade, rdate
+        SELECT userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate
         FROM bloguser
         ORDER BY usergrade DESC
     </select>
     <!-- 회원 단일 조회 -->
     <select id="read" resultType="dev.mvc.bloguser.UserVO" parameterType="int">
-        SELECT userno, username, useremail, userpassword, usergrade, rdate
+        SELECT userno, username, useremail, userpassword, usergrade, visible, usersex, userage, rdate
         FROM bloguser
         WHERE userno = #{userno}
     </select>
     <!-- 회원 수정 -->
     <update id="update" parameterType="dev.mvc.bloguser.UserVO">
         UPDATE bloguser
-        SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, rdate=SYSDATE
+        SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, usersex=#{usersex}, userage=#{userage}, visible=#{visible}, rdate=SYSDATE
         WHERE userno=#{userno}
     </update>
     <!-- 회원 삭제 -->
@@ -43,6 +43,31 @@
         SET usergrade = usergrade - 1
         WHERE userno = #{userno}
     </update>
-
+    <!-- 회원 공개 -->
+    <update id="update_visible_y" parameterType="int">
+        UPDATE bloguser
+        SET visible = 'Y'
+        WHERE userno = #{userno}
+    </update>
+    <!-- 회원 비공개 -->
+    <update id="update_visible_n" parameterType="int">
+        UPDATE bloguser
+        SET visible = 'N'
+        WHERE userno = #{userno}
+    </update>
+    <!-- 공개된 대분류만 출력 -->
+    <select id="list_all_usersex_y" resultType="dev.mvc.bloguser.UserVO">
+        SELECT userno, username, useremail, usergrade, usersex, userage, visible, rdate
+        FROM bloguser
+        WHERE userage=1 and visible='Y'
+        ORDER BY usergrade ASC
+    </select>
+    <!-- 특정 그룹의 중분류 출력 -->
+    <select id="list_all_userage_y" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
+        SELECT userno, username, useremail, usergrade, usersex, userage, visible, rdate
+        FROM bloguser
+        WHERE usersex = #{usersex} and userage != 1 and visible = 'Y'
+        ORDER BY usergrade ASC
+    </select>
 
 </mapper>

@@ -134,3 +134,72 @@ SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno AS
         22 여행                            --                                      0          4 Y 2025-03-26 01:15:50
 
 COMMIT;
+
+
+
+-- 카테고리 공개 설정
+UPDATE cate SET visible='Y' WHERE cateno=23;
+
+-- 카테고리 비공개 설정 
+UPDATE cate SET visible='N' WHERE cateno=23;  
+
+
+
+-- 전체 값 확인
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        27 개발                            --                                      0          1 Y 2025-03-27 03:46:45
+        30 개발                            JAVA                                    0          1 Y 2025-03-27 03:48:24
+        31 개발                            Python                                  0          3 Y 2025-03-27 03:49:29
+        32 개발                            LLM                                     0          4 N 2025-03-27 03:49:38
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
+        29 영화                            --                                      0        201 N 2025-03-27 03:55:12
+        35 영화                            국내                                     0        202 Y 2025-03-27 03:55:19
+        36 영화                            해외                                     0        203 Y 2025-03-27 03:55:31
+
+-- 회원/비회원에게 공개할 카테고리 그룹(대분류) 목록
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate WHERE name='--' ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        27 개발                            --                                      0          1 Y 2025-03-27 03:46:45
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47
+        29 영화                            --                                      0        201 N 2025-03-27 03:55:12
+
+-- 공개된 대분류만 출력
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate WHERE name='--' and visible='Y' ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        27 개발                            --                                      0          1 Y 2025-03-27 03:46:45
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47
+
+-- 회원/비회원에게 공개할 카테고리(중분류) 목록
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate WHERE grp='개발' ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        27 개발                            --                                      0          1 Y 2025-03-27 03:46:45
+        30 개발                            JAVA                                    0          1 N 2025-03-27 03:48:24
+        31 개발                            Python                                  0          3 N 2025-03-27 03:49:29
+        32 개발                            LLM                                     0          4 N 2025-03-27 03:49:38
+
+-- 개발 그룹의 중분류 출력
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate 
+WHERE grp='개발' and name != '--' and visible = 'Y'
+ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        30 개발                            JAVA                                    0          1 Y 2025-03-27 03:48:24
+        31 개발                            Python                                  0          3 Y 2025-03-27 03:49:29
+    
+-- 여행 그룹의 중분류 출력
+SELECT cateno, grp, name, cnt, seqno, visible, rdate FROM cate 
+WHERE grp='여행' and name != '--' and visible = 'Y'
+ORDER BY seqno ASC;        
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
+        
+

@@ -58,6 +58,9 @@ public class UserCont {
         ArrayList<UserVO> list = userProc.list_all();
         model.addAttribute("list", list);
 
+        ArrayList<UserVOMenu> menu = userProc.menu();
+        model.addAttribute("menu", menu);
+
         return "/bloguser/list_all";
     }
 
@@ -149,7 +152,6 @@ public class UserCont {
 
     @GetMapping("/update_grade_forward/{userno}")
     public String update_grade_forward(Model model, @PathVariable("userno") int userno) {
-
         userProc.update_grade_forward(userno);
 
         return "redirect:/bloguser/list_all";
@@ -157,8 +159,21 @@ public class UserCont {
 
     @GetMapping("/update_grade_backward/{userno}")
     public String update_grade_backward(Model model, @PathVariable("userno") int userno) {
-
         userProc.update_grade_backward(userno);
+
+        return "redirect:/bloguser/list_all";
+    }
+
+    @GetMapping("/update_visible_y/{userno}")
+    public String update_visible_y(Model model, @PathVariable("userno") int userno) {
+        userProc.update_visible_y(userno);
+
+        return "redirect:/bloguser/list_all";
+    }
+
+    @GetMapping("/update_visible_n/{userno}")
+    public String update_visible_n(Model model, @PathVariable("userno") int userno) {
+        userProc.update_visible_n(userno);
 
         return "redirect:/bloguser/list_all";
     }

@@ -70,27 +70,11 @@ public class CateCont {
         ArrayList<CateVO> list = cateProc.list_all();
         model.addAttribute("list", list);
 
+        ArrayList<CateVOMenu> menu = cateProc.menu();
+        model.addAttribute("menu", menu);
+
         return "/cate/list_all";    // templates/cate/list_all.html
     }
-
-    /**
-     * 조회 (@RequestParam 방식)
-     * http://localhost:9091/cate/read?cateno=1
-     */
-    /*
-    @GetMapping("/read")
-    public String read(Model model, @RequestParam(value = "cateno", defaultValue = "0") int cateno) {
-        log.info("-> read cateno: {}", cateno);
-
-        CateVO cateVO = cateProc.read(cateno);
-        ArrayList<CateVO> list = cateProc.list_all();
-
-        model.addAttribute("list", list);
-        model.addAttribute("cateVO", cateVO);
-
-        return "/cate/read";    // templates/cate/read.html
-    }
-    */
 
     /**
      * 조회 (@PathVariable 방식)
@@ -199,7 +183,6 @@ public class CateCont {
      */
     @GetMapping("/update_seqno_forward/{cateno}")
     public String update_seqno_forward(Model model, @PathVariable("cateno") int cateno) {
-
         cateProc.update_seqno_forward(cateno);
 
         return "redirect:/cate/list_all";       // @GetMapping("/list_all")
@@ -211,9 +194,33 @@ public class CateCont {
      */
     @GetMapping("/update_seqno_backward/{cateno}")
     public String update_seqno_backward(Model model, @PathVariable("cateno") int cateno) {
-
         cateProc.update_seqno_backward(cateno);
 
         return "redirect:/cate/list_all";       // @GetMapping("/list_all")
     }
+
+    /**
+     * 카테고리 공개 설정
+     * http://localhost:9091/cate/update_visible_y/1
+     */
+    @GetMapping("/update_visible_y/{cateno}")
+    public String update_visible_y(Model model, @PathVariable("cateno") int cateno) {
+        cateProc.update_visible_y(cateno);
+
+        return "redirect:/cate/list_all";
+    }
+
+    /**
+     * 카테고리 비공개 설정
+     * http://localhost:9091/cate/update_visible_n/1
+     */
+    @GetMapping("/update_visible_n/{cateno}")
+    public String update_visible_n(Model model, @PathVariable("cateno") int cateno) {
+        cateProc.update_visible_n(cateno);
+
+        return "redirect:/cate/list_all";
+    }
+
+
+
 }

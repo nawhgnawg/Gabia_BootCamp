@@ -43,5 +43,31 @@
         SET seqno = seqno + 1
         WHERE cateno = #{cateno}
     </update>
+    <!-- 카테고리 공개 설정 -->
+    <update id="update_visible_y" parameterType="int">
+        UPDATE cate
+        SET visible = 'Y'
+        WHERE cateno = #{cateno}
+    </update>
+    <!-- 카테고리 비공개 설정 -->
+    <update id="update_visible_n" parameterType="int">
+        UPDATE cate
+        SET visible = 'N'
+        WHERE cateno = #{cateno}
+    </update>
+    <!-- 공개된 대분류만 출력 -->
+    <select id="list_all_grp_y" resultType="dev.mvc.cate.CateVO">
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE name='--' and visible='Y'
+        ORDER BY seqno ASC
+    </select>
+    <!-- 특정 그룹의 중분류 출력 -->
+    <select id="list_all_name_y" resultType="dev.mvc.cate.CateVO" parameterType="String">
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE grp = #{grp} and name != '--' and visible = 'Y'
+        ORDER BY seqno ASC
+    </select>
 
 </mapper>

@@ -6,6 +6,9 @@ CREATE TABLE bloguser (
 	useremail	    VARCHAR(30)		NOT NULL,
 	userpassword    VARCHAR(30)	   	NOT NULL,
     usergrade       NUMBER(5)       DEFAULT 1   NOT NULL,
+    usersex         VARCHAR(10)     DEFAULT '남자' NOT NULL,
+    userage         NUMBER(10)      NOT NULL,
+    visible	        CHAR(1)         DEFAULT 'N'	NOT NULL,
 	rdate	        DATE		    NOT NULL
 );
 
@@ -19,11 +22,12 @@ CACHE 2              -- 2번은 메모리에서만 계산
 NOCYCLE;             -- 다시 1부터 생성되는 것을 방지
 
 --> INSERT
-INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade,rdate)
-VALUES(BLOGUSER_SEQ.nextval, '임광환', 'ghlim100@naver.com', '1234', 2, SYSDATE);
+INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate)
+VALUES(BLOGUSER_SEQ.nextval, '임광환', 'ghlim100@naver.com', '1234', 2, '남자', 29,'Y', SYSDATE);
 
 --> SELECT
-SELECT userno, username, useremail, userpassword, usergrade, rdate 
+SELECT userno, username, useremail, userpassword, usergrade, visible, rdate 
 FROM bloguser
 ORDER BY userno ASC;
 
+commit;

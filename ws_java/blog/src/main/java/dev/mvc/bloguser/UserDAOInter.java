@@ -18,4 +18,12 @@ public interface UserDAOInter {
 
     public int update_grade_backward(int userno);
 
+    public int update_visible_y(int userno);
+
+    public int update_visible_n(int userno);
+
+    public ArrayList<UserVO> list_all_usersex_y();
+
+    public ArrayList<UserVO> list_all_userage_y(String usersex);
+
 }

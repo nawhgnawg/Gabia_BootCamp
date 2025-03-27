@@ -20,14 +20,15 @@ class BlogApplicationTests {
 	public void createTest() {
 		UserVO userVO = new UserVO();
 
-		userVO.setUserName("김광환");
-		userVO.setUserEmail("ghlim100@naver.com");
-		userVO.setUserPassword("1234");
-		userVO.setUserGrade(2);
+		userVO.setUsername("김광환");
+		userVO.setUseremail("ghlim100@naver.com");
+		userVO.setUserpassword("1234");
+		userVO.setUsergrade(2);
 		userVO.setRdate("2025-03-18");
 
 		int cnt = this.userDAO.create(userVO);
 		System.out.println("cnt : " + cnt);
 	}
+
 
 }

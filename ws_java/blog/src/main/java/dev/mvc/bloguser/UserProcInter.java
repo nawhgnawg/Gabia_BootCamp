@@ -17,5 +17,15 @@ public interface UserProcInter {
     public int update_grade_forward(int userno);
     /** 등급 낮춤 */
     public int update_grade_backward(int userno);
+    /** 회원 공개 */
+    public int update_visible_y(int userno);
+    /** 회원 숨김 */
+    public int update_visible_n(int userno);
+
+    public ArrayList<UserVO> list_all_usersex_y();
+
+    public ArrayList<UserVO> list_all_userage_y(String usersex);
+
+    public ArrayList<UserVOMenu> menu();
 }
 
