@@ -57,7 +57,7 @@ public class CategoryCont {
 
     /**
      * 전체 목록
-     * http://localhost:9091/category/list_all
+     * http://localhost:9092/category/list_all
      */
     @GetMapping("/list_all")
     public String list_all(Model model, @ModelAttribute("categoryVO") CategoryVO categoryVO) {
@@ -67,7 +67,10 @@ public class CategoryCont {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-        return "/category/list_all";    // templates/cate/list_all.html
+        ArrayList<String> categorygrpset = categoryProc.categorygrpset();
+        categoryVO.setCategoryGrp(String.join("/", categorygrpset));
+
+        return "/category/list_all";    // templates/category/list_all.html
     }
 
     /**
@@ -80,6 +83,8 @@ public class CategoryCont {
 
         CategoryVO categoryVO = categoryProc.read(categoryNo);
         ArrayList<CategoryVO> list = categoryProc.list_all();
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
 
         model.addAttribute("list", list);
         model.addAttribute("categoryVO", categoryVO);
@@ -90,12 +95,15 @@ public class CategoryCont {
 
     /**
      * 수정 폼
-     * http://localhost:9091/cate/update/1
+     * http://localhost:9091/category/update/1
      */
     @GetMapping("/update/{categoryNo}")
     public String update(Model model, @PathVariable("categoryNo") int cateNo) {
         CategoryVO categoryVO = categoryProc.read(cateNo);
         ArrayList<CategoryVO> list = categoryProc.list_all();
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
+
 
         model.addAttribute("categoryVO", categoryVO);
         model.addAttribute("list", list);
@@ -105,7 +113,7 @@ public class CategoryCont {
 
     /**
      * 수정 처리
-     * http://localhost:9091/cate/update/1
+     * http://localhost:9091/category/update/1
      */
     @PostMapping("/update")
     public String update(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult) {
@@ -130,7 +138,7 @@ public class CategoryCont {
 
     /**
      * 삭제 폼
-     * http://localhost:9091/cate/delete/1
+     * http://localhost:9091/category/delete/1
      */
     @GetMapping("/delete/{cateNo}")
     public String delete(Model model, @PathVariable("cateNo") int cateNo) {
@@ -140,12 +148,15 @@ public class CategoryCont {
         ArrayList<CategoryVO> list = categoryProc.list_all();
         model.addAttribute("list", list);
 
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
+
         return "/category/delete";      // templates/cate/delete.html
     }
 
     /**
      * 삭제 처리
-     * http://localhost:9091/cate/delete/1
+     * http://localhost:9091/category/delete/1
      */
     @PostMapping("/delete/{cateNo}")
     public String delete_process(Model model, @PathVariable("cateNo") int cateNo) {
@@ -170,44 +181,44 @@ public class CategoryCont {
 
     /**
      * 우선 순위 높임, 10등 -> 1등
-     * http://localhost:9091/cate/update_seqno_forward/1
+     * http://localhost:9091/category/update_sortNo_forward/1
      */
-    @GetMapping("/update_seqno_forward/{cateNo}")
-    public String update_seqno_forward(Model model, @PathVariable("cateNo") int cateNo) {
-        categoryProc.update_sortNo_forward(cateNo);
+    @GetMapping("/update_sortNo_forward/{categoryNo}")
+    public String update_seqno_forward(Model model, @PathVariable("categoryNo") int categoryNo) {
+        categoryProc.update_sortNo_forward(categoryNo);
 
         return "redirect:/category/list_all";       // @GetMapping("/list_all")
     }
 
     /**
      * 우선 순위 낮춤, 1등 -> 10등
-     * http://localhost:9091/cate/update_seqno_backward/1
+     * http://localhost:9091/category/update_sortNo_backward/1
      */
-    @GetMapping("/update_seqno_backward/{cateNo}")
-    public String update_seqno_backward(Model model, @PathVariable("cateNo") int cateNo) {
-        categoryProc.update_sortNo_backward(cateNo);
+    @GetMapping("/update_sortNo_backward/{categoryNo}")
+    public String update_sortNo_backward(Model model, @PathVariable("categoryNo") int categoryNo) {
+        categoryProc.update_sortNo_backward(categoryNo);
 
         return "redirect:/category/list_all";       // @GetMapping("/list_all")
     }
 
     /**
      * 카테고리 공개 설정
-     * http://localhost:9091/cate/update_visible_y/1
+     * http://localhost:9091/category/update_visible_y/1
      */
-    @GetMapping("/update_visible_y/{cateNo}")
-    public String update_visible_y(Model model, @PathVariable("cateNo") int cateNo) {
-        categoryProc.update_visible_y(cateNo);
+    @GetMapping("/update_visible_y/{categoryNo}")
+    public String update_visible_y(Model model, @PathVariable("categoryNo") int categoryNo) {
+        categoryProc.update_visible_y(categoryNo);
 
         return "redirect:/category/list_all";
     }
 
     /**
      * 카테고리 비공개 설정
-     * http://localhost:9091/cate/update_visible_n/1
+     * http://localhost:9091/category/update_visible_n/1
      */
-    @GetMapping("/update_visible_n/{cateNo}")
-    public String update_visible_n(Model model, @PathVariable("cateNo") int cateNo) {
-        categoryProc.update_visible_n(cateNo);
+    @GetMapping("/update_visible_n/{categoryNo}")
+    public String update_visible_n(Model model, @PathVariable("categoryNo") int categoryNo) {
+        categoryProc.update_visible_n(categoryNo);
 
         return "redirect:/category/list_all";
     }

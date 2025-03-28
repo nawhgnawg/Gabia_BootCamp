@@ -26,4 +26,6 @@ public interface CategoryDAOInter {
 
     public ArrayList<CategoryVO> list_all_categoryName_y(String categoryGrp);
 
+    public ArrayList<String> categorygrpset();
+
 }

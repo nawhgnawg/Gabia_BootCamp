@@ -64,4 +64,6 @@ public interface CateDAOInter {
      * select id="list_all_categrp_y"
      */
     public ArrayList<CateVO> list_all_name_y(String grp);
+
+    public ArrayList<String> grpset();
 }

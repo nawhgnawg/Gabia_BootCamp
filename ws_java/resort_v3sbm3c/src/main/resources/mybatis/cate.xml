@@ -69,5 +69,12 @@
         WHERE grp = #{grp} and name != '--' and visible = 'Y'
         ORDER BY seqno ASC
     </select>
+    <!-- 카테고리 그룹 목록 -->
+    <select id="grpset" resultType="String">
+        SELECT grp
+        FROM cate
+        WHERE name = '--'
+        ORDER BY seqno ASC
+    </select>
 
 </mapper>

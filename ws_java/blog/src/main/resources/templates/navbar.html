@@ -14,20 +14,23 @@
             <!-- 메뉴 시작 -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown" th:each="userVOMenu:${menu}"> <!--/* 대분류 */-->
+                    <li class="nav-item dropdown" th:each="categoryVOMenu:${menu}"> <!--/* 대분류 */-->
 
                         <!--/* 대분류명(카테고리 그룹) 출력, private String usersex; */-->
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${userVOMenu.usersex}">
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${categoryVOMenu.categoryGrp}">
                         </a>
 
                         <!--/* 중분류명(카테고리) 출력, private ArrayList<CateVO> list_userage; */-->
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li th:each="userVO:${userVOMenu.list_userage}"><a class="dropdown-item" href="#" th:text="${userVO.userage}"></a></li>
+                            <li th:each="categoryVO:${categoryVOMenu.list_categoryName}"><a class="dropdown-item" href="#" th:text="${categoryVO.categoryName}"></a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{|/bloguser/list_all|}">카테고리 목록</a>
+                        <a class="nav-link" th:href="@{|/bloguser/list_all|}">유저 목록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{|/category/list_all|}">카테고리 목록</a>
                     </li>
                 </ul>
             </div>

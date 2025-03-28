@@ -24,8 +24,11 @@
                        class="form-control" style="width: 100%;" th:field="*{seqno}" placeholder="출력 순서">
             </div>
             <div style="margin-right: 2px; width: 15%; float: left;">
-                <input type="text" name="visible" value=""
-                       class="form-control" style="width: 100%;" th:field="*{visible}" placeholder="출력 모드(Y/N)">
+                <select id="visible" name="visible" class="form-control">
+                    <option value="출력 모드" selected="selected">출력 모드</option>
+                    <option value="Y">Y</option>
+                    <option value="N">N</option>
+                </select>
             </div>
             <div style="margin-right: 2px; width: 13%; float: left; margin-top: 3px; margin-left: 5px;">
                 <button type="submit" class="btn btn-secondary btn-sm">등록</button>

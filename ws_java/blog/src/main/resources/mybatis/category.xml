@@ -22,7 +22,7 @@
     <!-- 회원 수정 -->
     <update id="update" parameterType="dev.mvc.category.CategoryVO">
         UPDATE category
-        SET categorygrp = #{categoryGrp}, categoryname = #{categoryName}, sortno = #{sortno}, visible = #{visible}, rdate = SYSDATE
+        SET categorygrp = #{categoryGrp}, categoryname = #{categoryName}, sortno = #{sortNo}, visible = #{visible}, rdate = SYSDATE
         WHERE categoryno = #{categoryNo}
     </update>
     <!-- 회원 삭제 -->
@@ -69,5 +69,13 @@
         WHERE categorygrp= #{categoryGrp} and categoryname != '--' and visible='Y'
         ORDER BY sortno ASC
     </select>
+    <!-- 카테고리 그룹 목록 -->
+    <select id="categorygrpset" resultType="String">
+        SELECT categorygrp
+        FROM category
+        WHERE categoryname = '--'
+        ORDER BY sortno ASC
+    </select>
+
 
 </mapper>

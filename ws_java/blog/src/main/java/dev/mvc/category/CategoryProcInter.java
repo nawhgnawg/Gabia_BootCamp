@@ -27,4 +27,6 @@ public interface CategoryProcInter {
     public ArrayList<CategoryVO> list_all_categoryName_y(String categoryGrp);
 
     public ArrayList<CategoryVOMenu> menu();
+
+    public ArrayList<String> categorygrpset();
 }

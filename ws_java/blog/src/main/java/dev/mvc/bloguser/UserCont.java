@@ -1,5 +1,7 @@
 package dev.mvc.bloguser;
 
+import dev.mvc.category.CategoryProc;
+import dev.mvc.category.CategoryVOMenu;
 import dev.mvc.tool.Tool;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,9 @@ public class UserCont {
 
     @Autowired
     private UserProc userProc;
+
+    @Autowired
+    private CategoryProc categoryProc;
 
     /**
      * 회원 등록 폼 (GET)
@@ -58,7 +63,7 @@ public class UserCont {
         ArrayList<UserVO> list = userProc.list_all();
         model.addAttribute("list", list);
 
-        ArrayList<UserVOMenu> menu = userProc.menu();
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
         return "/bloguser/list_all";

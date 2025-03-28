@@ -86,5 +86,10 @@ public class CateProc implements CateProcInter {
         return menu;
     }
 
+    @Override
+    public ArrayList<String> grpset() {
+        return cateDAO.grpset();
+    }
+
 
 }

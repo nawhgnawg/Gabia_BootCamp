@@ -11,9 +11,9 @@ public class CategoryVO {
     /** 카테고리 번호, Sequence에서 자동 생성 */
     private Integer categoryNo = 0;
 
-    /** 그룹명 */
-    @NotEmpty(message="그룹명은 필수 항목입니다.")
-    @Size(min=2, max=10, message="그룹명은 최소 2자에서 최대 10자입니다.")
+    /** 카테고리 그룹명 */
+    @NotEmpty(message="카테고리 그룹명은 필수 항목입니다.")
+    @Size(min=2, max=10, message="카테고리 그룹명은 최소 2자에서 최대 10자입니다.")
     private String categoryGrp;
 
     /** 카테고리 이름 */

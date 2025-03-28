@@ -73,6 +73,10 @@ public class CateCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
+        // 카테고리 그룹 목록
+        ArrayList<String> grpset = cateProc.grpset();
+        cateVO.setGrp(String.join("/", grpset));
+
         return "/cate/list_all";    // templates/cate/list_all.html
     }
 
@@ -86,6 +90,9 @@ public class CateCont {
 
         CateVO cateVO = cateProc.read(cateno);
         ArrayList<CateVO> list = cateProc.list_all();
+
+        ArrayList<CateVOMenu> menu = cateProc.menu();
+        model.addAttribute("menu", menu);
 
         model.addAttribute("list", list);
         model.addAttribute("cateVO", cateVO);
@@ -103,9 +110,11 @@ public class CateCont {
         log.info("-> update read cateno: {}", cateno);
         CateVO cateVO = cateProc.read(cateno);
         ArrayList<CateVO> list = cateProc.list_all();
+        ArrayList<CateVOMenu> menu = cateProc.menu();
 
         model.addAttribute("cateVO", cateVO);
         model.addAttribute("list", list);
+        model.addAttribute("menu", menu);
 
         return "/cate/update";    // templates/cate/update.html
     }
@@ -148,6 +157,9 @@ public class CateCont {
 
         ArrayList<CateVO> list = cateProc.list_all();
         model.addAttribute("list", list);
+
+        ArrayList<CateVOMenu> menu = cateProc.menu();
+        model.addAttribute("menu", menu);
 
         return "/cate/delete";      // templates/cate/delete.html
     }

@@ -38,4 +38,10 @@ public interface CateProcInter {
 
     /** 화면 상단 메뉴 */
     public ArrayList<CateVOMenu> menu();
+
+    /** 카테고리 그룹 목록 */
+    public ArrayList<String> grpset();
+
 }
+
+
