@@ -22,8 +22,6 @@ public interface UserDAOInter {
 
     public int update_visible_n(int userno);
 
-    public ArrayList<UserVO> list_all_usersex_y();
-
-    public ArrayList<UserVO> list_all_userage_y(String usersex);
+    public ArrayList<UserVO> list_search_user(String word);
 
 }

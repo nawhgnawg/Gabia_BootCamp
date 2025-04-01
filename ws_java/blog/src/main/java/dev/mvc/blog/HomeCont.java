@@ -19,9 +19,8 @@ public class HomeCont {
 
     @GetMapping("/")
     public String home(Model model) {
-        ArrayList<UserVOMenu> menu = userProc.menu();
-        model.addAttribute("menu", menu);
 
+        model.addAttribute("word", "");
         return "index";
     }
 

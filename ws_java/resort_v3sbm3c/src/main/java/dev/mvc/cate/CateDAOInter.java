@@ -1,6 +1,7 @@
 package dev.mvc.cate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 // MyBatis 기준으로 추상 메소드를 만들면 Spring Boot가 자동으로 class 구현함.
 // 주로 Mapper로 표현 (CateMapper)
@@ -66,4 +67,19 @@ public interface CateDAOInter {
     public ArrayList<CateVO> list_all_name_y(String grp);
 
     public ArrayList<String> grpset();
+
+    /**
+     * 검색
+     */
+    public ArrayList<CateVO> list_search(String word);
+
+    /**
+     * 검색된 수
+     */
+    public int list_search_count(String word);
+
+    /**
+     * 검색 + 페이징 목록
+     */
+    public ArrayList<CateVO> list_search_paging(Map map);
 }

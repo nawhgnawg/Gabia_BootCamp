@@ -1,6 +1,7 @@
 package dev.mvc.cate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface CateProcInter {
     /** 등록 */
@@ -41,6 +42,17 @@ public interface CateProcInter {
 
     /** 카테고리 그룹 목록 */
     public ArrayList<String> grpset();
+
+    /** 검색 */
+    public ArrayList<CateVO> list_search(String word);
+
+    /** 검색 자료 수 */
+    public int list_search_count(String word);
+
+    /** 페이징 검색 */
+    public ArrayList<CateVO> list_search_paging(String word, int now_page, int record_per_page);
+
+    String pagingBox(int now_page, String word, String list_file_name, int search_count, int record_per_page, int page_per_block);
 
 }
 

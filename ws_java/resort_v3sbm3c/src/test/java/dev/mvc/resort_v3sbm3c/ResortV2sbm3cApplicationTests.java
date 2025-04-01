@@ -82,4 +82,24 @@ class ResortV2sbm3cApplicationTests {
 		assertThat(read.getCateno()).isEqualTo(1);
 		assertThat(read.getGrp()).isEqualTo("드라마");
 	}
+
+	@Test
+	void te() {
+		String str = "abacabcd";
+		boolean[] seen = new boolean[256];
+		System.out.print(calculFn(str, str.length()-1, seen));
+	}
+
+	public static String calculFn(String str, int index, boolean[] seen) {
+		if(index < 0) return "";
+		char c = str.charAt(index);
+		String result = calculFn(str, index-1, seen);
+		if(!seen[c]) {
+			System.out.println(c);
+			System.out.println(seen[c]);
+			seen[c] = true;
+			return c + result;
+		}
+		return result;
+	}
 }

@@ -55,19 +55,15 @@
         SET visible = 'N'
         WHERE userno = #{userno}
     </update>
-    <!-- 공개된 대분류만 출력 -->
-    <select id="list_all_usersex_y" resultType="dev.mvc.bloguser.UserVO">
+    <!-- 회원 검색 -->
+    <select id="list_search_user" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
         SELECT userno, username, useremail, usergrade, usersex, userage, visible, rdate
         FROM bloguser
-        WHERE userage=1 and visible='Y'
-        ORDER BY usergrade ASC
+        <if test="word != null and word != ''">     <!-- 검색 상태라면 WHERE 생성 -->
+            WHERE (UPPER(username) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(useremail) LIKE '%' || UPPER(#{word}) || '%')
+        </if>
+        ORDER BY userno ASC
     </select>
-    <!-- 특정 그룹의 중분류 출력 -->
-    <select id="list_all_userage_y" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
-        SELECT userno, username, useremail, usergrade, usersex, userage, visible, rdate
-        FROM bloguser
-        WHERE usersex = #{usersex} and userage != 1 and visible = 'Y'
-        ORDER BY usergrade ASC
-    </select>
+
 
 </mapper>

@@ -23,6 +23,10 @@ public class HomeCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
+        // 시작 페이지는 검색을 하지 않음
+        model.addAttribute("word", "");
+        model.addAttribute("now_page", "1");
+
         return "index";
     }
 }

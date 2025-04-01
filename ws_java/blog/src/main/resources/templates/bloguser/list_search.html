@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
+<div layout:fragment="content">
+    <div class="title_line">회원 목록</div>
+
+    <aside class="aside_right">
+        <a href="javascript: location.reload();"><img src="/bloguser/images/refresh.png" class="icon" title="새로 고침"></a>
+    </aside>
+
+    <div th:replace="~{bloguser/list_search_com::list_search_fragment}"></div>
+
+    <div class="menu_line"></div>
+
+    <div class="flex_div_center" style="width: 90%; margin: 0px auto;">
+        <form name="frm" method="post" action="/bloguser/create" th:object="${userVO}">
+            <div style="margin-right: 2px; width: 10%; float: left;">
+                <input type="text" name="username" value="" autofocus="autofocus"
+                       class="form-control" style="width: 100%;" th:field="*{username}" placeholder="회원 이름">
+            </div>
+            <div style="margin-right: 2px; width: 25%; float: left;">
+                <input type="text" name="useremail" value="" autofocus="autofocus"
+                       class="form-control" style="width: 100%;" th:field="*{useremail}" placeholder="회원 이메일">
+            </div>
+            <div style="margin-right: 2px; width: 15%; float: left;">
+                <input type="password" name="userpassword" value="" min="1" max="1000000" step="1"
+                       class="form-control" style="width: 100%;" th:field="*{userpassword}" placeholder="회원 비밀번호">
+            </div>
+            <div style="margin-right: 2px; width: 10%; float: left;">
+                <input type="text" name="usersex" value="" autofocus="autofocus"
+                       class="form-control" style="width: 100%;" th:field="*{usersex}" placeholder="성별">
+            </div>
+            <div style="margin-right: 2px; width: 10%; float: left;">
+                <input type="number" name="userage" value="" min="1" max="1000000" step="1"
+                       class="form-control" style="width: 100%;" th:field="*{userage}" placeholder="나이">
+            </div>
+            <div style="margin-right: 2px; width: 10%; float: left;">
+                <input type="text" name="visible" value="Y"
+                       class="form-control" style="width: 100%;" th:field="*{visible}" placeholder="출력 모드(Y/N)">
+            </div>
+
+            <div style="margin-right: 2px; width: 15%; float: left; margin-top: 3px; margin-left: 5px;">
+                <button type="submit" class="btn btn-secondary btn-sm">등록</button>
+                <button type="reset" class="btn btn-secondary btn-sm">취소</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div th:replace="~{bloguser/list_all_com::list_all_fragment}"></div>
+</div>
+</html>

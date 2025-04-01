@@ -77,5 +77,24 @@
         ORDER BY sortno ASC
     </select>
 
+    <!-- 검색 -->
+    <select id="list_search" resultType="dev.mvc.category.CategoryVO" parameterType="String">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        FROM category
+        <if test="word != null and word != ''">     <!-- 검색 상태라면 WHERE 생성 -->
+            WHERE (categoryname != '--') AND ((UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%'))
+        </if>
+        ORDER BY sortno ASC
+    </select>
+
+    <!-- 검색 갯수 -->
+    <select id="list_search_count" resultType="Integer" parameterType="String">
+        SELECT COUNT(*) as cnt
+        FROM category
+        <if test="word != null and word != ''"> <!-- 검색 상태라면 WHERE 생성 -->
+            WHERE (categoryname != '--') AND ((UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%'))
+        </if>
+        ORDER BY sortno ASC
+    </select>
 
 </mapper>

@@ -89,4 +89,14 @@ public class CategoryProc implements CategoryProcInter {
     public ArrayList<String> categorygrpset() {
         return categoryDAO.categorygrpset();
     }
+
+    @Override
+    public ArrayList<CategoryVO> list_search(String word) {
+        return categoryDAO.list_search(word);
+    }
+
+    @Override
+    public int list_search_count(String word) {
+        return categoryDAO.list_search_count(word);
+    }
 }

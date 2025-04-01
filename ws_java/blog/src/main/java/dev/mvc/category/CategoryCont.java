@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,9 @@ public class CategoryCont {
      * CateVO cateVO: Form 태그의 값이 자동 저장, Integer.parseInt(request.getParameter("seqno")) 자동 실행
      */
     @PostMapping("/create")
-    public String create(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult) {
+    public String create(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult,
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             return "/category/create";
         }
@@ -46,8 +49,9 @@ public class CategoryCont {
         int cnt = categoryProc.create(categoryVO);
 
         if (cnt == 1) {
+            ra.addAttribute("word", word);
 //            V1 -> V2 : 등록을 성공하면 등록 성공 창 대신 바로 전체 목록으로 redirect
-            return "redirect:/category/list_all";    // @GetMapping("/list_all")
+            return "redirect:/category/list_search";    // @GetMapping("/list_all")
         } else {
             model.addAttribute("code", Tool.CREATE_FAIL);
         }
@@ -68,7 +72,9 @@ public class CategoryCont {
         model.addAttribute("menu", menu);
 
         ArrayList<String> categorygrpset = categoryProc.categorygrpset();
-        categoryVO.setCategoryGrp(String.join("/", categorygrpset));
+        String grpset = String.join("/", categorygrpset);
+        model.addAttribute("grpset", grpset);
+
 
         return "/category/list_all";    // templates/category/list_all.html
     }
@@ -78,16 +84,22 @@ public class CategoryCont {
      * http://localhost:9091/category/read/1
      */
     @GetMapping("/read/{categoryNo}")
-    public String read(Model model, @PathVariable("categoryNo") int categoryNo) {
-        log.info("-> read cateno: {}", categoryNo);
+    public String read(Model model, @PathVariable("categoryNo") int categoryNo,
+                       @RequestParam(name = "word", defaultValue = "") String word) {
 
         CategoryVO categoryVO = categoryProc.read(categoryNo);
-        ArrayList<CategoryVO> list = categoryProc.list_all();
+        model.addAttribute("categoryVO", categoryVO);
+
+        ArrayList<CategoryVO> list = categoryProc.list_search(word);
+        model.addAttribute("list", list);
+
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-        model.addAttribute("list", list);
-        model.addAttribute("categoryVO", categoryVO);
+        int list_search_count = categoryProc.list_search_count(word);
+        model.addAttribute("list_search_count", list_search_count);
+
+        model.addAttribute("word", word);
 
         return "/category/read";    // templates/cate/read.html
     }
@@ -98,15 +110,18 @@ public class CategoryCont {
      * http://localhost:9091/category/update/1
      */
     @GetMapping("/update/{categoryNo}")
-    public String update(Model model, @PathVariable("categoryNo") int cateNo) {
-        CategoryVO categoryVO = categoryProc.read(cateNo);
-        ArrayList<CategoryVO> list = categoryProc.list_all();
+    public String update(Model model, @PathVariable("categoryNo") int categoryNo,
+                         @RequestParam(name = "word", defaultValue = "") String word) {
+        CategoryVO categoryVO = categoryProc.read(categoryNo);
+        model.addAttribute("categoryVO", categoryVO);
+
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-
-        model.addAttribute("categoryVO", categoryVO);
+        ArrayList<CategoryVO> list = categoryProc.list_search(word);
         model.addAttribute("list", list);
+
+        model.addAttribute("word", word);
 
         return "/category/update";    // templates/cate/update.html
     }
@@ -116,17 +131,18 @@ public class CategoryCont {
      * http://localhost:9091/category/update/1
      */
     @PostMapping("/update")
-    public String update(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult) {
+    public String update(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult,
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
-            ArrayList<CategoryVO> list = categoryProc.list_all();
-            model.addAttribute("list", list);
             return "category/update";   // templates/cate/update.html
         }
 
         int cnt = categoryProc.update(categoryVO);
 
         if (cnt == 1) {
+            ra.addAttribute("word", word);
             return "redirect:/category/update/" + categoryVO.getCategoryNo();
         } else {
             model.addAttribute("code", Tool.UPDATE_FAIL);
@@ -140,16 +156,19 @@ public class CategoryCont {
      * 삭제 폼
      * http://localhost:9091/category/delete/1
      */
-    @GetMapping("/delete/{cateNo}")
-    public String delete(Model model, @PathVariable("cateNo") int cateNo) {
-        CategoryVO categoryVO = categoryProc.read(cateNo);
+    @GetMapping("/delete/{categoryNo}")
+    public String delete(Model model, @PathVariable("categoryNo") int categoryNo,
+                         @RequestParam(name = "word", defaultValue = "") String word) {
+        CategoryVO categoryVO = categoryProc.read(categoryNo);
         model.addAttribute("categoryVO", categoryVO);
 
-        ArrayList<CategoryVO> list = categoryProc.list_all();
+        ArrayList<CategoryVO> list = categoryProc.list_search(word);
         model.addAttribute("list", list);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
+
+        model.addAttribute("word", word);
 
         return "/category/delete";      // templates/cate/delete.html
     }
@@ -158,16 +177,19 @@ public class CategoryCont {
      * 삭제 처리
      * http://localhost:9091/category/delete/1
      */
-    @PostMapping("/delete/{cateNo}")
-    public String delete_process(Model model, @PathVariable("cateNo") int cateNo) {
+    @PostMapping("/delete/{categoryNo}")
+    public String delete_process(Model model, @PathVariable("categoryNo") int categoryNo,
+                                 @RequestParam(name = "word", defaultValue = "") String word,
+                                 RedirectAttributes ra) {
 
-        CategoryVO categoryVO = categoryProc.read(cateNo);// cateno로 cateVO 객체 가져옴
+        CategoryVO categoryVO = categoryProc.read(categoryNo);// cateno로 cateVO 객체 가져옴
         model.addAttribute("categoryVO", categoryVO);
 
-        int cnt = categoryProc.delete(cateNo);
+        int cnt = categoryProc.delete(categoryNo);
 
         if (cnt == 1) {
-            return "redirect:/category/list_all";
+            ra.addAttribute("word", word);
+            return "redirect:/category/list_search";
         } else {
             model.addAttribute("code", Tool.DELETE_FAIL);
         }
@@ -184,10 +206,13 @@ public class CategoryCont {
      * http://localhost:9091/category/update_sortNo_forward/1
      */
     @GetMapping("/update_sortNo_forward/{categoryNo}")
-    public String update_seqno_forward(Model model, @PathVariable("categoryNo") int categoryNo) {
+    public String update_seqno_forward(Model model, @PathVariable("categoryNo") int categoryNo,
+                                       @RequestParam(name = "word", defaultValue = "") String word,
+                                       RedirectAttributes ra) {
         categoryProc.update_sortNo_forward(categoryNo);
+        ra.addAttribute("word", word);
 
-        return "redirect:/category/list_all";       // @GetMapping("/list_all")
+        return "redirect:/category/list_search";       // @GetMapping("/list_all")
     }
 
     /**
@@ -195,10 +220,13 @@ public class CategoryCont {
      * http://localhost:9091/category/update_sortNo_backward/1
      */
     @GetMapping("/update_sortNo_backward/{categoryNo}")
-    public String update_sortNo_backward(Model model, @PathVariable("categoryNo") int categoryNo) {
+    public String update_sortNo_backward(Model model, @PathVariable("categoryNo") int categoryNo,
+                                         @RequestParam(name = "word", defaultValue = "") String word,
+                                         RedirectAttributes ra) {
         categoryProc.update_sortNo_backward(categoryNo);
+        ra.addAttribute("word", word);
 
-        return "redirect:/category/list_all";       // @GetMapping("/list_all")
+        return "redirect:/category/list_search";       // @GetMapping("/list_all")
     }
 
     /**
@@ -206,10 +234,13 @@ public class CategoryCont {
      * http://localhost:9091/category/update_visible_y/1
      */
     @GetMapping("/update_visible_y/{categoryNo}")
-    public String update_visible_y(Model model, @PathVariable("categoryNo") int categoryNo) {
+    public String update_visible_y(Model model, @PathVariable("categoryNo") int categoryNo,
+                                   @RequestParam(name = "word", defaultValue = "") String word,
+                                   RedirectAttributes ra) {
         categoryProc.update_visible_y(categoryNo);
+        ra.addAttribute("word", word);
 
-        return "redirect:/category/list_all";
+        return "redirect:/category/list_search";
     }
 
     /**
@@ -217,10 +248,36 @@ public class CategoryCont {
      * http://localhost:9091/category/update_visible_n/1
      */
     @GetMapping("/update_visible_n/{categoryNo}")
-    public String update_visible_n(Model model, @PathVariable("categoryNo") int categoryNo) {
+    public String update_visible_n(Model model, @PathVariable("categoryNo") int categoryNo,
+                                   @RequestParam(name = "word", defaultValue = "") String word,
+                                   RedirectAttributes ra) {
         categoryProc.update_visible_n(categoryNo);
+        ra.addAttribute("word", word);
 
-        return "redirect:/category/list_all";
+        return "redirect:/category/list_search";
     }
 
+
+    @GetMapping("/list_search")
+    public String list_search(Model model,
+                              @ModelAttribute("categoryVO") CategoryVO categoryVO,
+                              @RequestParam(name = "word", defaultValue = "") String word) {
+
+        ArrayList<CategoryVO> list = categoryProc.list_search(word);
+        model.addAttribute("list", list);
+
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
+
+        ArrayList<String> categorygrpset = categoryProc.categorygrpset();
+        String grpset = String.join("/", categorygrpset);
+        model.addAttribute("grpset", grpset);
+
+        model.addAttribute("word", word);
+
+        int list_search_count = categoryProc.list_search_count(word);
+        model.addAttribute("list_search_count", list_search_count);
+
+        return "/category/list_search";
+    }
 }

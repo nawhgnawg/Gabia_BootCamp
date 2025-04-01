@@ -20,5 +20,14 @@ public class Tool {
     /** 삭제 실패 */
     public static final String DELETE_FAIL = "delete_fail";
 
+    /** null 값을 해제함. */
+    public static String checkNull(String str) {
+        if (str == null || str.equals("null")) {
+            return "";
+        } else {
+            return str;
+        }
+    }
+
 
 }

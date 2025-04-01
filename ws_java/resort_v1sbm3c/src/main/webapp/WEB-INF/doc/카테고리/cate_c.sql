@@ -202,4 +202,33 @@ ORDER BY seqno ASC;
         33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
         34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
         
-
+-- 검색
+SELECT cateno, grp, name, cnt, seqno, visible, rdate
+FROM cate
+WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
+        
+-- '카테고리 그룹'을 제외한 경우        
+SELECT cateno, grp, name, cnt, seqno, visible, rdate
+FROM cate
+WHERE (name != '--') AND ((UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%'))
+ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
+        
+-- 검색 갯수
+SELECT COUNT(*) as cnt
+FROM cate
+WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+ORDER BY seqno ASC;   
+       CNT
+----------
+         3
+         

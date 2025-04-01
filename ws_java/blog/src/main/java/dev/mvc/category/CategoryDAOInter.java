@@ -28,4 +28,8 @@ public interface CategoryDAOInter {
 
     public ArrayList<String> categorygrpset();
 
+    public ArrayList<CategoryVO> list_search(String word);
+
+    public int list_search_count(String word);
+
 }
