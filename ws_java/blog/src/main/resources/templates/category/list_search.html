@@ -3,7 +3,7 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
 <div layout:fragment="content">
     <div class="title_line">
-        카테고리 목록 <span th:if="${word != null and word != ''}" th:text="|${word} ${list_search_count}|"></span>
+        카테고리 목록 <span th:if="${word != null and word != ''}" th:text="|${word} ${search_cnt}|"></span>
     </div>
 
     <aside class="aside_right">
@@ -32,7 +32,7 @@
             <div style="margin-right: 2px; width: 15%; float: left;">
                 <select id="visible" name="visible" class="form-control">
                     <option value="출력 모드" selected="selected">출력 모드</option>
-                    <option value="Y">Y</option>
+                    <option value="Y" selected="selected">Y</option>
                     <option value="N">N</option>
                 </select>
             </div>

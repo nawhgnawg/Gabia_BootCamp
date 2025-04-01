@@ -21,6 +21,7 @@ public class HomeCont {
     public String home(Model model) {
 
         model.addAttribute("word", "");
+        model.addAttribute("now_page", "1");
         return "index";
     }
 

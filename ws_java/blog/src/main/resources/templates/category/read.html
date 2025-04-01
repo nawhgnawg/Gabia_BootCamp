@@ -7,11 +7,11 @@
     <aside class="aside_right">
         <a th:href="@{|/category/create|}"><img src="/bloguser/images/user_create.png" class="icon" title="회원 등록"></a>
         <span class="menu_divide"> | </span>
-        <a th:href="@{|/category/list_search?word=${word}|}"><img src="/bloguser/images/list.png" class="icon" title="목록"></a>
+        <a th:href="@{|/category/list_search?word=${word}&now_page=${now_page}|}"><img src="/bloguser/images/list.png" class="icon" title="목록"></a>
         <span class="menu_divide"> | </span>
-        <a th:href="@{|/category/update/${categoryVO.categoryNo}?word=${word}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>
+        <a th:href="@{|/category/update/${categoryVO.categoryNo}?word=${word}&now_page=${now_page}|}"><img src="/bloguser/images/update.png" class="icon" title="수정"></a>
         <span class="menu_divide"> | </span>
-        <a th:href="@{|/category/delete/${categoryVO.categoryNo}?word=${word}|}"><img src="/bloguser/images/delete.png" class="icon" title="삭제"></a>
+        <a th:href="@{|/category/delete/${categoryVO.categoryNo}?word=${word}&now_page=${now_page}|}"><img src="/bloguser/images/delete.png" class="icon" title="삭제"></a>
         <span class="menu_divide"> | </span>
         <a href="javascript: location.reload();"><img src="/bloguser/images/refresh.png" class="icon" title="새로 고침"></a>
     </aside>

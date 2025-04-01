@@ -23,6 +23,21 @@ public class CategoryCont {
     private CategoryProcInter categoryProc;
 
     /**
+     * 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작
+     */
+    public int record_per_page = 3;
+
+    /**
+     * 블럭당 페이지 수, 하나의 블럭은 10개의 페이지로 구성됨
+     */
+    public int page_per_block = 10;
+
+    /**
+     * 페이징 목록 주소, @GetMapping("/list_search")
+     */
+    private String list_file_name = "/category/list_search";
+
+    /**
      * 등록 폼
      * http://localhost:9091/category/create
      */
@@ -41,6 +56,7 @@ public class CategoryCont {
     @PostMapping("/create")
     public String create(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult,
                          @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                          RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
             return "/category/create";
@@ -49,13 +65,22 @@ public class CategoryCont {
         int cnt = categoryProc.create(categoryVO);
 
         if (cnt == 1) {
+            // ----------------------------------------------------------------------------------------------------------
+            // 마지막 페이지에서 레코드 추가시 페이지가 추가 될 때
+            int search_cnt = categoryProc.list_search_count(word);
+            if (search_cnt % record_per_page == 0) {
+                now_page = now_page + 1;
+            }
+            // ----------------------------------------------------------------------------------------------------------
             ra.addAttribute("word", word);
-//            V1 -> V2 : 등록을 성공하면 등록 성공 창 대신 바로 전체 목록으로 redirect
+            ra.addAttribute("now_page", now_page);
+
             return "redirect:/category/list_search";    // @GetMapping("/list_all")
         } else {
             model.addAttribute("code", Tool.CREATE_FAIL);
         }
         model.addAttribute("cnt", cnt);
+
         return "/category/msg";  // templates/cate/msg.html
     }
 
@@ -85,21 +110,34 @@ public class CategoryCont {
      */
     @GetMapping("/read/{categoryNo}")
     public String read(Model model, @PathVariable("categoryNo") int categoryNo,
-                       @RequestParam(name = "word", defaultValue = "") String word) {
+                       @RequestParam(name = "word", defaultValue = "") String word,
+                       @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
         CategoryVO categoryVO = categoryProc.read(categoryNo);
         model.addAttribute("categoryVO", categoryVO);
 
-        ArrayList<CategoryVO> list = categoryProc.list_search(word);
+        ArrayList<CategoryVO> list = categoryProc.list_search_paging(word, now_page, record_per_page);
         model.addAttribute("list", list);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-        int list_search_count = categoryProc.list_search_count(word);
-        model.addAttribute("list_search_count", list_search_count);
+        int search_cnt = categoryProc.list_search_count(word);
+        model.addAttribute("search_cnt", search_cnt);
 
         model.addAttribute("word", word);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = categoryProc.list_search_count(word);
+        String paging = categoryProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
 
         return "/category/read";    // templates/cate/read.html
     }
@@ -111,17 +149,33 @@ public class CategoryCont {
      */
     @GetMapping("/update/{categoryNo}")
     public String update(Model model, @PathVariable("categoryNo") int categoryNo,
-                         @RequestParam(name = "word", defaultValue = "") String word) {
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         CategoryVO categoryVO = categoryProc.read(categoryNo);
         model.addAttribute("categoryVO", categoryVO);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-        ArrayList<CategoryVO> list = categoryProc.list_search(word);
+        ArrayList<CategoryVO> list = categoryProc.list_search_paging(word, now_page, record_per_page);
         model.addAttribute("list", list);
 
+        int search_cnt = list.size();
+        model.addAttribute("search_cnt", search_cnt);
+
         model.addAttribute("word", word);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = categoryProc.list_search_count(word);
+        String paging = categoryProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
 
         return "/category/update";    // templates/cate/update.html
     }
@@ -133,6 +187,7 @@ public class CategoryCont {
     @PostMapping("/update")
     public String update(Model model, @Valid CategoryVO categoryVO, BindingResult bindingResult,
                          @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                          RedirectAttributes ra) {
 
         if (bindingResult.hasErrors()) {
@@ -143,6 +198,7 @@ public class CategoryCont {
 
         if (cnt == 1) {
             ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
             return "redirect:/category/update/" + categoryVO.getCategoryNo();
         } else {
             model.addAttribute("code", Tool.UPDATE_FAIL);
@@ -158,17 +214,33 @@ public class CategoryCont {
      */
     @GetMapping("/delete/{categoryNo}")
     public String delete(Model model, @PathVariable("categoryNo") int categoryNo,
-                         @RequestParam(name = "word", defaultValue = "") String word) {
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         CategoryVO categoryVO = categoryProc.read(categoryNo);
         model.addAttribute("categoryVO", categoryVO);
-
-        ArrayList<CategoryVO> list = categoryProc.list_search(word);
-        model.addAttribute("list", list);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
+        ArrayList<CategoryVO> list = categoryProc.list_search_paging(word, now_page, record_per_page);
+        model.addAttribute("list", list);
+
         model.addAttribute("word", word);
+
+        int search_cnt = list.size();
+        model.addAttribute("search_cnt", search_cnt);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = categoryProc.list_search_count(word);
+        String paging = categoryProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
 
         return "/category/delete";      // templates/cate/delete.html
     }
@@ -180,6 +252,7 @@ public class CategoryCont {
     @PostMapping("/delete/{categoryNo}")
     public String delete_process(Model model, @PathVariable("categoryNo") int categoryNo,
                                  @RequestParam(name = "word", defaultValue = "") String word,
+                                 @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                                  RedirectAttributes ra) {
 
         CategoryVO categoryVO = categoryProc.read(categoryNo);// cateno로 cateVO 객체 가져옴
@@ -188,7 +261,17 @@ public class CategoryCont {
         int cnt = categoryProc.delete(categoryNo);
 
         if (cnt == 1) {
+            // 마지막 페이지에서 모든 레코드가 삭제되면 페이지수를 1 감소 시켜야함.
+            int search_cnt = categoryProc.list_search_count(word);
+            if (search_cnt % record_per_page == 0) {
+                now_page = now_page - 1;
+                if (now_page < 1) {
+                    now_page = 1; // 최소 시작 페이지
+                }
+            }
+            // ----------------------------------------------------------------------------------------------------------
             ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
             return "redirect:/category/list_search";
         } else {
             model.addAttribute("code", Tool.DELETE_FAIL);
@@ -208,9 +291,11 @@ public class CategoryCont {
     @GetMapping("/update_sortNo_forward/{categoryNo}")
     public String update_seqno_forward(Model model, @PathVariable("categoryNo") int categoryNo,
                                        @RequestParam(name = "word", defaultValue = "") String word,
+                                       @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                                        RedirectAttributes ra) {
         categoryProc.update_sortNo_forward(categoryNo);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/category/list_search";       // @GetMapping("/list_all")
     }
@@ -222,9 +307,11 @@ public class CategoryCont {
     @GetMapping("/update_sortNo_backward/{categoryNo}")
     public String update_sortNo_backward(Model model, @PathVariable("categoryNo") int categoryNo,
                                          @RequestParam(name = "word", defaultValue = "") String word,
+                                         @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                                          RedirectAttributes ra) {
         categoryProc.update_sortNo_backward(categoryNo);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/category/list_search";       // @GetMapping("/list_all")
     }
@@ -236,9 +323,11 @@ public class CategoryCont {
     @GetMapping("/update_visible_y/{categoryNo}")
     public String update_visible_y(Model model, @PathVariable("categoryNo") int categoryNo,
                                    @RequestParam(name = "word", defaultValue = "") String word,
+                                   @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                                    RedirectAttributes ra) {
         categoryProc.update_visible_y(categoryNo);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/category/list_search";
     }
@@ -250,14 +339,16 @@ public class CategoryCont {
     @GetMapping("/update_visible_n/{categoryNo}")
     public String update_visible_n(Model model, @PathVariable("categoryNo") int categoryNo,
                                    @RequestParam(name = "word", defaultValue = "") String word,
+                                   @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                                    RedirectAttributes ra) {
         categoryProc.update_visible_n(categoryNo);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/category/list_search";
     }
 
-
+/*
     @GetMapping("/list_search")
     public String list_search(Model model,
                               @ModelAttribute("categoryVO") CategoryVO categoryVO,
@@ -279,5 +370,47 @@ public class CategoryCont {
         model.addAttribute("list_search_count", list_search_count);
 
         return "/category/list_search";
+    }
+*/
+
+    @GetMapping("/list_search")
+    public String list_search_paging(Model model,
+                                     @RequestParam(name="word", defaultValue = "") String word,
+                                     @RequestParam(name="now_page", defaultValue="1") int now_page) {
+        CategoryVO categoryVO = new CategoryVO();
+        model.addAttribute("categoryVO", categoryVO);
+
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
+
+        ArrayList<String> categorygrpset = categoryProc.categorygrpset();
+        String grpset = String.join("/", categorygrpset);
+        model.addAttribute("grpset", grpset);
+
+        word = Tool.checkNull(word);
+
+        ArrayList<CategoryVO> list = categoryProc.list_search_paging(word, now_page, record_per_page);
+        model.addAttribute("list", list);
+
+        int search_cnt = categoryProc.list_search_count(word);
+        model.addAttribute("search_cnt", search_cnt);
+
+        model.addAttribute("word", word);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = categoryProc.list_search_count(word);
+        String paging = categoryProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
+
+
+        return "/category/list_search";
+
     }
 }

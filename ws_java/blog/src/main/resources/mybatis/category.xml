@@ -92,9 +92,25 @@
         SELECT COUNT(*) as cnt
         FROM category
         <if test="word != null and word != ''"> <!-- 검색 상태라면 WHERE 생성 -->
-            WHERE (categoryname != '--') AND ((UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%'))
+            WHERE (UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%')
         </if>
         ORDER BY sortno ASC
     </select>
 
+    <!-- 검색 + 페이징 -->
+    <select id="list_search_paging" resultType="dev.mvc.category.CategoryVO" parameterType="Map">
+        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate, r
+        FROM (
+            SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate, rownum as r
+            FROM (
+                SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+                FROM category
+                <if test="word != null and word != ''">
+                    WHERE (UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%')
+                </if>
+                ORDER BY sortno ASC
+            )
+        )
+        WHERE r &gt;= #{start_num} AND r &lt;= #{end_num}  <!-- WHERE r >= 1 AND r <= 3; -->
+    </select>
 </mapper>

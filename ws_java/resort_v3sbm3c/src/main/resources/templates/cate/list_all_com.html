@@ -23,28 +23,29 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cateVO:${list}">
-            <td class="td_bs" th:text="${cateVO.cateno}"></td>
+        <tr th:each="cateVO, status:${list}">
+            <td class="td_bs" th:text="${no - status.index}"></td>
             <td class="td_bs">
-                <a th:href="@{|/cate/read/${cateVO.cateno}?word=${word}|}" style="display:block;" th:text="${cateVO.grp}"></a>
+                <a th:href="@{|/cate/read/${cateVO.cateno}?word=${word}&now_page=${now_page}|}" style="display:block;" th:text="${cateVO.grp}"></a>
             </td>
             <td class="td_bs">
-                <a th:href="@{|/cate/read/${cateVO.cateno}?word=${word}|}" style="display:block;" th:text="${cateVO.name}"></a>
+                <a th:href="@{|/cate/read/${cateVO.cateno}?word=${word}&now_page=${now_page}|}" style="display:block;" th:text="${cateVO.name}"></a>
             </td>
             <td class="td_bs" th:text="${cateVO.cnt}"></td>
             <td class="td_bs" th:text="${cateVO.rdate.substring(0, 10)}"></td>
             <td class="td_bs">
+                <span th:text="${status.index}"></span>/
                 <span th:text="${cateVO.seqno}"></span>
                 <span th:if="${cateVO.visible == 'Y'}">
-                    <a th:href="@{|/cate/update_visible_n/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/hide.png" class="icon" title="숨김"></a>
+                    <a th:href="@{|/cate/update_visible_n/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/hide.png" class="icon" title="숨김"></a>
                 </span>
                 <span th:if="${cateVO.visible == 'N'}">
-                    <a th:href="@{|/cate/update_visible_y/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/show.png" class="icon" title="출력"></a>
+                    <a th:href="@{|/cate/update_visible_y/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/show.png" class="icon" title="출력"></a>
                 </span>
-                <a th:href="@{|/cate/update_seqno_forward/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/increase.png" class="icon" title="우선순위 높임"></a>
-                <a th:href="@{|/cate/update_seqno_backward/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/decrease.png" class="icon" title="우선순위 낮춤"></a>
-                <a th:href="@{|/cate/update/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/update.png" class="icon" title="수정"></a> <!--/* static 기준 */-->
-                <a th:href="@{|/cate/delete/${cateVO.cateno}?word=${word}|}"><img src="/cate/images/delete.png" class="icon" title="삭제"></a> <!--/* /static 기준 */-->
+                <a th:href="@{|/cate/update_seqno_forward/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/increase.png" class="icon" title="우선순위 높임"></a>
+                <a th:href="@{|/cate/update_seqno_backward/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/decrease.png" class="icon" title="우선순위 낮춤"></a>
+                <a th:href="@{|/cate/update/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/update.png" class="icon" title="수정"></a> <!--/* static 기준 */-->
+                <a th:href="@{|/cate/delete/${cateVO.cateno}?word=${word}&now_page=${now_page}|}"><img src="/cate/images/delete.png" class="icon" title="삭제"></a> <!--/* /static 기준 */-->
             </td>
         </tr>
         </tbody>

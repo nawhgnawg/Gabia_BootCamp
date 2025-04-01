@@ -6,6 +6,7 @@
     <div style="width: 50%; margin: 0px auto;">
         <form name="frm" method="post" action="/category/create" th:object="${categoryVO}">
             <input type="hidden" name="word" th:value="${word}"> <!-- /* 값 유지 목적 */ -->
+            <input type="hidden" name="now_page" th:value="${now_page}"> <!-- /* 값 유지 목적 */ -->
             <div>
                 <label>카테고리 그룹</label>
                 <input type="text" name="categoryGrp" value="" autofocus="autofocus"

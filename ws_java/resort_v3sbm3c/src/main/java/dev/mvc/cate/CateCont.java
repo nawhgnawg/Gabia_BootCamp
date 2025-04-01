@@ -24,7 +24,7 @@ public class CateCont {
     private CateProcInter cateProc;
 
     /** 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작 */
-    public int record_per_page = 4;
+    public int record_per_page = 3;
 
     /** 블럭당 페이지 수, 하나의 블럭은 10개의 페이지로 구성됨 */
     public int page_per_block = 10;
@@ -55,6 +55,7 @@ public class CateCont {
     @PostMapping("/create")
     public String create(Model model, @Valid CateVO cateVO, BindingResult bindingResult,
                          @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                          RedirectAttributes ra) {
         System.out.println("-> create post");
         if (bindingResult.hasErrors()) {
@@ -64,9 +65,17 @@ public class CateCont {
         int cnt = cateProc.create(cateVO);
 
         if (cnt == 1) {
+            // ----------------------------------------------------------------------------------------------------------
+            // 마지막 페이지에서 레코드 추가시 페이지가 추가 될 때
+            int search_cnt = cateProc.list_search_count(word);
+            if (search_cnt % record_per_page == 0) {
+                now_page = now_page + 1;
+            }
+            // ----------------------------------------------------------------------------------------------------------
             ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
 //            V1 -> V2 : 등록을 성공하면 등록 성공 창 대신 바로 전체 목록으로 redirect
-            return "redirect:/cate/list_search";    // @GetMapping("/list_all")
+            return "redirect:/cate/list_search";    // @GetMapping("/list_search")
         } else {
             model.addAttribute("code", Tool.CREATE_FAIL);
         }
@@ -99,7 +108,8 @@ public class CateCont {
      */
     @GetMapping("/read/{cateno}")
     public String read(Model model, @PathVariable("cateno") int cateno,
-                       @RequestParam(name = "word", defaultValue = "") String word) {
+                       @RequestParam(name = "word", defaultValue = "") String word,
+                       @RequestParam(name="now_page", defaultValue="1") int now_page) {
         log.info("-> read cateno: {}", cateno);
 
         CateVO cateVO = cateProc.read(cateno);
@@ -110,18 +120,30 @@ public class CateCont {
         model.addAttribute("menu", menu);
 
         // 검색 목록
-        ArrayList<CateVO> list = cateProc.list_search(word);
+        ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
         model.addAttribute("list", list);
 
         // 검색된 레코드 갯수
-        int list_search_count = cateProc.list_search_count(word);
-        model.addAttribute("list_search_count", list_search_count);
+        int search_cnt = list.size();
+        model.addAttribute("search_cnt", search_cnt);
 
         model.addAttribute("word", word);
 
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = cateProc.list_search_count(word);
+        String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
+
+
         return "/cate/read";    // templates/cate/read.html
     }
-
 
     /**
      * 수정 폼
@@ -129,7 +151,8 @@ public class CateCont {
      */
     @GetMapping("/update/{cateno}")
     public String update(Model model, @PathVariable("cateno") int cateno,
-                         @RequestParam(name = "word", defaultValue = "") String word) {
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name="now_page", defaultValue="1") int now_page) {
         log.info("-> update read cateno: {}", cateno);
         CateVO cateVO = cateProc.read(cateno);
         model.addAttribute("cateVO", cateVO);
@@ -137,10 +160,27 @@ public class CateCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
-        ArrayList<CateVO> list = cateProc.list_search(word);
+        ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
         model.addAttribute("list", list);
 
         model.addAttribute("word", word);
+
+        // 검색된 레코드 갯수
+        int search_cnt = list.size();
+        model.addAttribute("search_cnt", search_cnt);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = cateProc.list_search_count(word);
+        String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
+
 
         return "/cate/update";    // templates/cate/update.html
     }
@@ -152,6 +192,7 @@ public class CateCont {
     @PostMapping("/update")
     public String update(Model model, @Valid CateVO cateVO, BindingResult bindingResult,
                          @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name="now_page", defaultValue="1") int now_page,
                          RedirectAttributes ra) {
         log.info("-> update cateVO: {}", cateVO);
 
@@ -165,6 +206,7 @@ public class CateCont {
         if (cnt == 1) {
             log.info("-> word: {}", word);
             ra.addAttribute("word", word);  // redirect로 데이터 전송, 한글 깨짐 방지
+            ra.addAttribute("now_page", now_page);
             return "redirect:/cate/update/" + cateVO.getCateno();
 //            return "redirect:/cate/update/" + cateVO.getCateno() + "?word=" + word; // 한글 깨짐 오류
 
@@ -182,17 +224,35 @@ public class CateCont {
      */
     @GetMapping("/delete/{cateno}")
     public String delete(Model model, @PathVariable("cateno") int cateno,
-                         @RequestParam(name = "word", defaultValue = "") String word) {
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name="now_page", defaultValue="1") int now_page) {
         CateVO cateVO = cateProc.read(cateno);
         model.addAttribute("cateVO", cateVO);
 
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
-        ArrayList<CateVO> list = cateProc.list_search(word);
+        ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
         model.addAttribute("list", list);
 
         model.addAttribute("word", word);
+
+        // 검색된 레코드 갯수
+        int search_cnt = list.size();
+        model.addAttribute("search_cnt", search_cnt);
+
+        // --------------------------------------------------------------------------------------
+        // 페이지 번호 목록 생성
+        // --------------------------------------------------------------------------------------
+        int search_count = cateProc.list_search_count(word);
+        String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+        // --------------------------------------------------------------------------------------
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
+
 
         return "/cate/delete";      // templates/cate/delete.html
     }
@@ -204,6 +264,7 @@ public class CateCont {
     @PostMapping("/delete/{cateno}")
     public String delete_process(Model model, @PathVariable("cateno") int cateno,
                                  @RequestParam(name = "word", defaultValue = "") String word,
+                                 @RequestParam(name="now_page", defaultValue="1") int now_page,
                                  RedirectAttributes ra) {
 
         CateVO cateVO = cateProc.read(cateno);  // cateno로 cateVO 객체 가져옴
@@ -212,7 +273,19 @@ public class CateCont {
         int cnt = cateProc.delete(cateno);
 
         if (cnt == 1) {
+            // ----------------------------------------------------------------------------------------------------------
+            // 마지막 페이지에서 모든 레코드가 삭제되면 페이지수를 1 감소 시켜야함.
+            int search_cnt = cateProc.list_search_count(word);
+            if (search_cnt % record_per_page == 0) {
+                now_page = now_page - 1;
+                if (now_page < 1) {
+                    now_page = 1; // 최소 시작 페이지
+                }
+            }
+            // ----------------------------------------------------------------------------------------------------------
+
             ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
             return "redirect:/cate/list_search";
         } else {
             model.addAttribute("code", Tool.DELETE_FAIL);
@@ -232,9 +305,11 @@ public class CateCont {
     @GetMapping("/update_seqno_forward/{cateno}")
     public String update_seqno_forward(Model model, @PathVariable("cateno") int cateno,
                                        @RequestParam(name = "word", defaultValue = "") String word,
+                                       @RequestParam(name="now_page", defaultValue="1") int now_page,
                                        RedirectAttributes ra) {
         cateProc.update_seqno_forward(cateno);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/cate/list_search";
     }
@@ -246,9 +321,11 @@ public class CateCont {
     @GetMapping("/update_seqno_backward/{cateno}")
     public String update_seqno_backward(Model model, @PathVariable("cateno") int cateno,
                                         @RequestParam(name = "word", defaultValue = "") String word,
+                                        @RequestParam(name="now_page", defaultValue="1") int now_page,
                                         RedirectAttributes ra) {
         cateProc.update_seqno_backward(cateno);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/cate/list_search";
     }
@@ -260,9 +337,11 @@ public class CateCont {
     @GetMapping("/update_visible_y/{cateno}")
     public String update_visible_y(Model model, @PathVariable("cateno") int cateno,
                                    @RequestParam(name = "word", defaultValue = "") String word,
+                                   @RequestParam(name="now_page", defaultValue="1") int now_page,
                                    RedirectAttributes ra) {
         cateProc.update_visible_y(cateno);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/cate/list_search";
     }
@@ -274,9 +353,11 @@ public class CateCont {
     @GetMapping("/update_visible_n/{cateno}")
     public String update_visible_n(Model model, @PathVariable("cateno") int cateno,
                                    @RequestParam(name = "word", defaultValue = "") String word,
+                                   @RequestParam(name="now_page", defaultValue="1") int now_page,
                                    RedirectAttributes ra) {
         cateProc.update_visible_n(cateno);
         ra.addAttribute("word", word);
+        ra.addAttribute("now_page", now_page);
 
         return "redirect:/cate/list_search";
     }
@@ -353,7 +434,10 @@ public class CateCont {
         String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
         model.addAttribute("paging", paging);
         model.addAttribute("now_page", now_page);
-        // --------------------------------------------------------------------------------------
+
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = search_count - ((now_page - 1) * record_per_page);
+        model.addAttribute("no", no);
 
         return "/cate/list_search";  // /templates/cate/list_search.html
     }

@@ -137,7 +137,7 @@ public class CateProc implements CateProcInter {
         map.put("start_num", start_num);
         map.put("end_num", end_num);
 
-        ArrayList<CateVO> list = this.cateDAO.list_search_paging(map);
+        ArrayList<CateVO> list = cateDAO.list_search_paging(map);
         // System.out.println("-> " + list.size());
 
         return list;

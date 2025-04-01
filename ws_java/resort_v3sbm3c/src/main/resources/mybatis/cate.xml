@@ -103,7 +103,7 @@
         SELECT COUNT(*) as cnt
         FROM cate
         <if test="word != null and word != ''"> <!-- 검색 상태라면 WHERE 생성 -->
-            WHERE (name != '--') AND ((UPPER(grp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(name) LIKE '%' || UPPER(#{word}) || '%'))
+            WHERE (UPPER(grp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(name) LIKE '%' || UPPER(#{word}) || '%')
         </if>
         ORDER BY seqno ASC
     </select>

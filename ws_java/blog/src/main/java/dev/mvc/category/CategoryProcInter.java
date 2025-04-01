@@ -33,4 +33,8 @@ public interface CategoryProcInter {
     public ArrayList<CategoryVO> list_search(String word);
 
     public int list_search_count(String word);
+
+    public ArrayList<CategoryVO> list_search_paging(String word, int now_page, int record_per_page);
+
+    String pagingBox(int now_page, String word, String list_file_name, int search_count, int record_per_page, int page_per_block);
 }
