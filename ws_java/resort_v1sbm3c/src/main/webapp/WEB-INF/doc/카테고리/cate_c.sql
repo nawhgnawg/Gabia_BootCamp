@@ -232,3 +232,83 @@ ORDER BY seqno ASC;
 ----------
          3
          
+-- -----------------------------------------------------------------------------
+-- 페이징: 정렬 -> ROWNUM -> 분할
+-- -----------------------------------------------------------------------------
+-- ① 정렬
+SELECT cateno, grp, name, cnt, seqno, visible, rdate
+FROM cate
+WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+ORDER BY seqno ASC;
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE              
+---------- ------------------------------ ------------------------------ ---------- ---------- - -------------------
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05
+
+-- ② 정렬 -> ROWNUM
+SELECT cateno, grp, name, cnt, seqno, visible, rdate, rownum as r
+FROM (
+    SELECT cateno, grp, name, cnt, seqno, visible, rdate
+    FROM cate
+    WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+    ORDER BY seqno ASC
+);
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE                        R
+---------- ------------------------------ ------------------------------ ---------- ---------- - ------------------- ----------
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47          1
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57          2
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05          3
+
+-- ③ 정렬 -> ROWNUM -> 분할
+SELECT cateno, grp, name, cnt, seqno, visible, rdate, r
+FROM (
+    SELECT cateno, grp, name, cnt, seqno, visible, rdate, rownum as r
+    FROM (
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+        ORDER BY seqno ASC
+    )
+)
+WHERE r >= 1 AND r <= 3;
+
+    CATENO GRP                            NAME                                  CNT      SEQNO V RDATE                        R
+---------- ------------------------------ ------------------------------ ---------- ---------- - ------------------- ----------
+        28 여행                            --                                      0        101 Y 2025-03-27 03:54:47          1
+        33 여행                            국내                                     0        102 Y 2025-03-27 03:54:57          2
+        34 여행                            해외                                     0        103 Y 2025-03-27 03:55:05          3
+        
+SELECT cateno, grp, name, cnt, seqno, visible, rdate, r
+FROM (
+    SELECT cateno, grp, name, cnt, seqno, visible, rdate, rownum as r
+    FROM (
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+        ORDER BY seqno ASC
+    )
+)
+WHERE r >= 4 AND r <= 6;
+
+    CATENO grp                NAME                                  CNT      SEQNO V RDATE                        R
+---------- -------------------- ------------------------------ ---------- ---------- - ------------------- ----------
+        15 까페                 추천                                    0         12 Y 2024-09-19 04:20:21          4
+        17 까페                 남한산성                                0         15 Y 2024-09-24 04:01:35          5
+        18 까페                 영종도                                  0         16 Y 2024-09-24 04:02:56          6
+
+SELECT cateno, grp, name, cnt, seqno, visible, rdate, r
+FROM (
+    SELECT cateno, grp, name, cnt, seqno, visible, rdate, rownum as r
+    FROM (
+        SELECT cateno, grp, name, cnt, seqno, visible, rdate
+        FROM cate
+        WHERE (UPPER(grp) LIKE '%' || UPPER('여행') || '%') OR (UPPER(name) LIKE '%' || UPPER('여행') || '%')
+        ORDER BY seqno ASC
+    )
+)
+WHERE r >= 7 AND r <= 9;
+
+    CATENO grp                NAME                                  CNT      SEQNO V RDATE                        R
+---------- -------------------- ------------------------------ ---------- ---------- - ------------------- ----------
+        19 까페                 빵까페                                  0         19 Y 2024-09-24 04:08:50          7

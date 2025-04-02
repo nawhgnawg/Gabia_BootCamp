@@ -2,9 +2,9 @@ DROP TABLE bloguser;
 
 CREATE TABLE bloguser (
 	userno	        NUMBER(10)		NOT NULL    PRIMARY KEY,
-	username	    VARCHAR(80)		NOT NULL,
+	username	    VARCHAR(30)		NOT NULL,
 	useremail	    VARCHAR(30)		NOT NULL,
-	userpassword    VARCHAR(30)	   	NOT NULL,
+	userpassword    VARCHAR(200)	   	NOT NULL,
     usergrade       NUMBER(5)       DEFAULT 1   NOT NULL,
     usersex         VARCHAR(10)     DEFAULT '남자' NOT NULL,
     userage         NUMBER(10)      NOT NULL,

@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tr th:each="categoryVO, status:${list}">
-            <td class="td_bs" th:text="${no - status.index}"></td>
+            <td class="td_bs" th:text="${no + status.index}"></td>
             <td class="td_bs">
                 <a th:href="@{|/category/read/${categoryVO.categoryNo}?word=${word}&now_page=${now_page}|}" style="display:block;" th:text="${categoryVO.categoryGrp}"></a>
             </td>

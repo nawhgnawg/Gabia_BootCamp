@@ -5,7 +5,7 @@
     <div class="title_line">카테고리 조회</div>
     <!-- 퀵 바 -->
     <aside class="aside_right">
-        <a th:href="@{|/category/create|}"><img src="/bloguser/images/user_create.png" class="icon" title="회원 등록"></a>
+        <a th:href="@{|/category/create?word=${word}&now_page=${now_page}|}"><img src="/bloguser/images/user_create.png" class="icon" title="회원 등록"></a>
         <span class="menu_divide"> | </span>
         <a th:href="@{|/category/list_search?word=${word}&now_page=${now_page}|}"><img src="/bloguser/images/list.png" class="icon" title="목록"></a>
         <span class="menu_divide"> | </span>

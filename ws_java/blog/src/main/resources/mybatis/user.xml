@@ -3,34 +3,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 위에는 MyBatis 선언문 -->
 <mapper namespace="dev.mvc.bloguser.UserDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
+
+    <!-- 기본 로직 -->
+    <!-- id 중복 검사 -->
+    <select id="checkID" resultType="int" parameterType="String">
+        SELECT COUNT(useremail) as cnt
+        FROM bloguser
+        WHERE useremail = #{useremail}
+    </select>
+
+    <!-- 회원 가입 -->
     <insert id="create" parameterType="dev.mvc.bloguser.UserVO">
         INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate)
         VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, #{usersex}, #{userage}, #{visible}, SYSDATE)
     </insert>
-    <!-- 회원 전체 조회-->
+
+    <!-- 목록 -->
     <select id="list_all" resultType="dev.mvc.bloguser.UserVO">
         SELECT userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate
         FROM bloguser
-        ORDER BY usergrade DESC
+        ORDER BY usergrade ASC, useremail ASC
     </select>
-    <!-- 회원 단일 조회 -->
+
+    <!-- memberno로 회원 정보 조회 -->
     <select id="read" resultType="dev.mvc.bloguser.UserVO" parameterType="int">
         SELECT userno, username, useremail, userpassword, usergrade, visible, usersex, userage, rdate
         FROM bloguser
         WHERE userno = #{userno}
     </select>
-    <!-- 회원 수정 -->
+
+    <!-- id(이메일)로 회원 정보 조회 -->
+    <select id="readByEmail" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
+        SELECT memberno, id, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+        FROM bloguser
+        WHERE id = #{id}
+    </select>
+
+    <!-- 수정 -->
     <update id="update" parameterType="dev.mvc.bloguser.UserVO">
         UPDATE bloguser
-        SET username=#{username}, useremail=#{useremail}, userpassword=#{userpassword}, usersex=#{usersex}, userage=#{userage}, visible=#{visible}, rdate=SYSDATE
-        WHERE userno=#{userno}
+        SET username = #{username}, useremail = #{useremail}, visible = #{visible}
+        WHERE userno = #{userno}
     </update>
-    <!-- 회원 삭제 -->
+
+    <!-- 삭제 -->
     <delete id="delete" parameterType="int">
-        DELETE
-        FROM bloguser
+        DELETE FROM bloguser
         WHERE userno = #{userno}
     </delete>
+
+    <!-- 로그인, 1: 로그인 처리, 0: 메시지 출력 -->
+    <select id="login" resultType="int" parameterType="HashMap">
+        SELECT COUNT(userno) as cnt
+        FROM bloguser
+        WHERE useremail = #{useremail} AND userpassword = #{userpassword}
+    </select>
+
+    <!--  현재 패스워드 검사 -->
+    <select id="passwd_check" parameterType="HashMap" resultType="int">
+        SELECT COUNT(userno) as cnt
+        FROM bloguser
+        WHERE userno = #{userno} AND userpassword = #{userpassword}
+    </select>
+
+    <!-- 패스워드 변경 -->
+    <update id="passwd_update" parameterType="HashMap">
+        UPDATE bloguser
+        SET userpassword = #{userpassword}
+        WHERE userno = #{userno}
+    </update>
+    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+
+    <!-- 부가 기능 -->
     <!-- 회원 등급 상승, 1 -> 5 -->
     <update id="update_grade_forward" parameterType="int">
         UPDATE bloguser

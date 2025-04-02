@@ -189,15 +189,13 @@ public class UserCont {
                            @RequestParam(name = "word", defaultValue = "") String word) {
 
         ArrayList<UserVO> list = userProc.list_search_user(word);
-        for (UserVO u : list){
-            System.out.println(u);
-        }
         model.addAttribute("list", list);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
         model.addAttribute("word", word);
+        model.addAttribute("now_page", "1");
 
         return "/bloguser/list_search";
     }

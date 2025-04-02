@@ -435,7 +435,8 @@ public class CateCont {
         model.addAttribute("paging", paging);
         model.addAttribute("now_page", now_page);
 
-        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)   7 - ((1 - 1) * 3) -
+
         int no = search_count - ((now_page - 1) * record_per_page);
         model.addAttribute("no", no);
 
