@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" />
+    <title>http://localhost:9091/javascript/input_form.html</title>
+
+    <link rel="shortcut icon" href="../images/star.png" />  <!-- /webapp/images -->
+    <link href="../css/style.css" rel="Stylesheet" type="text/css">  <!-- /webapp/css -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function comma(su) {
+          // 정수가 4자리이상인 경우 오른쪽기준 숫자 3자리식 분리하여 ','를
+          // 포함하는 정규 표현식
+          return su.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        window.onload = function() {
+            document.getElementById('btn_img1_y').addEventListener('click', img1_y);
+            document.getElementById('btn_img1_n').addEventListener('click', img1_n);
+            document.getElementById('btn_img2_y').addEventListener('click', img2_y);
+            document.getElementById('btn_img2_n').addEventListener('click', img2_n);
+
+            document.getElementById('btn_create').addEventListener('click', create);
+            document.getElementById('btn_list').addEventListener('click', list);
+            document.getElementById('btn_read').addEventListener('click', read);
+            document.getElementById('btn_update').addEventListener('click', update);
+            document.getElementById('btn_delete').addEventListener('click', delete_proc);
+
+        }
+
+        function img1_y() {
+            document.getElementById('div_img1').style.display = "block";
+        }
+
+        function img1_n() {
+            document.getElementById('div_img1').style.display = "none";
+        }
+
+        function img2_y() {
+            document.getElementById('div_img2').style.display = "block";
+        }
+
+        function img2_n() {
+            document.getElementById('div_img2').style.display = "none";
+        }
+
+        function create() {
+            init();     // 초기화
+            document.getElementById('div_create').style.display = "block";
+        }
+
+        function list() {
+            init();
+            document.getElementById('div_list').style.display = "block";
+        }
+
+        function read() {
+            init();
+            document.getElementById('div_read').style.display = "block";
+        }
+
+        function update() {
+            init();
+            document.getElementById('div_update').style.display = "block";
+        }
+
+        function delete_proc() {
+            init();
+            document.getElementById('div_delete').style.display = "block";
+        }
+
+        function init() {
+            document.getElementById('div_img1').style.display = "none";
+            document.getElementById('div_img2').style.display = "none";
+            document.getElementById('div_create').style.display = "none";
+            document.getElementById('div_list').style.display = "none";
+            document.getElementById('div_read').style.display = "none";
+            document.getElementById('div_update').style.display = "none";
+            document.getElementById('div_delete').style.display = "none";
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="container_main">
+    <div class="content">
+        <button id="btn_img1_y" type="button" class="btn btn-outline-success">이미지 1 출력</button>
+        <button id="btn_img1_n" type="button" class="btn btn-outline-danger">이미지 1 숨김</button>
+        <button id="btn_img2_y" type="button" class="btn btn-outline-success">이미지 2 출력</button>
+        <button id="btn_img2_n" type="button" class="btn btn-outline-danger">이미지 2 숨김</button>
+
+        <button id="btn_create" type="button" class="btn btn-outline-info">등록</button>
+        <button id="btn_list" type="button" class="btn btn-outline-info">목록</button>
+        <button id="btn_read" type="button" class="btn btn-outline-info">조회</button>
+        <button id="btn_update" type="button" class="btn btn-outline-info">수정</button>
+        <button id="btn_delete" type="button" class="btn btn-outline-info">삭제</button>
+
+        <hr>
+        <div id="target">
+            <!-- visibility: hidden; 은 숨겨지고 자리가 그대로 남음, 잘 사용하지 않음 -->
+            <!-- display: none; 은 숨겨지고 자리가 표시되지 않음 -->
+            <div id="div_img1" style="width: 50%; display: none;"><img src="./images/austria01.jpg" style="width:100%;"></div>
+            <div id="div_img2" style="width: 50%; display: none;"><img src="./images/austria02.jpg" style="width:100%;"></div>
+            <div id="div_create" style="display: none;">
+                <div class="title_line">카테고리 등록</div>
+                <div style="width: 50%; margin: 0px auto;">
+                    <form name="frm" method="post" action="/cate/create">
+                        <div>
+                            <label>카테고리 그룹/장르/분류</label>
+                            <input type="text" name="grp" value="" autofocus="autofocus"
+                                   class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div>
+                            <label>카테고리 이름</label>
+                            <input type="text" name="name" value="" autofocus="autofocus"
+                                   class="form-control fom-control-sm" style="width: 100%;">
+                        </div>
+                        <div>
+                            <label>출력 순서</label>
+                            <input type="number" name="seqno" value="1" min="1" max="1000000" step="1"
+                                   class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div>
+                            <label>출력 모드(Y/N)</label>
+                            <input type="text" name="visible" value="Y"
+                                   class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div class="content_body_bottom">
+                            <button type="submit" class="btn btn-secondary btn-sm">등록</button>
+                            <button type="button" onclick="location.href='/cate/list_all'" class="btn btn-secondary btn-sm">목록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="div_list" style="display: none;">
+                <div class="title_line">카테고리</div>
+
+                <table class="table table-hover">
+                    <colgroup>
+                        <col style='width: 10%;'/>
+                        <col style='width: 20%;'/>
+                        <col style='width: 20%;'/>
+                        <col style='width: 10%;'/>
+                        <col style='width: 20%;'/>
+                        <col style='width: 20%;'/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="th_bs">순서</th>
+                        <th class="th_bs">카테고리 그룹</th>
+                        <th class="th_bs">카테고리</th>
+                        <th class="th_bs">자료수</th>
+                        <th class="th_bs">등록일</th>
+                        <th class="th_bs">기타</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="td_bs">1</td>
+                            <td class="td_bs">영화</td>
+                            <td class="td_bs">스릴러</td>
+                            <td class="td_bs">15</td>
+                            <td class="td_bs">2025-04-03</td>
+                            <td class="td_bs">
+                                <a><img src="./images/show.png" class="icon" title="출력">/</a>
+                                <a><img src="./images/hide.png" class="icon" title="숨김">/</a>
+                                <a><img src="./images/decrease.png" class="icon" title="우선순위 높임">/</a>
+                                <a><img src="./images/increase.png" class="icon" title="우선순위 낮춤">/</a>
+                                <a><img src="./images/update.png" class="icon" title="수정">/</a>
+                                <a><img src="./images/delete.png" class="icon" title="삭제"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_bs">2</td>
+                            <td class="td_bs">영화</td>
+                            <td class="td_bs">로맨스</td>
+                            <td class="td_bs">20</td>
+                            <td class="td_bs">2025-03-12</td>
+                            <td class="td_bs">
+                                <a><img src="./images/show.png" class="icon" title="출력">/</a>
+                                <a><img src="./images/hide.png" class="icon" title="숨김">/</a>
+                                <a><img src="./images/decrease.png" class="icon" title="우선순위 높임">/</a>
+                                <a><img src="./images/increase.png" class="icon" title="우선순위 낮춤">/</a>
+                                <a><img src="./images/update.png" class="icon" title="수정">/</a>
+                                <a><img src="./images/delete.png" class="icon" title="삭제"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_bs">3</td>
+                            <td class="td_bs">영화</td>
+                            <td class="td_bs">코믹</td>
+                            <td class="td_bs">10</td>
+                            <td class="td_bs">2025-01-09</td>
+                            <td class="td_bs">
+                                <a><img src="./images/show.png" class="icon" title="출력">/</a>
+                                <a><img src="./images/hide.png" class="icon" title="숨김">/</a>
+                                <a><img src="./images/decrease.png" class="icon" title="우선순위 높임">/</a>
+                                <a><img src="./images/increase.png" class="icon" title="우선순위 낮춤">/</a>
+                                <a><img src="./images/update.png" class="icon" title="수정">/</a>
+                                <a><img src="./images/delete.png" class="icon" title="삭제"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="div_read" style="display: none;">
+                <div class="title_line">카테고리 조회</div>
+
+                <div class="container mt-3"> <!--/* mt-3: margin top 16px */-->
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">번호: <span>1</span></li>
+                        <li class="list-group-item">카테고리 그룹/장르/분류: <span>영화</span></li>
+                        <li class="list-group-item">카테고리: <span>스릴러</span></li>
+                        <li class="list-group-item">관련 자료수: <span>15</span></li>
+                        <li class="list-group-item">출력 순서: <span>1</span></li>
+                        <li class="list-group-item">출력 모드: <span>Y</span></li>
+                        <li class="list-group-item">등록일: <span>2025-04-03</span></li>
+                    </ul>
+                </div>
+
+                <div class="content_body_bottom">
+                    <button type="button" class="btn btn-secondary btn-sm">목록</button>
+                    <button type="button" class="btn btn-secondary btn-sm">수정</button>
+                    <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+                    <button type="button" class="btn btn-secondary btn-sm">등록</button>
+                </div>
+
+            </div>
+            
+            <div id="div_update" style="display: none;">
+                <div class="title_line">카테고리 수정</div>
+                <div style="width: 50%; margin: 0px auto;">
+                    <form name="frm" method="post" action="/cate/update">
+                        <div>
+                            <label>카테고리 그룹/장르/분류</label>
+                            <input type="text" name="grp" value="" autofocus="autofocus"
+                                class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div>
+                            <label>카테고리 이름</label>
+                            <input type="text" name="name" value="" autofocus="autofocus"
+                                class="form-control fom-control-sm" style="width: 100%;">
+                        </div>
+                        <div>
+                            <label>출력 순서</label>
+                            <input type="number" name="seqno" value="1" min="1" max="1000000" step="1"
+                                class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div>
+                            <label>출력 모드(Y/N)</label>
+                            <input type="text" name="visible" value="Y"
+                                class="form-control fom-control-sm" style="width: 50%;">
+                        </div>
+                        <div class="content_body_bottom">
+                            <button type="submit" class="btn btn-secondary btn-sm">저장</button>
+                            <button type="button" onclick="location.href='/cate/list_all'" class="btn btn-secondary btn-sm">취소</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="div_delete" style="display: none;">
+                <div class="title_line">카테고리 삭제</div>
+                <div style="width: 50%; margin: 0px auto;">
+                    <form name="frm" method="post" action="/cate/delete">
+                        <div class="msg_warning">
+                            카테고리를 삭제하면 복구 할 수 없습니다.<br>삭제하시려면 [삭제] 버튼을 클릭하세요.
+                        </div>
+                        <div style="width: 60%; margin: 0px auto; background-color: #DDDDDD;">
+                            <label>카테고리 그룹</label>: <span>영화</span> <br>
+                            <label>카테고리</label>: <span>스릴러</span><br>
+                        </div>
+
+                        <div class="content_body_bottom">
+                            <button type="submit" class="btn btn-secondary btn-sm">삭제</button>
+                            <button type="button" onclick="location.href='/cate/list_all'" class="btn btn-secondary btn-sm">목록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
