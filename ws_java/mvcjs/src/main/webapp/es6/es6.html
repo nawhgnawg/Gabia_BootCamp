@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" />
+    <title>http://localhost:9091/es6/ES6.html</title>
+
+    <link rel="shortcut icon" href="../images/star.png" />  <!-- /webapp/images -->
+    <link href="../css/style.css" rel="Stylesheet" type="text/css">  <!-- /webapp/css -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        function comma(su) {
+          return su.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // JAVA 에서 static final 의미 
+        const const1 = '서울';
+        console.log(const1);
+        // const1 = '인천';    // 값 변경 X
+
+        // 값 객체, JSON(Javascript Object Notation), Dictionary와 같음
+        // const 객체는 값 변경 가능
+        const const2 = {
+            "name": "왕눈이",
+            "age": 27,
+            "address": "korea"
+        }
+        console.log(const2);
+        console.log(const2.name);
+        const2.name = '아로미';
+        console.log(const2.name);
+
+        // 객체는 할당 할 수 없으나, 객체의 변수는 값을 새롭게 할당 할 수 있음.
+        // const const2 = {
+        //     "name": "왕눈이",
+        //     "age": 27,
+        //     "address": "korea"
+        // }
+
+        let msg = '성명: ' + const2.name + ' 근무 지역: ' + const2.address;
+        console.log(msg);
+
+        // 템플릿 문자열, 역따옴표, 배쿼트
+        msg = `성명: ${const2.name} 근무 지역: ${const2.address}`;
+        console.log(msg);
+
+        function getArea() {
+            return "강원도";
+        }
+
+        let sale = 1000;
+
+        msg = `판매 지역: ${getArea()}, 판매량(₩): ${comma(sale * 5)} 원 `;
+        console.log(msg)
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
