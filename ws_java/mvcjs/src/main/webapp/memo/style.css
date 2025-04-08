@@ -1,0 +1,22 @@
+.container_main {
+  border: solid 1px #ccc;
+  padding: 0px;
+  margin: 10px auto;
+  width: 90%;
+}
+
+/* li 태그의 자식 태그 div에 스타일 적용, '>' 생략 가능 */
+/* 태그 수평 출력, float 효과 적용 */
+li > div {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin-left: 16px;
+}
+
+.input_basic {
+  margin-left: 9px;
+  width: 60%;  
+}

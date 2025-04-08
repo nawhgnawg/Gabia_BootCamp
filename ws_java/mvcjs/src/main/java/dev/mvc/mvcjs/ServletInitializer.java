@@ -1,4 +1,4 @@
-package dev.boot.mvcjs;
+package dev.mvc.mvcjs;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
