@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
+
+<script type="text/javascript">
+  // html이 로딩되고나서 자동 실행되는 함수
+  window.onload = () => {
+    let div1 = document.getElementById('div1');
+    let img1 = document.querySelector('#div1 img')
+
+    // console.log(div1.getAttribute("data-width"));   // 100
+    img1.style.width = div1.getAttribute("data-width") + "px";
+    img1.title = div1.getAttribute("data-title");
+    
+    let div2 = document.getElementById('div2');
+    let img2 = document.querySelector('#div2 img')
+
+    img2.style.width = div2.getAttribute("data-width") + "px";
+    img2.title = div2.getAttribute("data-title");
+
+    let div3 = document.getElementById('div3');
+    let where = div3.getAttribute("data-where");
+    let date = div3.getAttribute("data-travel-date");
+
+    // JS로 div 태그 만들기
+    let div4 = document.createElement('div');
+    div4.innerHTML = `여행지: ${where}, 여행 날짜: ${date}`;
+    // document.querySelector('body').appendChild(div4); // 맨 뒤에 붙힘
+    document.querySelector('body').prepend(div4);   // 맨 앞에 붙힘
+
+    // 이미지를 누르면 숫자가 올라가도록
+    document.getElementById("good1").addEventListener('click', () => {add_count(event)});
+    document.getElementById("good2").addEventListener('click', () => {add_count(event)});
+    document.getElementById("good3").addEventListener('click', () => {add_count(event)});
+
+  }
+
+  function add_count(event) {
+    // console.log(event.target);    // <img id="good1" src="./images/good.png" style="width: 14px">
+    // console.log(event.target.nextElementSibling);  // good1_cnt, 바로 아래 형제 태그 검색
+    let span_cnt = event.target.nextElementSibling;
+    let cnt = parseInt(span_cnt.getAttribute("data-good"));
+    cnt += 1;
+    span_cnt.setAttribute('data-good', cnt);
+    span_cnt.innerHTML = cnt;
+
+    // 전체 조회수
+    let total = parseInt(document.querySelector("#good1_cnt").getAttribute('data-good')) 
+              + parseInt(document.querySelector("#good2_cnt").getAttribute('data-good'))
+              + parseInt(document.querySelector("#good3_cnt").getAttribute('data-good'));
+    document.querySelector("#total_cnt").innerHTML = total;
+    
+  }
+
+
+</script> 
+ 
+</head>
+<body>
+  <!-- 개발자가 태그의 속성을 필요한 만큼 추가가능, 형식: 접두사 'data-'로 시작해야함. -->
+  <div id='div1' data-width='100' data-title='나의 시골집'> 
+    <img src='./images/spring01.jpg'> <!-- static 폴더 기준 -->
+    <img id="good1" src='./images/good.png' style='width: 14px'>
+    <span id="good1_cnt" data-good='0'>0</span>
+  </div>
+  <div id='div2' data-width='200' data-title='스위스 풍경'>
+    <img src='./images/spring02.jpg'>
+    <img id="good2" src='./images/good.png' style='width: 14px'>
+    <span id="good2_cnt" data-good="0">0</span>
+  </div>
+  <div id='div3' data-where = '스위스' data-travel-date='2025-04-09'>
+    <img src='./images/spring03.jpg' style='width: 300px;' title="나의 여행 사진">
+    <img id="good3" src='./images/good.png' style='width: 14px'>
+    <span id="good3_cnt" data-good="0">0</span>
+  </div>
+
+  <div>전체 조회수: <span id="total_cnt">0</span></div>
+  
+</body>
+</html>

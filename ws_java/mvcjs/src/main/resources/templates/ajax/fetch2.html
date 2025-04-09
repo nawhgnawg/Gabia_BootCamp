@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" />
+    <title>http://localhost:9091/ajax/fetch2</title>
+
+    <link rel="shortcut icon" href="/images/star.png" />  <!-- /static/images/star/png -->
+    <link href="/css/style.css" rel="Stylesheet" type="text/css">  <!-- /static/css/style.css -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.onload = () => {
+            document.getElementById('btn_object1').addEventListener("click", object1);
+            document.getElementById('btn_array1').addEventListener("click", array1);
+            document.getElementById('btn_array2').addEventListener("click", array2);
+            // array3("micro")의 결과값을 넘겨주는거라 정상 작동이 되지 않음. 
+            // document.getElementById('btn_array3_micro').addEventListener("click", array3("micro"));      // X
+            document.getElementById('btn_array3_micro').addEventListener("click", () => array3("micro"));
+            document.getElementById('btn_array3_small').addEventListener("click", () => array3("small"));
+            document.getElementById('btn_array3_suv').addEventListener("click", () => array3("suv"));
+            document.getElementById('btn_array3').addEventListener("click", () => array3(""));
+        }
+
+        function comma(su) {
+            return su.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function object1() {
+            let panel2 = document.getElementById('panel2');
+            const url = '/ajax/object1';    // http://localhost:9091/ajax/object1
+            panel2.style.display = 'block';
+            
+            // 비동기 통신 : 요청 전송 -> 응답이 도착하면 관련 코드 실행
+            // JavaScript가 Spring Boot에 접속 요청, Get 방식으로 url에 접속
+            fetch(url, {
+                method : 'get',     // get 방식
+            })
+            .then((res) => res.json())   // 서버에서 응답이 오면 실행됨, 일반 텍스트 : res.text(), JSON : res.json()
+            .then((rdata) => {
+                console.log(rdata);
+                let tags = "";
+                tags += "<ul style='padding-left: 30px; text-align: left;'>";
+                tags += "  <li class='li_none'>no: " + rdata.no + "</li>";
+                tags += "  <li class='li_none'>name: " + rdata.name + "</li>";
+                tags += "  <li class='li_none'>price: " + comma(rdata.price) + "</li>";
+                tags += "  <li class='li_none'>grade: " + rdata.grade + "</li>";  
+                tags += "</ul>";
+
+                panel2.innerHTML = tags;
+            })
+            .catch (error => {
+                panel2.innerHTML = error;
+            }); 
+            
+            // 응답이 오기전에 실행
+            panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";  // static/images/progress.gif
+            panel2.style.textAlign = 'center';
+
+        }
+
+        function array1() {
+            let panel2 = document.getElementById('panel2');
+            const url = '/ajax/array1';    // http://localhost:9091/ajax/array1
+            panel2.style.display = 'block';
+            
+            // 비동기 통신 : 요청 전송 -> 응답이 도착하면 관련 코드 실행
+            // JavaScript가 Spring Boot에 접속 요청, Get 방식으로 url에 접속
+            fetch(url, {
+                method : 'get',     // get 방식
+            })
+            .then((res) => res.json())   // 서버에서 응답이 오면 실행됨, 일반 텍스트 : res.text(), JSON : res.json()
+            .then((rdata) => {
+                console.log(rdata);
+                let tags = "";
+                let msg = "";
+
+                // tags += "추천 차종: " + rdata[0] + ", " + rdata[1] + ", " + rdata[2];
+                for (let i = 0; i < rdata.length; i++) {
+                    msg += rdata[i];
+                    if (i < rdata.length - 1) {
+                        msg += ", ";
+                    }
+                }
+                tags += "추천 차종: " + msg;
+                
+                panel2.innerHTML = tags;
+            })
+            .catch (error => {
+                panel2.innerHTML = error;
+            }); 
+            
+            // 응답이 오기전에 실행
+            panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";  // static/images/progress.gif
+            panel2.style.textAlign = 'center';
+        }
+        
+        function array2() {
+            let panel2 = document.getElementById('panel2');
+            const url = '/ajax/array2';    // http://localhost:9091/ajax/array2
+            panel2.style.display = 'block';
+            
+            // 비동기 통신 : 요청 전송 -> 응답이 도착하면 관련 코드 실행
+            // JavaScript가 Spring Boot에 접속 요청, Get 방식으로 url에 접속
+            fetch(url, {
+                method : 'get',     // get 방식
+            })
+            .then((res) => res.json())   // 서버에서 응답이 오면 실행됨, 일반 텍스트 : res.text(), JSON : res.json()
+            .then((rdata) => {
+                console.log(rdata);
+                let tags = "<ul style='padding-left: 30px; text-align: left;'>";
+                for (let i = 0; i < rdata.length; i++) {
+                    tags += "  <li>no: " + rdata[i].no + "<br>";
+                    tags += "  name: " + rdata[i].name + "<br>";
+                    tags += "  price: " + comma(rdata[i].price) + "<br>";
+                    tags += "  grade: " + rdata[i].grade + "</li>";  
+                }
+                tags += "</ul>";
+
+                panel2.innerHTML = tags;
+            })
+            .catch (error => {
+                panel2.innerHTML = error;
+            }); 
+            
+            // 응답이 오기전에 실행
+            panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";  // static/images/progress.gif
+            panel2.style.textAlign = 'center';
+        }
+
+        function array3(part) {
+            let panel2 = document.getElementById('panel2');
+            const url = '/ajax/array3?part=' + part;    // http://localhost:9091/ajax/array3?part=part
+            panel2.style.display = 'block';
+            
+            // 비동기 통신 : 요청 전송 -> 응답이 도착하면 관련 코드 실행
+            // JavaScript가 Spring Boot에 접속 요청, Get 방식으로 url에 접속
+            fetch(url, {
+                method : 'get',     // get 방식
+            })
+            .then((res) => res.json())   // 서버에서 응답이 오면 실행됨, 일반 텍스트 : res.text(), JSON : res.json()
+            .then((rdata) => {
+                console.log(rdata);
+                let tags = "<ul style='padding-left: 30px; text-align: left;'>";
+                for (let i = 0; i < rdata.length; i++) {
+                    tags += "  <li>no: " + rdata[i].no + "<br>";
+                    tags += "  name: " + rdata[i].name + "<br>";
+                    tags += "  price: " + comma(rdata[i].price) + "<br>";
+                    tags += "  grade: " + rdata[i].grade + "</li>";  
+                }
+                tags += "</ul>";
+
+                panel2.innerHTML = tags;
+            })
+            .catch (error => {
+                panel2.innerHTML = error;
+            }); 
+            
+            // 응답이 오기전에 실행
+            panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";  // static/images/progress.gif
+            panel2.style.textAlign = 'center';
+        }
+
+    </script>
+</head>
+<body>
+<div id='panel1' style='margin: 10px auto; padding: 10px; border: solid 1px #00AA00; width: 50%; text-align: center;'>
+    Ajax + JSON library + Fetch test<br>
+    <button type="button" id="btn_object1" class="btn btn-primary btn-sm">object1</button>
+    <button type="button" id="btn_array1" class="btn btn-primary btn-sm">array1</button>
+    <button type="button" id="btn_array2" class="btn btn-primary btn-sm">array2</button>
+    <button type="button" id="btn_array3_micro" class="btn btn-primary btn-sm">경차</button>
+    <button type="button" id="btn_array3_small" class="btn btn-primary btn-sm">소형차</button>
+    <button type="button" id="btn_array3_suv" class="btn btn-primary btn-sm">SUV</button>
+    <button type="button" id="btn_array3" class="btn btn-primary btn-sm">기본 구입차량</button>
+</div>
+<div id='panel2' style='display: none; margin: 10px auto; padding: 10px; border: solid 1px #00AA00; width: 50%;'>
+</div>
+</body>
+
+</html>

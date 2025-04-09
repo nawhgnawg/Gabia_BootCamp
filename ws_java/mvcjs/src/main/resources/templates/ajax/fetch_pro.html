@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" /> 
+<title>http://localhost:9091/ajax/fetch_pro</title>
+
+<link rel="shortcut icon" href="/images/star.png" />  <!-- /static/images/star/png -->
+<link href="/css/style.css" rel="Stylesheet" type="text/css">  <!-- /static/css/style.css -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // JAVA: DecimalFormat
+  // Python: print(format(1500, ','))
+  function comma(su) {
+    // 정수가 4자리이상인 경우 오른쪽기준 숫자 3자리식 분리하여 ','를 포함하는 정규 표현식
+    // /: 정규 표현식 시작, \B: 중간 단어를 찾음, (?=): 일치하는 패턴을 찾음, (\d{3}): 연속 숫자 3개
+    // (\d{3})+: 연속 숫자 3개가 1번이상 등장하는 패턴 찾음
+    // (?!\d): 더이상 숫자가 없는 패턴, /g: 문자열 전체에서 해당 패턴을 모두 찾음
+    // 숫자를 3개씩 그룹화하면서 시작 숫자가 숫자들의 중간에 존재하면 ',' 출력
+    return su.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  window.onload = function() {
+    // alert(1);
+    // object1(); // 하나의 객체 읽기
+    // array1();  // 하나의 배열 읽기
+    // array2();  // 객체 배열 읽기
+    // array3('micro'); // 데이터 전송 -> 객체 배열 읽기
+    // array3('small');
+    // array3('suv');
+    
+    document.getElementById("btn_object1").addEventListener("click", object1); 
+    document.getElementById("btn_array1").addEventListener("click", array1);
+    document.getElementById("btn_array2").addEventListener("click", array2);
+    document.getElementById("btn_array3").addEventListener("click", () => array3('micro'));
+    // document.getElementById("btn_array3").addEventListener("click", () => {alert('테스트'); array3('micro')});
+  }
+
+  function object1() {
+    // alert(2);
+    let panel2 = document.getElementById('panel2');
+    const url = '/ajax/object1'; // http://localhost:9091/ajax/object1
+
+    // panel2.innerHTML = url;
+    panel2.style.display = ''; // show
+
+    // 비동기 처리 함수: 요청 -> 응답을 기다리는 동안 블럭을 패스하여 다음 코드를 실행 가능하게 함.
+    fetch(url, {
+      method: 'get', // post
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+      // body: JSON.stringify({
+      //   param1: param1,
+      //   param2: param2
+      // })
+    })
+    .then((res) => res.json()) // res.text()
+    .then((rdata) => {
+      // alert(4);
+      // console.log(rdata);
+      let tags = "";
+      tags += "<ul style='padding-left: 30px; text-align: left;'>";
+      tags += "  <li class='li_none'>no: " + rdata.no + "</li>";
+      tags += "  <li class='li_none'>name: " + rdata.name + "</li>";
+      tags += "  <li class='li_none'>price: " + comma(rdata.price) + "</li>";
+      tags += "  <li class='li_none'>grade: " + rdata.grade + "</li>";  
+      tags += "</ul>";
+      
+      panel2.innerHTML = tags;
+    })
+    .catch(error => {
+      panel2.innerHTML = error;
+    })
+    // alert(3);
+    panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";
+    panel2.style.textAlign = 'center';
+  }
+
+  function array1() {
+    // alert(2);
+    let panel2 = document.getElementById('panel2');
+    const url = '/ajax/array1'; // http://localhost:9091/ajax/array1
+
+    // panel2.innerHTML = url;
+    panel2.style.display = ''; // show
+
+    // 비동기 처리 함수: 요청 -> 응답을 기다리는 동안 블럭을 패스하여 다음 코드를 실행 가능하게 함.
+    fetch(url, {
+      method: 'get', // post
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+      // body: JSON.stringify({
+      //   param1: param1,
+      //   param2: param2
+      // })
+    })
+    .then((res) => res.json()) // res.text()
+    .then((rdata) => {
+      // alert(4);
+      // console.log(rdata);
+      let tags = "추천 차종: ";
+      for(let i=0; i<rdata.length; i++) {
+        tags += rdata[i];
+        if (i < rdata.length-1) {
+          tags += ", ";
+        }
+      }
+      
+      panel2.innerHTML = tags;
+    })
+    .catch(error => {
+      panel2.innerHTML = error;
+    })
+    // alert(3);
+    panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";
+    panel2.style.textAlign = 'center';
+  }
+
+  function array2() {
+    // alert(2);
+    let panel2 = document.getElementById('panel2');
+    const url = '/ajax/array2'; // http://localhost:9091/ajax/array2
+
+    // panel2.innerHTML = url;
+    panel2.style.display = ''; // show
+
+    // 비동기 처리 함수: 요청 -> 응답을 기다리는 동안 블럭을 패스하여 다음 코드를 실행 가능하게 함.
+    fetch(url, {
+      method: 'get', // post
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+      // body: JSON.stringify({
+      //   param1: param1,
+      //   param2: param2
+      // })
+    })
+    .then((res) => res.json()) // res.text()
+    .then((rdata) => {
+      let tags = "";
+      tags += "<ul style='padding-left: 30px; text-align: left;'>";
+
+      for (let i=0; i<rdata.length; i++) {
+        tags += "<li>";
+        tags += "no: " + rdata[i].no + "<br>";
+        tags += "name: " + rdata[i].name + "<br>";
+        tags += "price: " + comma(rdata[i].price) + "<br>";
+        tags += "grade: " + rdata[i].grade + "<br>";  
+        tags += "</li>";    
+      }  
+
+      tags += "</ul>";
+      
+      panel2.innerHTML = tags;
+    })
+    .catch(error => {
+      panel2.innerHTML = error;
+    })
+    // alert(3);
+    panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";
+    panel2.style.textAlign = 'center';
+  }
+
+  function array3(part) {
+    // alert('micro');
+    let panel2 = document.getElementById('panel2');
+    const url = '/ajax/array3?part=' + part; // http://localhost:9091/ajax/array3
+
+    // panel2.innerHTML = url;
+    panel2.style.display = ''; // show
+
+    // 비동기 처리 함수: 요청 -> 응답을 기다리는 동안 블럭을 패스하여 다음 코드를 실행 가능하게 함.
+    fetch(url, {
+      method: 'get', // post
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+      // body: JSON.stringify({
+      //   param1: param1,
+      //   param2: param2
+      // })
+    })
+    .then((res) => res.json()) // res.text()
+    .then((rdata) => {
+      let tags = "";
+      tags += "<ul style='padding-left: 30px; text-align: left;'>";
+
+      for (let i=0; i<rdata.length; i++) {
+        tags += "<li>";
+        tags += "no: " + rdata[i].no + "<br>";
+        tags += "name: " + rdata[i].name + "<br>";
+        tags += "price: " + comma(rdata[i].price) + "<br>";
+        tags += "grade: " + rdata[i].grade + "<br>";  
+        tags += "</li>";    
+      }  
+
+      tags += "</ul>";
+      
+      panel2.innerHTML = tags;
+    })
+    .catch(error => {
+      panel2.innerHTML = error;
+    })
+    // alert(3);
+    panel2.innerHTML = "<img src='/images/progress.gif' style='width: 10%;'>";
+    panel2.style.textAlign = 'center';
+  }
+
+</script>
+</head> 
+<body>
+  <div id='panel1' style='margin: 10px auto; padding: 10px; border: solid 1px #00AA00; width: 50%; text-align: center;'>
+    Ajax + JSON library + Fetch test<br>
+    <button type="button" id="btn_object1" class="btn btn-primary btn-sm">object1</button>   
+    <button type="button" id="btn_array1" class="btn btn-primary btn-sm">array1</button>   
+    <button type="button" id="btn_array2" class="btn btn-primary btn-sm">array2</button>   
+    <button type="button" id="btn_array3" class="btn btn-primary btn-sm">micro</button>   
+  </div>
+  <div id='panel2' style='display: none; margin: 10px auto; padding: 10px; border: solid 1px #00AA00; width: 50%;'>
+  </div>
+</body>
+ 
+</html>
