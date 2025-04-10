@@ -5,6 +5,7 @@ import dev.mvc.category.CategoryVOMenu;
 import dev.mvc.tool.Tool;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,30 @@ public class UserCont {
     private CategoryProc categoryProc;
 
     /**
+     * 회원 중복
+     * @param useremail
+     * @return
+     */
+    @GetMapping("/checkID") // http://localhost:9092/bloguser/checkID?useremail=admin
+    @ResponseBody
+    public String checkID(@RequestParam(name="useremail", defaultValue = "") String useremail) {
+        System.out.println("-> useremail: " + useremail);
+        int cnt = userProc.checkID(useremail);
+
+        JSONObject obj = new JSONObject();
+        obj.put("cnt", cnt);
+
+        return obj.toString();
+    }
+
+    /**
      * 회원 등록 폼 (GET)
      * http://loacalhost:9092/bloguser/create
      */
     @GetMapping("/create")
-    public String create(@ModelAttribute("userVO") UserVO userVO) {
+    public String create_form(Model model, @ModelAttribute("userVO") UserVO userVO) {
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
         return "/bloguser/create";
     }
 
@@ -38,65 +58,56 @@ public class UserCont {
      * http://loacalhost:9092/bloguser/create
      */
     @PostMapping("/create")
-    public String create(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/bloguser/create";
-        }
-        int cnt = userProc.create(userVO);
+    public String create_proc(Model model, @ModelAttribute("userVO") UserVO userVO) {
+        int checkID_cnt = userProc.checkID(userVO.getUseremail());
+        System.out.println(checkID_cnt);
+        if (checkID_cnt == 0) {
+            userVO.setUsergrade(1); // 기본 회원 1
+            int cnt = userProc.create(userVO);
 
-        if (cnt == 1) {
-            return "redirect:/bloguser/list_all";
-        } else {
-            model.addAttribute("code", Tool.CREATE_FAIL);
-        }
-        model.addAttribute("cnt", cnt);
+            if (cnt == 1) {
+                model.addAttribute("code", "create_success");
+                model.addAttribute("username", userVO.getUsername());
+                model.addAttribute("useremail", userVO.getUseremail());
+            } else {
+                model.addAttribute("code", "create_fail");
+            }
 
-        return "/bloguser/msg";
+            model.addAttribute("cnt", cnt);
+        } else { // id 중복
+            model.addAttribute("code", "duplicte_fail");
+            model.addAttribute("cnt", 0);
+        }
+
+        return "bloguser/msg"; // /templates/bloguser/msg.html
     }
 
     /**
      * 회원 전체 조회
-     * http://loacalhost:9092/bloguser/list_all
+     * http://loacalhost:9092/bloguser/list
      */
-    @GetMapping("/list_all")
-    public String list_all(Model model, @ModelAttribute("userVO") UserVO userVO) {
+    @GetMapping("/list")
+    public String list(Model model) {
         ArrayList<UserVO> list = userProc.list_all();
+
         model.addAttribute("list", list);
 
-        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
-        model.addAttribute("menu", menu);
-
-        return "/bloguser/list_all";
+        return "bloguser/list_all";  // /templates/bloguser/list.html
     }
 
     /**
      * 단일 회원 조회
-     * http://loacalhost:9092/bloguser/read/1
+     * http://loacalhost:9092/bloguser/read
      */
-    @GetMapping("/read/{userno}")
-    public String read(Model model, @PathVariable("userno") int userno) {
+    @GetMapping("/read")
+    public String read(Model model, @RequestParam(name="userno", defaultValue = "") int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
 
-        ArrayList<UserVO> list = userProc.list_all();
-        model.addAttribute("list", list);
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
 
         return "/bloguser/read";
-    }
-
-    /**
-     * 회원 수정 폼 (GET)
-     * http://loacalhost:9092/bloguser/update/1
-     */
-    @GetMapping("/update/{userno}")
-    public String update(Model model, @PathVariable("userno") int userno) {
-        UserVO userVO = userProc.read(userno);
-        model.addAttribute("userVO", userVO);
-
-        ArrayList<UserVO> list = userProc.list_all();
-        model.addAttribute("list", list);
-
-        return "/bloguser/update";
     }
 
     /**
@@ -104,55 +115,40 @@ public class UserCont {
      * http://loacalhost:9092/bloguser/update/1
      */
     @PostMapping("/update")
-    public String update(Model model, @Valid UserVO userVO, BindingResult bindingResult) {
+    public String update(Model model, @ModelAttribute("userVO") UserVO userVO) {
 
-        if (bindingResult.hasErrors()) {
-            ArrayList<UserVO> list = userProc.list_all();
-            model.addAttribute("list", list);
-            return "/bloguser/update";
-        }
         int cnt = userProc.update(userVO);
 
         if (cnt == 1) {
-            return "redirect:/bloguser/update/" + userVO.getUserno();
+            model.addAttribute("code", "update_success");
+            model.addAttribute("username", userVO.getUsername());
+            model.addAttribute("id", userVO.getUseremail());
         } else {
-            model.addAttribute("code", Tool.UPDATE_FAIL);
+            model.addAttribute("code", "update_fail");
         }
-        model.addAttribute("username", userVO.getUsername());
-        model.addAttribute("useremail", userVO.getUseremail());
         model.addAttribute("cnt", cnt);
 
         return "/bloguser/msg";
     }
 
-    @GetMapping("/delete/{userno}")
-    public String delete(Model model, @PathVariable("userno") int userno) {
+    @GetMapping("/delete")
+    public String delete(Model model, int userno) {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
-
-        ArrayList<UserVO> list = userProc.list_all();
-        model.addAttribute("list", list);
 
         return "/bloguser/delete";
     }
 
-    @PostMapping("/delete/{userno}")
-    public String delete_process(Model model, @PathVariable("userno") int userno) {
-        UserVO userVO = userProc.read(userno);
-        model.addAttribute("userVO", userVO);
-
+    @PostMapping("/delete")
+    public String delete_process(Model model, int userno) {
         int cnt = userProc.delete(userno);
 
         if (cnt == 1) {
-            return "redirect:/bloguser/list_all";
+            return "redirect:/bloguser/list";
         } else {
-            model.addAttribute("code", Tool.DELETE_FAIL);
+            model.addAttribute("code", "delete_fail");
+            return "bloguser/msg";
         }
-        model.addAttribute("username", userVO.getUsername());
-        model.addAttribute("useremail", userVO.getUseremail());
-        model.addAttribute("cnt", cnt);
-
-        return "/bloguser/msg";
     }
 
     @GetMapping("/update_grade_forward/{userno}")
@@ -165,20 +161,6 @@ public class UserCont {
     @GetMapping("/update_grade_backward/{userno}")
     public String update_grade_backward(Model model, @PathVariable("userno") int userno) {
         userProc.update_grade_backward(userno);
-
-        return "redirect:/bloguser/list_all";
-    }
-
-    @GetMapping("/update_visible_y/{userno}")
-    public String update_visible_y(Model model, @PathVariable("userno") int userno) {
-        userProc.update_visible_y(userno);
-
-        return "redirect:/bloguser/list_all";
-    }
-
-    @GetMapping("/update_visible_n/{userno}")
-    public String update_visible_n(Model model, @PathVariable("userno") int userno) {
-        userProc.update_visible_n(userno);
 
         return "redirect:/bloguser/list_all";
     }

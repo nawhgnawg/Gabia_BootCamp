@@ -53,6 +53,11 @@ public interface UserDAOInter {
     public int delete(int userno);
 
     /**
+     * 로그인 처리
+     */
+    public int login(HashMap<String, Object> map);
+
+    /**
      * 현재 패스워드 검사
      * @param map
      * @return 0: 일치하지 않음, 1: 일치함
@@ -66,18 +71,9 @@ public interface UserDAOInter {
      */
     public int passwd_update(HashMap<String, Object> map);
 
-    /**
-     * 로그인 처리
-     */
-    public int login(HashMap<String, Object> map);
-
     public int update_grade_forward(int userno);
 
     public int update_grade_backward(int userno);
-
-    public int update_visible_y(int userno);
-
-    public int update_visible_n(int userno);
 
     public ArrayList<UserVO> list_search_user(String word);
 

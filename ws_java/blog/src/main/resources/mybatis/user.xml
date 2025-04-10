@@ -14,35 +14,35 @@
 
     <!-- 회원 가입 -->
     <insert id="create" parameterType="dev.mvc.bloguser.UserVO">
-        INSERT INTO bloguser(userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate)
-        VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{usergrade}, #{usersex}, #{userage}, #{visible}, SYSDATE)
+        INSERT INTO bloguser(userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate)
+        VALUES(BLOGUSER_SEQ.nextval, #{username}, #{useremail}, #{userpassword}, #{zipcode}, #{address1}, #{address2}, #{usergrade}, SYSDATE)
     </insert>
 
     <!-- 목록 -->
     <select id="list_all" resultType="dev.mvc.bloguser.UserVO">
-        SELECT userno, username, useremail, userpassword, usergrade, usersex, userage, visible, rdate
+        SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate
         FROM bloguser
         ORDER BY usergrade ASC, useremail ASC
     </select>
 
     <!-- memberno로 회원 정보 조회 -->
     <select id="read" resultType="dev.mvc.bloguser.UserVO" parameterType="int">
-        SELECT userno, username, useremail, userpassword, usergrade, visible, usersex, userage, rdate
+        SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate
         FROM bloguser
         WHERE userno = #{userno}
     </select>
 
     <!-- id(이메일)로 회원 정보 조회 -->
     <select id="readByEmail" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
-        SELECT memberno, id, passwd, mname, tel, zipcode, address1, address2, mdate, grade
+        SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate
         FROM bloguser
-        WHERE id = #{id}
+        WHERE useremail = #{useremail}
     </select>
 
     <!-- 수정 -->
     <update id="update" parameterType="dev.mvc.bloguser.UserVO">
         UPDATE bloguser
-        SET username = #{username}, useremail = #{useremail}, visible = #{visible}
+        SET username = #{username}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}
         WHERE userno = #{userno}
     </update>
 
@@ -88,21 +88,9 @@
         SET usergrade = usergrade - 1
         WHERE userno = #{userno}
     </update>
-    <!-- 회원 공개 -->
-    <update id="update_visible_y" parameterType="int">
-        UPDATE bloguser
-        SET visible = 'Y'
-        WHERE userno = #{userno}
-    </update>
-    <!-- 회원 비공개 -->
-    <update id="update_visible_n" parameterType="int">
-        UPDATE bloguser
-        SET visible = 'N'
-        WHERE userno = #{userno}
-    </update>
     <!-- 회원 검색 -->
     <select id="list_search_user" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
-        SELECT userno, username, useremail, usergrade, usersex, userage, visible, rdate
+        SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate
         FROM bloguser
         <if test="word != null and word != ''">     <!-- 검색 상태라면 WHERE 생성 -->
             WHERE (UPPER(username) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(useremail) LIKE '%' || UPPER(#{word}) || '%')

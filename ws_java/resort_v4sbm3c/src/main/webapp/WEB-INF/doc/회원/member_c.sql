@@ -148,4 +148,14 @@ UPDATE member
 SET passwd='0000'
 WHERE memberno=1;
 
+8. 회원 등급 변경
+-- 정지 회원
+UPDATE member
+SET grade = 30
+WHERE id = 'user2@gmail.com';
+-- 탈퇴 회원
+UPDATE member
+SET grade = 40
+WHERE id = 'user4@gmail.com';
+
 COMMIT;

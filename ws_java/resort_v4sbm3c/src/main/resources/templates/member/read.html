@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 
-<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
-<div layout:fragment="content">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
 
+<div layout:fragment="content">
     <script>
         window.onload = () => {
-          document.querySelector('#username').addEventListener('keypress', (event) => {
-          // document.getElementById('userpassword').addEventListener('keypress', (event) => {
+          document.querySelector('#mname').addEventListener('keypress', (event) => {
+          // document.getElementById('passwd').addEventListener('keypress', (event) => {
+            if(event.key === 'Enter') {
+              document.getElementById('tel').focus();
+            }
+          });
+
+          document.querySelector('#tel').addEventListener('keypress', (event) => {
+          // document.getElementById('passwd').addEventListener('keypress', (event) => {
             if(event.key === 'Enter') {
               document.getElementById('btn_DaumPostcode').focus();
             }
           });
 
           document.querySelector('#address2').addEventListener('keypress', (event) => {
-          // document.getElementById('userpassword').addEventListener('keypress', (event) => {
+          // document.getElementById('passwd').addEventListener('keypress', (event) => {
             if(event.key === 'Enter') {
               document.getElementById('btn_send').focus();
             }
@@ -22,13 +29,13 @@
         }
 
         function send() { // 회원 가입 처리
-          let username = document.getElementById('username');
-          let username_msg = document.getElementById('username_msg');
+          let mname = document.getElementById('mname');
+          let mname_msg = document.getElementById('mname_msg');
 
-          if (username.value.length == 0) {
-            username_msg.innerHTML= '이름 입력은 필수입니다.';
-            username_msg.classList.add('span_warning');    // class 적용
-            username.focus();
+          if (mname.value.length == 0) {
+            mname_msg.innerHTML= '이름 입력은 필수입니다.';
+            mname_msg.classList.add('span_warning');    // class 적용
+            mname.focus();
 
             return false;  // 회원 가입 진행 중지
           }
@@ -37,7 +44,7 @@
         }
     </script>
 
-    <div class="title_line">회원 정보 조회 및 수정(*: 필수) > <span th:text="@{|${userVO.username} (${userVO.useremail})|}"></span></div>
+    <div class="title_line">회원 정보 조회 및 수정(*: 필수) > <span th:text="@{|${memberVO.mname} (${memberVO.id})|}"></span></div>
     <aside class="aside_right">
         <a href="javascript:location.reload();">새로고침</a>
         <span class='menu_divide' >│</span>
@@ -46,22 +53,29 @@
         <a href='./list'>목록</a>
     </aside>
 
-    <div class="menu_line"></div>
+    <div class='menu_line'></div>
 
     <div style="width: 60%; margin: 0px auto ">
-        <form name="frm" id="frm" th:object="${userVO}" method="post" action="/bloguser/update">
-            <input type="hidden" name="userno" th:value="${userVO.userno}">
+        <form name="frm" id="frm" th:object="${memberVO}" method="post" action="/member/update">
+            <input type="hidden" name="memberno" th:value="${memberVO.memberno}">
 
             <div class="form-group">
-                <label for="username">성명*</label>
-                <input type='text' name='username' id='username' th:value='${userVO.username}' required="required"
+                <label for="mname">성명*</label>
+                <input type='text' name='mname' id='mname' th:value='${memberVO.mname}' required="required"
                        placeholder="성명" class="form-control form-control-sm" style="width: 30%;">
                 <span id='mname_msg'></span>
             </div>
 
             <div class="form-group">
+                <label for="tel">전화 번호</label>
+                <input type='text' name='tel' id='tel' th:value='${memberVO.tel}' required="required"
+                       placeholder="전화번호" class="form-control form-control-sm" style="width: 30%;">
+                예) 010-0000-0000
+            </div>
+
+            <div class="form-group">
                 <label for="zipcode">우편 번호</label>
-                <input type='text' name='zipcode' id='zipcode' th:value='${userVO.zipcode}' placeholder="우편번호"
+                <input type='text' name='zipcode' id='zipcode' th:value='${memberVO.zipcode}' placeholder="우편번호"
                        class="form-control form-control-sm" style="width: 30%;">
                 <button type="button" id="btn_DaumPostcode" onclick="DaumPostcode()"
                         class="btn btn-primary btn-sm" style="margin-top: 4px;">우편번호 찾기</button>
@@ -69,13 +83,13 @@
 
             <div class="form-group">
                 <label for="address1" style="width: 100%;">주소</label>
-                <input type='text' name='address1' id='address1' th:value='${userVO.address1}' placeholder="주소"
+                <input type='text' name='address1' id='address1' th:value='${memberVO.address1}' placeholder="주소"
                        class="form-control form-control-sm">
             </div>
 
             <div class="form-group">
                 <label for="address2" style="width: 100%;">상세 주소</label>
-                <input type='text' name='address2' id='address2' th:value='${userVO.address2}' placeholder="상세 주소"
+                <input type='text' name='address2' id='address2' th:value='${memberVO.address2}' placeholder="상세 주소"
                        class="form-control form-control-sm">
             </div>
 
@@ -173,6 +187,7 @@
                 <button type="button" onclick="send();" class="btn btn-secondary btn-sm">저장</button>
                 <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm">취소</button>
             </div>
+
 
         </form>
     </div>

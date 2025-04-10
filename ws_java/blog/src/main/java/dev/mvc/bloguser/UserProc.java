@@ -114,16 +114,6 @@ public class UserProc implements UserProcInter{
     }
 
     @Override
-    public int update_visible_y(int userno) {
-        return userDAO.update_visible_y(userno);
-    }
-
-    @Override
-    public int update_visible_n(int userno) {
-        return userDAO.update_visible_n(userno);
-    }
-
-    @Override
     public ArrayList<UserVO> list_search_user(String word) {
         return userDAO.list_search_user(word);
     }
