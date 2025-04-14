@@ -43,6 +43,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/org.json/json
 	implementation("org.json:json:20231013")
+
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	implementation 'commons-codec:commons-codec:1.16.0'
 }
 
 tasks.named('test') {

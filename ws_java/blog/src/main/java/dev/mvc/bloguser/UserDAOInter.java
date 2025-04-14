@@ -71,10 +71,5 @@ public interface UserDAOInter {
      */
     public int passwd_update(HashMap<String, Object> map);
 
-    public int update_grade_forward(int userno);
-
-    public int update_grade_backward(int userno);
-
-    public ArrayList<UserVO> list_search_user(String word);
 
 }

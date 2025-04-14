@@ -72,31 +72,6 @@
         SET userpassword = #{userpassword}
         WHERE userno = #{userno}
     </update>
-    <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-
-
-    <!-- 부가 기능 -->
-    <!-- 회원 등급 상승, 1 -> 5 -->
-    <update id="update_grade_forward" parameterType="int">
-        UPDATE bloguser
-        SET usergrade = usergrade + 1
-        WHERE userno = #{userno}
-    </update>
-    <!-- 회원 등급 낮춤, 5 -> 1 -->
-    <update id="update_grade_backward" parameterType="int">
-        UPDATE bloguser
-        SET usergrade = usergrade - 1
-        WHERE userno = #{userno}
-    </update>
-    <!-- 회원 검색 -->
-    <select id="list_search_user" resultType="dev.mvc.bloguser.UserVO" parameterType="String">
-        SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate
-        FROM bloguser
-        <if test="word != null and word != ''">     <!-- 검색 상태라면 WHERE 생성 -->
-            WHERE (UPPER(username) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(useremail) LIKE '%' || UPPER(#{word}) || '%')
-        </if>
-        ORDER BY userno ASC
-    </select>
 
 
 </mapper>

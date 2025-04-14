@@ -14,8 +14,8 @@
             <!-- 메뉴 시작 -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown" th:each="categoryVOMenu:${menu}"> <!--/* 대분류 */-->
 
+                    <li class="nav-item dropdown" th:each="categoryVOMenu:${menu}"> <!--/* 대분류 */-->
                         <!--/* 대분류명(카테고리 그룹) 출력, private String usersex; */-->
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                            role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${categoryVOMenu.categoryGrp}">
@@ -26,15 +26,24 @@
                             <li th:each="categoryVO:${categoryVOMenu.list_categoryName}"><a class="dropdown-item" href="#" th:text="${categoryVO.categoryName}"></a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{|/category/list_search?word=${word}&now_page=${now_page}|}">카테고리 목록</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{|/bloguser/create|}">회원 가입</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${session.usergrade == 'admin'}">
+                        <a class="nav-link" th:href="@{|/category/list_search|}">카테고리 목록</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.usergrade == 'admin'}">
                         <a class="nav-link" th:href="@{|/bloguser/list|}">회원 목록</a>
                     </li>
+                    <li class="nav-item" th:if="${session.userno != null}">
+                        <a class="nav-link" href="/bloguser/passwd_update">비밀 번호 변경</a>
+                    </li>
+                    <li class="nav-item">
+                        <span th:if="${session.userno == null}"><a class="nav-link" href="/bloguser/login" th:text="로그인"></a></span>
+                        <span th:if="${session.userno != null}"><a class="nav-link" href="/bloguser/logout" th:text="|${session.useremail} 로그아웃|"></a></span>
+                    </li>
+
                 </ul>
             </div>
             <!-- 메뉴 종료 -->

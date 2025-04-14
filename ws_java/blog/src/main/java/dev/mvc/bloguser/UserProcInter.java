@@ -31,7 +31,7 @@ public interface UserProcInter {
     public boolean isMember(HttpSession session);
 
     /** 로그인된 회원 관리자 계정인지 검사합니다. */
-    public boolean isMemberAdmin(HttpSession session);
+    public boolean isAdmin(HttpSession session);
 
     /** 등록 */
     public int create(UserVO userVO);
@@ -43,11 +43,6 @@ public interface UserProcInter {
     public int update(UserVO userVO);
     /** 삭제 */
     public int delete(int userno);
-    /** 등급 높임 */
-    public int update_grade_forward(int userno);
-    /** 등급 낮춤 */
-    public int update_grade_backward(int userno);
 
-    public ArrayList<UserVO> list_search_user(String word);
 }
 

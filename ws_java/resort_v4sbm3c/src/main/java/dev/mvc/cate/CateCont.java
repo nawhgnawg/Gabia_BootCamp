@@ -1,6 +1,9 @@
 package dev.mvc.cate;
 
+import dev.mvc.member.MemberProc;
+import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,9 @@ public class CateCont {
     @Autowired
     @Qualifier("dev.mvc.cate.CateProc")
     private CateProcInter cateProc;
+
+    @Autowired
+    private MemberProc memberProc;
 
     /** 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작 */
     public int record_per_page = 3;
@@ -418,43 +424,51 @@ public class CateCont {
      * @return
      */
     @GetMapping("/list_search")
-    public String list_search_paging(Model model,
+    public String list_search_paging(HttpSession session,
+                                     Model model,
                                      @RequestParam(name="word", defaultValue = "") String word,
                                      @RequestParam(name="now_page", defaultValue="1") int now_page) {
-        CateVO cateVO = new CateVO();
-        model.addAttribute("cateVO", cateVO);
 
-        ArrayList<CateVOMenu> menu = cateProc.menu();
-        model.addAttribute("menu", menu);
+        if (memberProc.isAdmin(session)) {
+            CateVO cateVO = new CateVO();
+            model.addAttribute("cateVO", cateVO);
 
-        // 카테고리 그룹 목록
-        ArrayList<String> grpset = cateProc.grpset();
-        String joinGrpSet = String.join("/", grpset);
-        model.addAttribute("grpset", joinGrpSet);
+            ArrayList<CateVOMenu> menu = cateProc.menu();
+            model.addAttribute("menu", menu);
 
-        word = Tool.checkNull(word);
+            // 카테고리 그룹 목록
+            ArrayList<String> grpset = cateProc.grpset();
+            String joinGrpSet = String.join("/", grpset);
+            model.addAttribute("grpset", joinGrpSet);
 
-        ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
-        model.addAttribute("list", list);
+            word = Tool.checkNull(word);
 
-        int search_cnt = cateProc.list_search_count(word);
-        model.addAttribute("search_cnt", search_cnt);
 
-        model.addAttribute("word", word); // 검색어
+            ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
+            model.addAttribute("list", list);
 
-        // --------------------------------------------------------------------------------------
-        // 페이지 번호 목록 생성
-        // --------------------------------------------------------------------------------------
-        int search_count = cateProc.list_search_count(word);
-        String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
-        model.addAttribute("paging", paging);
-        model.addAttribute("now_page", now_page);
+            int search_cnt = cateProc.list_search_count(word);
+            model.addAttribute("search_cnt", search_cnt);
 
-        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)   7 - ((1 - 1) * 3) -
+            model.addAttribute("word", word); // 검색어
 
-        int no = search_count - ((now_page - 1) * record_per_page);
-        model.addAttribute("no", no);
+            // --------------------------------------------------------------------------------------
+            // 페이지 번호 목록 생성
+            // --------------------------------------------------------------------------------------
+            int search_count = cateProc.list_search_count(word);
+            String paging = cateProc.pagingBox(now_page, word, list_file_name, search_count, record_per_page, page_per_block);
+            model.addAttribute("paging", paging);
+            model.addAttribute("now_page", now_page);
 
-        return "/cate/list_search";  // /templates/cate/list_search.html
+            // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+
+            int no = search_count - ((now_page - 1) * record_per_page);
+            model.addAttribute("no", no);
+
+            return "/cate/list_search";  // /templates/cate/list_search.html
+        } else {
+            return "redirect:/member/login_cookie_need?url=/cate/list_search";
+        }
+
     }
 }
