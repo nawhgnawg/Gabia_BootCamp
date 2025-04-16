@@ -292,6 +292,7 @@ public class Tool {
      * @param request
      * @param dir 절대 경로를 구할 폴더명
      * @return 절대 경로 리턴
+     * @throws IOException
      */
     public static synchronized String getRealPath(HttpServletRequest request, String dir) {
         String path = "";
@@ -480,4 +481,6 @@ public class Tool {
 
         return path;
     }
+
+
 }
