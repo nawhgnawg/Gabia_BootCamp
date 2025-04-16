@@ -76,8 +76,7 @@ public class ContentsCont {
      * @return
      */
     @PostMapping(value = "/create")
-    public String create(HttpServletRequest request,
-                         HttpSession session,
+    public String create(HttpSession session,
                          Model model,
                          @ModelAttribute("contentsVO") ContentsVO contentsVO,
                          RedirectAttributes ra) {
@@ -119,7 +118,7 @@ public class ContentsCont {
                     contentsVO.setSize1(size1); // 파일 크기
 
                 } else { // 전송 못하는 파일 형식
-                    ra.addFlashAttribute("code", "check_upload_file_fail"); // 업로드 할 수 없는 파일
+                    ra.addFlashAttribute("code", Tool.UPLOAD_FILE_CHECK_FAIL); // 업로드 할 수 없는 파일
                     ra.addFlashAttribute("cnt", 0); // 업로드 실패
                     ra.addFlashAttribute("url", "/contents/msg"); // msg.html, redirect parameter 적용
                     return "redirect:/contents/msg"; // Post -> Get - param...
@@ -161,19 +160,21 @@ public class ContentsCont {
                 // ra.addFlashAttribute("cateno", contentsVO.getCateno()); // controller ->
                 // controller: X
 
+//                return "redirect:/contents/list_all";
                 ra.addAttribute("cateno", contentsVO.getCateno()); // controller -> controller: O
                 return "redirect:/contents/list_by_cateno";
 
                 // return "redirect:/contents/list_by_cateno?cateno=" + contentsVO.getCateno();
                 // // /templates/contents/list_by_cateno.html
             } else {
-                ra.addFlashAttribute("code", "create_fail"); // DBMS 등록 실패
+                ra.addFlashAttribute("code", Tool.CREATE_FAIL); // DBMS 등록 실패
                 ra.addFlashAttribute("cnt", 0); // 업로드 실패
                 ra.addFlashAttribute("url", "/contents/msg"); // msg.html, redirect parameter 적용
                 return "redirect:/contents/msg"; // Post -> Get - param...
             }
         } else { // 로그인 실패 한 경우
-            return "redirect:/member/login_cookie_need"; // /member/login_cookie_need.html
+            // /member/login_cookie_need?url=/contents/create?cateno=1
+            return "redirect:/member/login_cookie_need?url=/contents/create?cateno=" + contentsVO.getCateno();
         }
     }
 
@@ -215,28 +216,29 @@ public class ContentsCont {
 
     }
 
-//  /**
-//   * 유형 1
-//   * 카테고리별 목록
-//   * http://localhost:9091/contents/list_by_cateno?cateno=5
-//   * http://localhost:9091/contents/list_by_cateno?cateno=6
-//   * @return
-//   */
-//  @GetMapping(value="/list_by_cateno")
-//  public String list_by_cateno(HttpSession session, Model model, int cateno) {
-//    ArrayList<CateVOMenu> menu = cateProc.menu();
-//    model.addAttribute("menu", menu);
-//
-//     CateVO cateVO = cateProc.read(cateno);
-//     model.addAttribute("cateVO", cateVO);
-//
-//    ArrayList<ContentsVO> list = contentsProc.list_by_cateno(cateno);
-//    model.addAttribute("list", list);
-//
-//    // System.out.println("-> size: " + list.size());
-//
-//    return "contents/list_by_cateno";
-//  }
+  /**
+   * 유형 1
+   * 카테고리별 목록
+   * http://localhost:9091/contents/list_by_cateno?cateno=5
+   * http://localhost:9091/contents/list_by_cateno?cateno=6
+   * @return
+   */
+  @GetMapping(value="/list_by_cateno")
+  public String list_by_cateno(HttpSession session, Model model,
+                               @RequestParam(name = "cateno", defaultValue = "") int cateno) {
+    ArrayList<CateVOMenu> menu = cateProc.menu();
+    model.addAttribute("menu", menu);
+
+     CateVO cateVO = cateProc.read(cateno);
+     model.addAttribute("cateVO", cateVO);
+
+    ArrayList<ContentsVO> list = contentsProc.list_by_cateno(cateno);
+    model.addAttribute("list", list);
+
+    // System.out.println("-> size: " + list.size());
+
+    return "contents/list_by_cateno";   // templates/contents/list_by_cateno.html
+  }
 
 //  /**
 //   * 유형 2

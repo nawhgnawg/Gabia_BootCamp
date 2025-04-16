@@ -76,8 +76,8 @@ VALUES(contents_seq.nextval, 9999, 100, '청계천 매화 거리', '제기동역
 -- 등록 (admin, 개발[java])
 INSERT INTO contents(contentsno, userno, categoryno, title, content, recom, cnt, replycnt, passwd,
                      word, rdate, file1, file1saved, thumb1, size1)
-VALUES(contents_seq.nextval, 10, 30, '청계천 매화 거리', '제기동역에서 가까움 명품 산책로', 0, 0, 0, '123',
-       '산책', sysdate, 'space.jpg', 'space_1.jpg', 'space_t.jpg', 1000);
+VALUES(contents_seq.nextval, 1, 1, '잡채밥', '잡채밥 레시피', 0, 0, 0, '123',
+       '잡채', sysdate, 'space.jpg', 'space_1.jpg', 'space_t.jpg', 1000);
 
 
 -- 유형 1 전체 목록

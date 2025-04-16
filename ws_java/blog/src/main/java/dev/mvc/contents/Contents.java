@@ -15,7 +15,7 @@ public class Contents {
             path = "C:\\kd\\deploy\\resort\\contents\\storage\\";
             // System.out.println("Windows: " + path);
         } else if (osName.contains("mac")) { // MacOS
-            path = "/Users/yourusername/deploy/resort/contents/storage/";
+            path = "/Users/imgwanghwan/kd/deploy_blog/blog/contents/storage/";
             // System.out.println("MacOS: " + path);
         } else { // Linux
             path = "/home/ubuntu/deploy/resort/contents/storage/";

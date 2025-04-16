@@ -5,7 +5,7 @@
 <mapper namespace="dev.mvc.category.CategoryDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
     <insert id="create" parameterType="dev.mvc.category.CategoryVO">
         INSERT INTO category (categoryno, categorygrp, categoryname, sortno, visible, rdate)
-        VALUES(BLOGUSER_SEQ.nextval, #{categoryGrp}, #{categoryName}, #{sortNo}, #{visible}, SYSDATE)
+        VALUES(CATEGORY_SEQ.nextval, #{categoryGrp}, #{categoryName}, #{sortNo}, #{visible}, SYSDATE)
     </insert>
     <!-- 회원 전체 조회-->
     <select id="list_all" resultType="dev.mvc.category.CategoryVO">

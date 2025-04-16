@@ -1,6 +1,6 @@
 <div th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="top_menu_img">
-        <div class="top_menu_label">요리 블로그 ver 3.0</div>
+        <div class="top_menu_label">요리 블로그 ver 5.0</div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -23,7 +23,9 @@
 
                         <!--/* 중분류명(카테고리) 출력, private ArrayList<CateVO> list_userage; */-->
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li th:each="categoryVO:${categoryVOMenu.list_categoryName}"><a class="dropdown-item" href="#" th:text="${categoryVO.categoryName}"></a></li>
+                            <li th:each="categoryVO:${categoryVOMenu.list_categoryName}">
+                                <a class="dropdown-item" th:href="@{|/contents/list_by_categoryno?categoryno=${categoryVO.categoryNo}|}" th:text="${categoryVO.categoryName}"></a>
+                            </li>
                         </ul>
                     </li>
 

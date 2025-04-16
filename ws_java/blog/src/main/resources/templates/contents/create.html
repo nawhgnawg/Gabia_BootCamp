@@ -3,8 +3,8 @@
 <html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
 <div layout:fragment="content">
     <div class='title_line'>
-        <span th:text="${categoryVO.categoryName}" class="title_line_text"></span >
-        > <span th:text="${categoryVO.categoryGrp}" class="title_line_text"></span >
+        <span th:text="${categoryVO.categoryGrp}" class="title_line_text"></span >
+        > <span th:text="${categoryVO.categoryName}" class="title_line_text"></span >
         > 글 등록
     </div>
 
@@ -20,21 +20,22 @@
 
     <div class='menu_line'></div>
 
-    <form name='frm' method='post' th:object="${contentsVO}" action='./create' enctype="multipart/form-data">
-        <input type="hidden" name="categoryno" th:value="${param.categoryNo}">
+    <form name='frm' method='post' th:object="${contentsVO}" action='/contents/create' enctype="multipart/form-data">
+        <input type="hidden" name="categoryno" th:value="${param.categoryno}">
 
         <div>
             <label>제목</label>
-            <input type='text' name='title' value='주말 오지 탐험' required="required"
+            <input type='text' name='title' value='' required="required" placeholder="제목을 입력하세요"
                    autofocus="autofocus" class="form-control" style='width: 100%;'>
         </div>
         <div>
             <label>내용</label>
-            <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'>오지 탐험은 언제나 즐거운 시간이었어요! </textarea>
+            <textarea name='content' required="required" class="form-control" placeholder="내용을 입력하세요"
+                      rows="12" style='width: 100%;'></textarea>
         </div>
         <div>
             <label>검색어</label>
-            <input type='text' name='word' value='오버랜딩,오지,탐험,일상탈피,힐링,내공,추진력,문제해결' required="required"
+            <input type='text' name='word' value='' required="required" placeholder="검색어를 입력하세요"
                    class="form-control" style='width: 100%;'>
         </div>
         <div>
@@ -48,7 +49,7 @@
         </div>
         <div class="content_body_bottom">
             <button type="submit" class="btn btn-secondary btn-sm">등록</button>
-            <button type="button" th:attr="onclick=|location.href='./list_by_categoryno_search_paging?categoryno=${categoryNo}'|" class="btn btn-secondary btn-sm">목록</button>
+            <button type="button" th:attr="onclick=|location.href='./list_by_categoryno?categoryno=${categoryVO.categoryNo}'|" class="btn btn-secondary btn-sm">목록</button>
         </div>
 
     </form>

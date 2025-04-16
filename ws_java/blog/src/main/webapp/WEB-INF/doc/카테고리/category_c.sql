@@ -19,13 +19,13 @@ CACHE 2              -- 2번은 메모리에서만 계산
 NOCYCLE;             -- 다시 1부터 생성되는 것을 방지
 
 INSERT INTO category(categoryno, categorygrp, categoryname, sortno, visible, rdate)
-VALUES(CATEGORY_SEQ.nextval, '개발', '--', 1, 'Y', SYSDATE);
+VALUES(CATEGORY_SEQ.nextval, '한식', '--', 1, 'Y', SYSDATE);
 
 INSERT INTO category(categoryno, categorygrp, categoryname, sortno, visible, rdate)
-VALUES(CATEGORY_SEQ.nextval, '여행', '--', 101, 'Y', SYSDATE);
+VALUES(CATEGORY_SEQ.nextval, '일식', '--', 101, 'Y', SYSDATE);
 
 INSERT INTO category(categoryno, categorygrp, categoryname, sortno, visible, rdate)
-VALUES(CATEGORY_SEQ.nextval, '영화', '--', 201, 'Y', SYSDATE);
+VALUES(CATEGORY_SEQ.nextval, '중식', '--', 201, 'Y', SYSDATE);
 
 SELECT * FROM category;
 

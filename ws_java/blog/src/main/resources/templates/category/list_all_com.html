@@ -31,6 +31,8 @@
             </td>
             <td class="td_bs" th:text="${categoryVO.rdate.substring(0, 10)}"></td>
             <td class="td_bs">
+                <a th:href="@{|/contents/list_by_categoryno?categoryno=${categoryVO.categoryNo}|}"><img src="/category/images/contents.png" class="icon" title="게시물 작성"></a>
+                <a th:href="@{|/contents/create?categoryno=${categoryVO.categoryNo}|}"><img src="/category/images/create.png" class="icon" title="게시물 작성"></a>
                 <span th:text="${status.index}"></span>/
                 <span th:text="${categoryVO.sortNo}"></span>
                 <span th:if="${categoryVO.visible == 'Y'}">

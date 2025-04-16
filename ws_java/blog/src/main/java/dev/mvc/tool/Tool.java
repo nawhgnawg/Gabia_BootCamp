@@ -30,6 +30,9 @@ public class Tool {
     /** 삭제 실패 */
     public static final String DELETE_FAIL = "delete_fail";
 
+    /** 업로드 파일 체크 실패 */
+    public static final String UPLOAD_FILE_CHECK_FAIL = "upload_file_check_fail";
+
     /**
      * FileUpload 1.2, 1.3 한글 변환
      * @param str
@@ -133,14 +136,22 @@ public class Tool {
         String _dest = srcname.substring(0, srcname.indexOf("."));
 
         // 축소 이미지 조합 /upDir/mt_t.jpg
-        File dest = new File(upDir + "/" + _dest + "_t.jpg");
+        // File dest = new File(upDir + "/" + _dest + "_t.jpg");
+        File dest = null;
+        if (srcname.endsWith(".png")) {
+            dest = new File(upDir + "/" + _dest + "_t.png");
+        } else if (srcname.endsWith(".jpeg")) {
+            dest = new File(upDir + "/" + _dest + "_t.jpeg");
+        } else {
+            dest = new File(upDir + "/" + _dest + "_t.jpg");
+        }
 
         Image srcImg = null;
 
         String name = src.getName().toLowerCase(); // 파일명을 추출하여 소문자로 변경
         // 이미지 파일인지 검사
         if (name.endsWith("jpg") || name.endsWith("bmp") || name.endsWith("png")
-                || name.endsWith("gif")) {
+                || name.endsWith("gif") || name.endsWith("jpeg")) {
             try {
                 srcImg = ImageIO.read(src); // 메모리에 원본 이미지 생성
                 int srcWidth = srcImg.getWidth(null); // 원본 이미지 너비 추출
@@ -186,6 +197,7 @@ public class Tool {
 
                 // 파일에 기록
                 ImageIO.write(destImg, "jpg", dest);
+
 
                 System.out.println(dest.getName() + " 이미지를 생성했습니다.");
             } catch (Exception e) {
@@ -394,7 +406,7 @@ public class Tool {
         int last_separator_idx = path.lastIndexOf(File.separator); // \, /, 마지막 폴더 구분자 위치 추출, 0부터 시작
         System.out.println("-> last_separator_idx: " +  last_separator_idx);
 
-        String fname =  path.substring(last_separator_idx+1); // 폴더 구분자 \, /를 제외한 파일명
+        String fname =  path.substring(last_separator_idx + 1); // 폴더 구분자 \, /를 제외한 파일명
         System.out.println("-> fname: " +  fname);
 
         return fname;
@@ -405,13 +417,13 @@ public class Tool {
         String path = "";
         if (File.separator.equals("\\")) {
             // Windows 개발시 사용 폴더
-            path = "C:/kd/deploy/resort_v5sbm3c";
+            path = "C:/kd/deploy_blog/blog";
 
         } else {
             // Linux 배포
             // 기본 명령어
             // pwd: 현재 경로 확인, mkdir deploy: 폴더 생성, cd deploy: 폴더 이동, rmdir resort_v2sbm3c: 폴더 삭제, cd ..: 상위 폴더로 이동
-            path = "/home/ubuntu/deploy/resort_v5sbm3c";
+            path = "/home/ubuntu/deploy_blog/blog";
         }
         // System.out.println("path: " + path);
 
@@ -458,9 +470,9 @@ public class Tool {
     /**
      * 파일 저장 메인 폴더
      * 예)
-     * C:/kd/deploy/resort/contents/storage
-     * C:/kd/deploy/resort/member/storage
-     * C:/kd/deploy/resort/product/storage
+     * C:/kd/deploy_blog/blog/contents/storage
+     * C:/kd/deploy_blog/blog/member/storage
+     * C:/kd/deploy_blog/blog/product/storage
      * @return
      */
     public static String getUploadDir() {
@@ -468,13 +480,13 @@ public class Tool {
         String path = "";
 
         if (osName.contains("win")) { // Windows
-            path = "C:\\kd\\deploy\\resort\\";
+            path = "C:\\kd\\deploy_blog\\blog\\";
             // System.out.println("Windows: " + path);
         } else if (osName.contains("mac")) { // MacOS
-            path = "/Users/yourusername/deploy/resort/";
+            path = "/Users/imgwanghwan/kd/deploy_blog/blog/";
             // System.out.println("MacOS: " + path);
         } else { // Linux
-            path = "/home/ubuntu/deploy/resort/";
+            path = "/home/ubuntu/deploy_blog/blog/";
             // System.out.println("Linux: " + path);
         }
 

@@ -30,6 +30,10 @@ public class Tool {
     /** 삭제 실패 */
     public static final String DELETE_FAIL = "delete_fail";
 
+    /** 업로드 파일 체크 실패 */
+    public static final String UPLOAD_FILE_CHECK_FAIL = "upload_file_check_fail";
+
+
     /**
      * FileUpload 1.2, 1.3 한글 변환
      * @param str
@@ -75,7 +79,7 @@ public class Tool {
             if (file.endsWith("jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith("gif")
                     || file.endsWith("txt") || file.endsWith("hwp") || file.endsWith("xls") || file.endsWith("xlsx")
                     || file.endsWith("ppt") || file.endsWith("pptx") || file.endsWith("zip") || file.endsWith("tar")
-                    || file.endsWith("gz") || file.endsWith("ipynb") || file.endsWith("doc")) {
+                    || file.endsWith("gz") || file.endsWith("ipynb") || file.endsWith("doc") || file.endsWith("csv")) {
                 sw = true;
             }
         }
@@ -131,6 +135,10 @@ public class Tool {
 
         // 순수 파일명 추출, mt.jpg -> mt 만 추출
         String _dest = srcname.substring(0, srcname.indexOf("."));
+
+        // 파일 확장자 추출
+        int ext_index = srcname.lastIndexOf(".");
+        String ext_filename = srcname.substring(ext_index);
 
         // 축소 이미지 조합 /upDir/mt_t.jpg
         File dest = new File(upDir + "/" + _dest + "_t.jpg");
@@ -406,7 +414,7 @@ public class Tool {
         String path = "";
         if (File.separator.equals("\\")) {
             // Windows 개발시 사용 폴더
-            path = "C:/kd/deploy/resort_v5sbm3c";
+            path = "C:/kd/deploy/resort";
 
         } else {
             // Linux 배포
@@ -472,7 +480,7 @@ public class Tool {
             path = "C:\\kd\\deploy\\resort\\";
             // System.out.println("Windows: " + path);
         } else if (osName.contains("mac")) { // MacOS
-            path = "/Users/yourusername/deploy/resort/";
+            path = "/Users/imgwanghwan/kd/deploy/resort/";
             // System.out.println("MacOS: " + path);
         } else { // Linux
             path = "/home/ubuntu/deploy/resort/";

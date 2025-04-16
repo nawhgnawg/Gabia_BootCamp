@@ -22,8 +22,13 @@ CACHE 2              -- 2번은 메모리에서만 계산
 NOCYCLE;             -- 다시 1부터 생성되는 것을 방지
 
 --> INSERT
+-- 회원 관리용 계정, Q/A 용 계정
 INSERT INTO bloguser(userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate)
-VALUES(BLOGUSER_SEQ.nextval, '임광환', 'ghlim100@naver.com', '1234', '00000', '강원도', '홍천군', 15, SYSDATE);
+VALUES (bloguser_seq.nextval, '임광환', 'admin', 'fS/kjO+fuEKk06Zl7VYMhg==', '12345', '서울시 종로구', '관철동', 1, sysdate);
+
+INSERT INTO bloguser(userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate)
+VALUES(BLOGUSER_SEQ.nextval, '임광환', 'ghlim100@naver.com', 'fS/kjO+fuEKk06Zl7VYMhg==', '00000', '강원도', '홍천군', 15, SYSDATE);
+
 
 --> SELECT
 SELECT userno, username, useremail, userpassword, zipcode, address1, address2, usergrade, rdate

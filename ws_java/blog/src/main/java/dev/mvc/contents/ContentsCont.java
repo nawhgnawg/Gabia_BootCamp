@@ -77,8 +77,7 @@ public class ContentsCont {
      * @return
      */
     @PostMapping(value = "/create")
-    public String create(HttpServletRequest request,
-                         HttpSession session,
+    public String create(HttpSession session,
                          Model model,
                          @ModelAttribute("contentsVO") ContentsVO contentsVO,
                          RedirectAttributes ra) {
@@ -120,7 +119,7 @@ public class ContentsCont {
                     contentsVO.setSize1(size1); // 파일 크기
 
                 } else { // 전송 못하는 파일 형식
-                    ra.addFlashAttribute("code", "check_upload_file_fail"); // 업로드 할 수 없는 파일
+                    ra.addFlashAttribute("code", Tool.UPLOAD_FILE_CHECK_FAIL); // 업로드 할 수 없는 파일
                     ra.addFlashAttribute("cnt", 0); // 업로드 실패
                     ra.addFlashAttribute("url", "/contents/msg"); // msg.html, redirect parameter 적용
                     return "redirect:/contents/msg"; // Post -> Get - param...
@@ -161,12 +160,12 @@ public class ContentsCont {
                 // System.out.println("-> contentsVO.getCateno(): " + contentsVO.getCateno());
                 // ra.addFlashAttribute("cateno", contentsVO.getCateno()); // controller ->
                 // controller: X
-
+//                return "redirect:/contents/list_all";
                 ra.addAttribute("categoryno", contentsVO.getCategoryno()); // controller -> controller: O
                 return "redirect:/contents/list_by_categoryno";
 
                 // return "redirect:/contents/list_by_cateno?cateno=" + contentsVO.getCateno();
-                // // /templates/contents/list_by_cateno.html
+                // // /templates/contents/list_by_categoryno.html
             } else {
                 ra.addFlashAttribute("code", "create_fail"); // DBMS 등록 실패
                 ra.addFlashAttribute("cnt", 0); // 업로드 실패
@@ -174,12 +173,12 @@ public class ContentsCont {
                 return "redirect:/contents/msg"; // Post -> Get - param...
             }
         } else { // 로그인 실패 한 경우
-            return "redirect:/bloguser/login_cookie_need"; // /member/login_cookie_need.html
+            return "redirect:/bloguser/login_cookie_need?url=/contents/create?categoryno=" + contentsVO.getCategoryno(); // /member/login_cookie_need.html
         }
     }
 
     /**
-     * 전체 목록, 관리자만 사용 가능 http://localhost:9091/contents/list_all
+     * 전체 목록, 관리자만 사용 가능 http://localhost:9092/contents/list_all
      * @return
      */
     @GetMapping(value = "/list_all")
@@ -201,28 +200,29 @@ public class ContentsCont {
 
     }
 
-//  /**
-//   * 유형 1
-//   * 카테고리별 목록
-//   * http://localhost:9091/contents/list_by_cateno?cateno=5
-//   * http://localhost:9091/contents/list_by_cateno?cateno=6
-//   * @return
-//   */
-//  @GetMapping(value="/list_by_cateno")
-//  public String list_by_cateno(HttpSession session, Model model, int cateno) {
-//    ArrayList<CategoryVOMenu> menu = cateProc.menu();
-//    model.addAttribute("menu", menu);
-//
-//     CateVO cateVO = cateProc.read(cateno);
-//     model.addAttribute("cateVO", cateVO);
-//
-//    ArrayList<ContentsVO> list = contentsProc.list_by_cateno(cateno);
-//    model.addAttribute("list", list);
-//
-//    // System.out.println("-> size: " + list.size());
-//
-//    return "contents/list_by_cateno";
-//  }
+  /**
+   * 유형 1
+   * 카테고리별 목록
+   * http://localhost:9091/contents/list_by_categoryno?cateno=5
+   * http://localhost:9091/contents/list_by_categoryno?cateno=6
+   * @return
+   */
+  @GetMapping(value="/list_by_categoryno")
+  public String list_by_categoryno(HttpSession session, Model model,
+                               @RequestParam(name = "categoryno", defaultValue = "") int categoryno) {
+    ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+    model.addAttribute("menu", menu);
+
+     CategoryVO categoryVO = categoryProc.read(categoryno);
+     model.addAttribute("categoryVO", categoryVO);
+
+    ArrayList<ContentsVO> list = contentsProc.list_by_categoryno(categoryno);
+    model.addAttribute("list", list);
+
+    // System.out.println("-> size: " + list.size());
+
+    return "contents/list_by_categoryno";
+  }
 
 //  /**
 //   * 유형 2

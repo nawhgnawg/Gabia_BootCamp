@@ -34,6 +34,8 @@
             <td class="td_bs" th:text="${cateVO.cnt}"></td>
             <td class="td_bs" th:text="${cateVO.rdate.substring(0, 10)}"></td>
             <td class="td_bs">
+                <a th:href="@{|/contents/list_by_cateno?cateno=${cateVO.cateno}|}"><img src="/cate/images/contents.png" class="icon" title="글 목록"></a>
+                <a th:href="@{|/contents/create?cateno=${cateVO.cateno}|}"><img src="/cate/images/create.png" class="icon" title="글 추가"></a>
                 <span th:text="${status.index}"></span>/
                 <span th:text="${cateVO.seqno}"></span>
                 <span th:if="${cateVO.visible == 'Y'}">
