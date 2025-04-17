@@ -201,124 +201,57 @@ public class ContentsCont {
     }
 
   /**
-   * 유형 1
-   * 카테고리별 목록
-   * http://localhost:9091/contents/list_by_categoryno?cateno=5
-   * http://localhost:9091/contents/list_by_categoryno?cateno=6
-   * @return
+   * 유형 3
+   * 카테고리별 목록 + 검색 + 페이징
+   * http://localhost:9092/contents/list_by_categoryno?categoryno=5
    */
-  @GetMapping(value="/list_by_categoryno")
-  public String list_by_categoryno(HttpSession session, Model model,
-                               @RequestParam(name = "categoryno", defaultValue = "") int categoryno) {
-    ArrayList<CategoryVOMenu> menu = categoryProc.menu();
-    model.addAttribute("menu", menu);
+    @GetMapping(value = "/list_by_categoryno")
+    public String list_by_cateno_search_paging(HttpSession session, Model model,
+                                             @RequestParam(value = "categoryno", defaultValue = "0") int categoryno,
+                                             @RequestParam(name = "word", defaultValue = "") String word,
+                                             @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
-     CategoryVO categoryVO = categoryProc.read(categoryno);
-     model.addAttribute("categoryVO", categoryVO);
+        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+        model.addAttribute("menu", menu);
 
-    ArrayList<ContentsVO> list = contentsProc.list_by_categoryno(categoryno);
-    model.addAttribute("list", list);
+        CategoryVO categoryVO = categoryProc.read(categoryno);
+        model.addAttribute("categoryVO", categoryVO);
 
-    // System.out.println("-> size: " + list.size());
+        word = Tool.checkNull(word).trim();
 
-    return "contents/list_by_categoryno";
-  }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("categoryno", categoryno);
+        map.put("word", word);
+        map.put("now_page", now_page);
 
-//  /**
-//   * 유형 2
-//   * 카테고리별 목록 + 검색
-//   * http://localhost:9091/contents/list_by_cateno?cateno=5
-//   * http://localhost:9091/contents/list_by_cateno?cateno=6
-//   * @return
-//   */
-//  @GetMapping(value="/list_by_cateno")
-//  public String list_by_cateno_search(HttpSession session, Model model,
-//                                                    int cateno, @RequestParam(name="word", defaultValue = "") String word) {
-//    ArrayList<CategoryVOMenu> menu = cateProc.menu();
-//    model.addAttribute("menu", menu);
-//
-//     CateVO cateVO = cateProc.read(cateno);
-//     model.addAttribute("cateVO", cateVO);
-//
-//     word = Tool.checkNull(word).trim();
-//
-//     HashMap<String, Object> map = new HashMap<>();
-//     map.put("cateno", cateno);
-//     map.put("word", word);
-//
-//    ArrayList<ContentsVO> list = contentsProc.list_by_cateno_search(map);
-//    model.addAttribute("list", list);
-//
-//    // System.out.println("-> size: " + list.size());
-//    model.addAttribute("word", word);
-//
-//    int search_count = contentsProc.list_by_cateno_search_count(map);
-//    model.addAttribute("search_count", search_count);
-//
-//    return "contents/list_by_cateno_search"; // /templates/contents/list_by_cateno_search.html
-//  }
+        ArrayList<ContentsVO> list = contentsProc.list_by_categoryno_search_paging(map);
+        model.addAttribute("list", list);
+        model.addAttribute("word", word);
 
-//  /**
-//   * 유형 3
-//   * 카테고리별 목록 + 검색 + 페이징 http://localhost:9091/contents/list_by_cateno?cateno=5
-//   * http://localhost:9091/contents/list_by_cateno?cateno=6
-//   *
-//   * @return
-//   */
-//  @GetMapping(value = "/list_by_cateno")
-//  public String list_by_cateno_search_paging(HttpSession session, Model model, int cateno,
-//      @RequestParam(name = "word", defaultValue = "") String word,
-//      @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
-//
-//    // System.out.println("-> cateno: " + cateno);
-//
-//    ArrayList<CategoryVOMenu> menu = cateProc.menu();
-//    model.addAttribute("menu", menu);
-//
-//    CateVO cateVO = cateProc.read(cateno);
-//    model.addAttribute("cateVO", cateVO);
-//
-//    word = Tool.checkNull(word).trim();
-//
-//    HashMap<String, Object> map = new HashMap<>();
-//    map.put("cateno", cateno);
-//    map.put("word", word);
-//    map.put("now_page", now_page);
-//
-//    ArrayList<ContentsVO> list = contentsProc.list_by_cateno_search_paging(map);
-//    model.addAttribute("list", list);
-//
-//    // System.out.println("-> size: " + list.size());
-//    model.addAttribute("word", word);
-//
-//    int search_count = contentsProc.list_by_cateno_search_count(map);
-//    String paging = contentsProc.pagingBox(cateno, now_page, word, "/contents/list_by_cateno", search_count,
-//        Contents.RECORD_PER_PAGE, Contents.PAGE_PER_BLOCK);
-//    model.addAttribute("paging", paging);
-//    model.addAttribute("now_page", now_page);
-//
-//    model.addAttribute("search_count", search_count);
-//
-//    // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
-//    int no = search_count - ((now_page - 1) * Contents.RECORD_PER_PAGE);
-//    model.addAttribute("no", no);
-//
-//    return "contents/list_by_cateno_search_paging"; // /templates/contents/list_by_cateno_search_paging.html
-//  }
+        int search_count = contentsProc.list_by_categoryno_search_count(map);
+        String paging = contentsProc.pagingBox(categoryno, now_page, word, "/contents/list_by_categoryno", search_count,
+        Contents.RECORD_PER_PAGE, Contents.PAGE_PER_BLOCK);
+        model.addAttribute("paging", paging);
+        model.addAttribute("now_page", now_page);
+
+        model.addAttribute("search_count", search_count);
+
+        // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
+        int no = ((now_page - 1) * Contents.RECORD_PER_PAGE) + 1;
+        model.addAttribute("no", no);
+
+        return "contents/list_by_categoryno_search_paging"; // /templates/contents/list_by_cateno_search_paging.html
+    }
 
     /**
      * 카테고리별 목록 + 검색 + 페이징 + Grid
-     * http://localhost:9091/contents/list_by_cateno?cateno=5
-     * http://localhost:9091/contents/list_by_cateno?cateno=6
-     *
-     * @return
+     * http://localhost:9091/contents/list_by_categoryno?cateno=5
      */
-    @GetMapping(value = "/list_by_cateno_grid")
-    public String list_by_cateno_search_paging_grid(HttpSession session, Model model, int categoryno,
+    @GetMapping(value = "/list_by_categoryno_grid")
+    public String list_by_cateno_search_paging_grid(HttpSession session, Model model,
+                                                    @RequestParam(value = "categoryno",defaultValue = "0") int categoryno,
                                                     @RequestParam(name = "word", defaultValue = "") String word,
                                                     @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
-
-        // System.out.println("-> cateno: " + cateno);
 
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
@@ -340,7 +273,7 @@ public class ContentsCont {
         model.addAttribute("word", word);
 
         int search_count = contentsProc.list_by_categoryno_search_count(map);
-        String paging = contentsProc.pagingBox(categoryno, now_page, word, "/contents/list_by_categoryno", search_count,
+        String paging = contentsProc.pagingBox(categoryno, now_page, word, "/contents/list_by_categoryno_grid", search_count,
                 Contents.RECORD_PER_PAGE, Contents.PAGE_PER_BLOCK);
         model.addAttribute("paging", paging);
         model.addAttribute("now_page", now_page);
@@ -348,7 +281,8 @@ public class ContentsCont {
         model.addAttribute("search_count", search_count);
 
         // 일련 변호 생성: 레코드 갯수 - ((현재 페이지수 -1) * 페이지당 레코드 수)
-        int no = search_count - ((now_page - 1) * Contents.RECORD_PER_PAGE);
+        // int no = search_count - ((now_page - 1) * Contents.RECORD_PER_PAGE);
+        int no = ((now_page - 1) * Contents.RECORD_PER_PAGE) + 1;
         model.addAttribute("no", no);
 
         return "contents/list_by_categoryno_search_paging_grid";
@@ -359,11 +293,16 @@ public class ContentsCont {
      * @return
      */
     @GetMapping(value = "/read")
-    public String read(Model model, int contentsno, String word, int now_page) { // int cateno =
+    public String read(Model model,
+                       @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                       @RequestParam(value = "word", defaultValue = "") String word,
+                       @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
+
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
         ContentsVO contentsVO = contentsProc.read(contentsno);
+        model.addAttribute("contentsVO", contentsVO);
 
 //    String title = contentsVO.getTitle();
 //    String content = contentsVO.getContent();
@@ -377,8 +316,6 @@ public class ContentsCont {
         long size1 = contentsVO.getSize1();
         String size1_label = Tool.unit(size1);
         contentsVO.setSize1_label(size1_label);
-
-        model.addAttribute("contentsVO", contentsVO);
 
         CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
         model.addAttribute("categoryVO", categoryVO);
@@ -398,7 +335,8 @@ public class ContentsCont {
      * @return
      */
     @GetMapping(value = "/map")
-    public String map(Model model, int contentsno) {
+    public String map(Model model,
+                      @RequestParam(value = "contentsno", defaultValue = "0") int contentsno) {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
@@ -416,7 +354,9 @@ public class ContentsCont {
      * @return
      */
     @PostMapping(value = "/map")
-    public String map_update(Model model, int contentsno, String map) {
+    public String map_update(Model model,
+                             @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                             @RequestParam(value = "map", defaultValue = "") String map) {
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("contentsno", contentsno);
         hashMap.put("map", map);
@@ -431,7 +371,10 @@ public class ContentsCont {
      * @return
      */
     @GetMapping(value = "/youtube")
-    public String youtube(Model model, int contentsno, String word, int now_page) {
+    public String youtube(Model model,
+                          @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                          @RequestParam(value = "word", defaultValue = "") String word,
+                          @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
@@ -454,10 +397,10 @@ public class ContentsCont {
     @PostMapping(value = "/youtube")
     public String youtube_update(Model model,
                                  RedirectAttributes ra,
-                                 int contentsno,
-                                 String youtube,
-                                 String word,
-                                 int now_page) {
+                                 @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                                 @RequestParam(value = "youtube", defaultValue = "") String youtube,
+                                 @RequestParam(value = "word", defaultValue = "") String word,
+                                 @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
 
         if (youtube.trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
             youtube = Tool.youtubeResize(youtube, 640); // youtube 영상의 크기를 width 기준 640 px로 변경
