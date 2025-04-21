@@ -9,6 +9,7 @@ import dev.mvc.category.CategoryVOMenu;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 
 @Controller
 @RequestMapping("/contents")
+@Slf4j
 public class ContentsCont {
     @Autowired
     @Qualifier("dev.mvc.bloguser.UserProc") // @Service("dev.mvc.member.MemberProc")
@@ -43,8 +45,6 @@ public class ContentsCont {
     /**
      * POST 요청시 새로고침 방지, POST 요청 처리 완료 → redirect → url → GET → forward -> html 데이터
      * 전송
-     *
-     * @return
      */
     @GetMapping(value = "/msg")
     public String post2get(Model model, String url) {
@@ -245,7 +245,7 @@ public class ContentsCont {
 
     /**
      * 카테고리별 목록 + 검색 + 페이징 + Grid
-     * http://localhost:9091/contents/list_by_categoryno?cateno=5
+     * http://localhost:9092/contents/list_by_categoryno?cateno=5
      */
     @GetMapping(value = "/list_by_categoryno_grid")
     public String list_by_cateno_search_paging_grid(HttpSession session, Model model,
@@ -422,11 +422,13 @@ public class ContentsCont {
 
     /**
      * 수정 폼 http:// localhost:9092/contents/update_text?contentsno=1
-     *
      */
     @GetMapping(value = "/update_text")
-    public String update_text(HttpSession session, Model model, int contentsno, RedirectAttributes ra, String word,
-                              int now_page) {
+    public String update_text(HttpSession session, Model model,
+                              @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                              @RequestParam(value = "word", defaultValue = "") String word,
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page,
+                              RedirectAttributes ra) {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
@@ -436,6 +438,7 @@ public class ContentsCont {
         if (userProc.isAdmin(session)) { // 관리자로 로그인한경우
             ContentsVO contentsVO = contentsProc.read(contentsno);
             model.addAttribute("contentsVO", contentsVO);
+            log.info("contentsno : {}", contentsno);
 
             CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
             model.addAttribute("categoryVO", categoryVO);
@@ -445,22 +448,20 @@ public class ContentsCont {
             // model.addAttribute("content", content);
 
         } else {
-            ra.addAttribute("url", "/bloguser/login_cookie_need"); // /templates/bloguser/login_cookie_need.html
-            return "redirect:/contents/msg"; // @GetMapping(value = "/read")
+            return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
 
     }
 
     /**
      * 수정 처리 http://localhost:9092/contents/update_text?contentsno=1
-     *
-     * @return
      */
     @PostMapping(value = "/update_text")
-    public String update_text(HttpSession session, Model model, ContentsVO contentsVO,
-                              RedirectAttributes ra,
-                              String search_word, // contentsVO.word와 구분 필요
-                              int now_page) {
+    public String update_text(HttpSession session, Model model,
+                              @ModelAttribute("contentsVO") ContentsVO contentsVO,
+                              @RequestParam(value = "search_word", defaultValue = "") String search_word, // contentsVO.word와 구분 필요
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page,
+                              RedirectAttributes ra) {
         ra.addAttribute("word", search_word);
         ra.addAttribute("now_page", now_page);
 
@@ -485,48 +486,44 @@ public class ContentsCont {
                 return "redirect:/contents/msg"; // @GetMapping(value = "/msg")
             }
         } else { // 정상적인 로그인이 아닌 경우 로그인 유도
-            ra.addAttribute("url", "/bloguser/login_cookie_need"); // /templates/member/login_cookie_need.html
-            return "redirect:/contents/msg"; // @GetMapping(value = "/msg")
+            return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsVO.getContentsno();
         }
 
     }
 
     /**
      * 파일 수정 폼 http://localhost:9092/contents/update_file?contentsno=1
-     *
-     * @return
      */
     @GetMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model,
-                              int contentsno,
-                              String word,
-                              int now_page) {
+                              @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                              @RequestParam(value = "word", defaultValue = "") String word,
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
         model.addAttribute("word", word);
         model.addAttribute("now_page", now_page);
 
-        ContentsVO contentsVO = contentsProc.read(contentsno);
-        model.addAttribute("contentsVO", contentsVO);
+        if (userProc.isAdmin(session)) {
+            ContentsVO contentsVO = contentsProc.read(contentsno);
+            model.addAttribute("contentsVO", contentsVO);
 
-        CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
-        model.addAttribute("categoryVO", categoryVO);
+            CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
+            model.addAttribute("categoryVO", categoryVO);
+        }
 
         return "/contents/update_file";
-
     }
 
     /**
      * 파일 수정 처리 http://localhost:9091/contents/update_file
-     *
-     * @return
      */
     @PostMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model, RedirectAttributes ra,
-                              ContentsVO contentsVO,
-                              String word,
-                              int now_page) {
+                              @ModelAttribute("contentsVO") ContentsVO contentsVO,
+                              @RequestParam(value = "word", defaultValue = "") String word,
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
 
         if (userProc.isAdmin(session)) {
             // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
@@ -539,7 +536,7 @@ public class ContentsCont {
             String thumb1 = contentsVO_old.getThumb1(); // 실제 저장된 preview 이미지 파일명
             long size1 = 0;
 
-            String upDir = Contents.getUploadDir(); // C:/kd/deploy/resort_v4sbm3c/contents/storage/
+            String upDir = Contents.getUploadDir(); // /Users/imgwanghwan/kd/deploy_blog/blog/contents/storage
 
             Tool.deleteFile(upDir, file1saved); // 실제 저장된 파일삭제
             Tool.deleteFile(upDir, thumb1); // preview 이미지 삭제
@@ -592,23 +589,21 @@ public class ContentsCont {
 
             return "redirect:/contents/read";
         } else {
-            ra.addAttribute("url", "/bloguser/login_cookie_need");
-            return "redirect:/contents/msg"; // GET
+            return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsVO.getContentsno();
         }
     }
 
     /**
      * 파일 삭제 폼
      * http://localhost:9092/contents/delete?contentsno=1
-     *
-     * @return
      */
     @GetMapping(value = "/delete")
     public String delete(HttpSession session, Model model, RedirectAttributes ra,
-                         int categoryno,
-                         int contentsno,
-                         String word,
-                         int now_page) {
+                         @RequestParam(name = "categoryno", defaultValue = "0") int categoryno,
+                         @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
+
         if (userProc.isAdmin(session)) { // 관리자로 로그인한경우
             model.addAttribute("categoryno", categoryno);
             model.addAttribute("word", word);
@@ -626,62 +621,62 @@ public class ContentsCont {
             return "/contents/delete"; // forward
 
         } else {
-            ra.addAttribute("url", "/admin/login_cookie_need");
-            return "redirect:/contents/msg";
+            return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
 
     }
 
     /**
-     * 삭제 처리 http://localhost:9091/contents/delete
-     *
-     * @return
+     * 삭제 처리 http://localhost:9092/contents/delete
      */
     @PostMapping(value = "/delete")
-    public String delete(RedirectAttributes ra,
+    public String delete(HttpSession session, RedirectAttributes ra,
                          int contentsno, int categoryno, String word, int now_page) {
-        // -------------------------------------------------------------------
-        // 파일 삭제 시작
-        // -------------------------------------------------------------------
-        // 삭제할 파일 정보를 읽어옴.
-        ContentsVO contentsVO_read = contentsProc.read(contentsno);
+        if (userProc.isAdmin(session)) {
+            // -------------------------------------------------------------------
+            // 파일 삭제 시작
+            // -------------------------------------------------------------------
+            // 삭제할 파일 정보를 읽어옴.
+            ContentsVO contentsVO_read = contentsProc.read(contentsno);
 
-        String file1saved = contentsVO_read.getFile1saved();
-        String thumb1 = contentsVO_read.getThumb1();
+            String file1saved = contentsVO_read.getFile1saved();
+            String thumb1 = contentsVO_read.getThumb1();
 
-        String uploadDir = Contents.getUploadDir();
-        Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
-        Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
-        // -------------------------------------------------------------------
-        // 파일 삭제 종료
-        // -------------------------------------------------------------------
+            String uploadDir = Contents.getUploadDir();
+            Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+            Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+            // -------------------------------------------------------------------
+            // 파일 삭제 종료
+            // -------------------------------------------------------------------
 
-        contentsProc.delete(contentsno); // DBMS 삭제
+            contentsProc.delete(contentsno); // DBMS 삭제
 
-        // -------------------------------------------------------------------------------------
-        // 마지막 페이지의 마지막 레코드 삭제시의 페이지 번호 -1 처리
-        // -------------------------------------------------------------------------------------
-        // 마지막 페이지의 마지막 10번째 레코드를 삭제후
-        // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
-        // 페이지수를 4 -> 3으로 감소 시켜야함, 마지막 페이지의 마지막 레코드 삭제시 나머지는 0 발생
+            // -------------------------------------------------------------------------------------
+            // 마지막 페이지의 마지막 레코드 삭제시의 페이지 번호 -1 처리
+            // -------------------------------------------------------------------------------------
+            // 마지막 페이지의 마지막 10번째 레코드를 삭제후
+            // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
+            // 페이지수를 4 -> 3으로 감소 시켜야함, 마지막 페이지의 마지막 레코드 삭제시 나머지는 0 발생
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("categoryno", categoryno);
-        map.put("word", word);
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("categoryno", categoryno);
+            map.put("word", word);
 
-        if (contentsProc.list_by_categoryno_search_count(map) % Contents.RECORD_PER_PAGE == 0) {
-            now_page = now_page - 1; // 삭제시 DBMS는 바로 적용되나 크롬은 새로고침등의 필요로 단계가 작동 해야함.
-            if (now_page < 1) {
-                now_page = 1; // 시작 페이지
+            if (contentsProc.list_by_categoryno_search_count(map) % Contents.RECORD_PER_PAGE == 0) {
+                now_page = now_page - 1; // 삭제시 DBMS는 바로 적용되나 크롬은 새로고침등의 필요로 단계가 작동 해야함.
+                if (now_page < 1) {
+                    now_page = 1; // 시작 페이지
+                }
             }
+            // -------------------------------------------------------------------------------------
+
+            ra.addAttribute("categoryno", categoryno);
+            ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
+
+            return "redirect:/contents/list_by_categoryno";
+        } else {
+            return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
-        // -------------------------------------------------------------------------------------
-
-        ra.addAttribute("categoryno", categoryno);
-        ra.addAttribute("word", word);
-        ra.addAttribute("now_page", now_page);
-
-        return "redirect:/contents/list_by_categoryno";
-
     }
 }

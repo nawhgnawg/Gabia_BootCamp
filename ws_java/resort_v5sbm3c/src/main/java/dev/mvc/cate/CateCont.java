@@ -1,5 +1,6 @@
 package dev.mvc.cate;
 
+import dev.mvc.contents.ContentsProc;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cate")
@@ -28,6 +31,9 @@ public class CateCont {
 
     @Autowired
     private MemberProc memberProc;
+
+    @Autowired
+    private ContentsProc contentsProc;
 
     /** 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작 */
     public int record_per_page = 5;
@@ -443,8 +449,31 @@ public class CateCont {
 
             word = Tool.checkNull(word);
 
-
             ArrayList<CateVO> list = cateProc.list_search_paging(word, now_page, record_per_page);
+            model.addAttribute("list", list);
+
+            ArrayList<CateVO> list1 = cateProc.list_all();
+
+            for (CateVO cate: list1) {
+                // 카테고리 별 cnt
+                int cnt = contentsProc.count_by_cateno(cate.getCateno());
+                cate.setCnt(cnt);           // 객체에 cnt 저장
+                cateProc.update_cnt(cate);  // DataBase에 저장
+            }
+
+            for (CateVO cate: list1) {
+                // 카테고리 그룹 total
+                ArrayList<CateVO> grpList = cateProc.list_all_name_y(cate.getGrp());    // 같은 그룹 추출
+                int size = cateProc.list_all_name_y(cate.getGrp()).size();
+                if (cate.getName().equals("--")) {
+                    int total = 0;
+                    for (int i = 0; i < size; i++) {
+                        total += grpList.get(i).getCnt();
+                    }
+                    cate.setCnt(total);
+                    cateProc.update_cnt(cate);
+                }
+            }
             model.addAttribute("list", list);
 
             int search_cnt = cateProc.list_search_count(word);

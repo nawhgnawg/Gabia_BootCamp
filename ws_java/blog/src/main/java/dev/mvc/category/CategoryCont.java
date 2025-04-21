@@ -2,6 +2,7 @@ package dev.mvc.category;
 
 import dev.mvc.bloguser.UserProc;
 import dev.mvc.bloguser.UserProcInter;
+import dev.mvc.contents.ContentsProc;
 import dev.mvc.tool.Tool;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class CategoryCont {
 
     @Autowired
     private UserProc userProc;
+
+    @Autowired
+    private ContentsProc contentsProc;
 
     /**
      * 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작
@@ -427,6 +431,29 @@ public class CategoryCont {
             ArrayList<CategoryVO> list = categoryProc.list_search_paging(word, now_page, record_per_page);
             model.addAttribute("list", list);
 
+            ArrayList<CategoryVO> list2 = categoryProc.list_all();
+
+            for (CategoryVO category: list2) {
+                // 카테고리 별 cnt
+                int cnt = contentsProc.count_by_categoryno(category.getCategoryNo());
+                category.setCategoryCnt(cnt);
+                categoryProc.update_cnt(category);
+            }
+
+            for (CategoryVO category: list2) {
+                // 카테고리 그룹 total
+                ArrayList<CategoryVO> grpList = categoryProc.list_all_categoryName_y(category.getCategoryGrp());
+                int size = categoryProc.list_all_categoryName_y(category.getCategoryGrp()).size();
+                if (category.getCategoryName().equals("--")) {
+                    int total = 0;
+                    for (int i = 0; i < size; i++) {
+                        total += grpList.get(i).getCategoryCnt();
+                    }
+                    category.setCategoryCnt(total);
+                    categoryProc.update_cnt(category);
+                }
+            }
+
             int search_cnt = categoryProc.list_search_count(word);
             model.addAttribute("search_cnt", search_cnt);
 
@@ -448,6 +475,5 @@ public class CategoryCont {
         } else {
             return "redirect:/bloguser/login_cookie_need?url=/category/list_search";
         }
-
     }
 }

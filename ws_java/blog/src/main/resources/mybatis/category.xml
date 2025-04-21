@@ -4,18 +4,18 @@
 <!-- 위에는 MyBatis 선언문 -->
 <mapper namespace="dev.mvc.category.CategoryDAOInter"> <!-- SB가 자동으로 구현하여 연동하는 interface -->
     <insert id="create" parameterType="dev.mvc.category.CategoryVO">
-        INSERT INTO category (categoryno, categorygrp, categoryname, sortno, visible, rdate)
-        VALUES(CATEGORY_SEQ.nextval, #{categoryGrp}, #{categoryName}, #{sortNo}, #{visible}, SYSDATE)
+        INSERT INTO category (categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate)
+        VALUES(CATEGORY_SEQ.nextval, #{categoryGrp}, #{categoryName}, 0, #{sortNo}, #{visible}, SYSDATE)
     </insert>
     <!-- 회원 전체 조회-->
     <select id="list_all" resultType="dev.mvc.category.CategoryVO">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
         FROM category
         ORDER BY sortno ASC
     </select>
     <!-- 회원 단일 조회 -->
     <select id="read" resultType="dev.mvc.category.CategoryVO" parameterType="int">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
         FROM category
         WHERE categoryno = #{categoryNo}
     </select>
@@ -23,6 +23,12 @@
     <update id="update" parameterType="dev.mvc.category.CategoryVO">
         UPDATE category
         SET categorygrp = #{categoryGrp}, categoryname = #{categoryName}, sortno = #{sortNo}, visible = #{visible}, rdate = SYSDATE
+        WHERE categoryno = #{categoryNo}
+    </update>
+
+    <update id="update_cnt" parameterType="dev.mvc.category.CategoryVO">
+        UPDATE category
+        SET categorycnt = #{categoryCnt}
         WHERE categoryno = #{categoryNo}
     </update>
     <!-- 회원 삭제 -->
@@ -57,14 +63,14 @@
     </update>
     <!-- 공개된 대분류만 출력 -->
     <select id="list_all_categoryGrp_y" resultType="dev.mvc.category.CategoryVO">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
         FROM category
         WHERE categoryname='--' and visible='Y'
         ORDER BY sortno ASC
     </select>
     <!-- 특정 그룹의 중분류 출력 -->
     <select id="list_all_categoryName_y" resultType="dev.mvc.category.CategoryVO" parameterType="String">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
         FROM category
         WHERE categorygrp= #{categoryGrp} and categoryname != '--' and visible='Y'
         ORDER BY sortno ASC
@@ -79,7 +85,7 @@
 
     <!-- 검색 -->
     <select id="list_search" resultType="dev.mvc.category.CategoryVO" parameterType="String">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
         FROM category
         <if test="word != null and word != ''">     <!-- 검색 상태라면 WHERE 생성 -->
             WHERE (categoryname != '--') AND ((UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%'))
@@ -99,11 +105,11 @@
 
     <!-- 검색 + 페이징 -->
     <select id="list_search_paging" resultType="dev.mvc.category.CategoryVO" parameterType="Map">
-        SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate, r
+        SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate, r
         FROM (
-            SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate, rownum as r
+            SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate, rownum as r
             FROM (
-                SELECT categoryno, categorygrp, categoryname, sortno, visible, rdate
+                SELECT categoryno, categorygrp, categoryname, categoryCnt, sortno, visible, rdate
                 FROM category
                 <if test="word != null and word != ''">
                     WHERE (UPPER(categorygrp) LIKE '%' || UPPER(#{word}) || '%') OR (UPPER(categoryname) LIKE '%' || UPPER(#{word}) || '%')

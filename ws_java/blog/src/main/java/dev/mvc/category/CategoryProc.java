@@ -175,4 +175,8 @@ public class CategoryProc implements CategoryProcInter {
 
         return str.toString();
     }
+
+    public int update_cnt(CategoryVO categoryVO) {
+        return categoryDAO.update_cnt(categoryVO);
+    }
 }

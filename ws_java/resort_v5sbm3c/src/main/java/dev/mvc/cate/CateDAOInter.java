@@ -82,4 +82,7 @@ public interface CateDAOInter {
      * 검색 + 페이징 목록
      */
     public ArrayList<CateVO> list_search_paging(Map map);
+
+    public int update_cnt(CateVO cateVO);
+
 }

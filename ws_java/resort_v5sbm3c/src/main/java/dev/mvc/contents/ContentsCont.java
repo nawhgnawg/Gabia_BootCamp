@@ -161,6 +161,10 @@ public class ContentsCont {
                 // controller: X
 
 //                return "redirect:/contents/list_all";
+                CateVO cateVO = cateProc.read(contentsVO.getCateno());
+                Integer cnt1 = cateVO.getCnt();
+                cateVO.setCnt(cnt1 + 1);
+
                 ra.addAttribute("cateno", contentsVO.getCateno()); // controller -> controller: O
                 return "redirect:/contents/list_by_cateno";
 
@@ -283,7 +287,7 @@ public class ContentsCont {
    */
   @GetMapping(value = "/list_by_cateno")
   public String list_by_cateno_search_paging(HttpSession session, Model model,
-                                             @RequestParam(value = "cateno", defaultValue = "0") int cateno,
+                                             @RequestParam(name = "cateno", defaultValue = "0") int cateno,
                                              @RequestParam(name = "word", defaultValue = "") String word,
                                              @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
@@ -328,7 +332,7 @@ public class ContentsCont {
      */
     @GetMapping(value = "/list_by_cateno_grid")
     public String list_by_cateno_search_paging_grid(HttpSession session, Model model,
-                                                    @RequestParam(value = "cateno", defaultValue = "0") int cateno,
+                                                    @RequestParam(name = "cateno", defaultValue = "0") int cateno,
                                                     @RequestParam(name = "word", defaultValue = "") String word,
                                                     @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
@@ -374,9 +378,9 @@ public class ContentsCont {
      */
     @GetMapping(value = "/read")
     public String read(Model model,
-                       @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
-                       @RequestParam(value = "word", defaultValue = "") String word,
-                       @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
+                       @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                       @RequestParam(name = "word", defaultValue = "") String word,
+                       @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
@@ -416,7 +420,7 @@ public class ContentsCont {
      */
     @GetMapping(value = "/map")
     public String map(Model model,
-                      @RequestParam(value = "contentsno", defaultValue = "0") int contentsno) {
+                      @RequestParam(name = "contentsno", defaultValue = "0") int contentsno) {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
@@ -435,8 +439,8 @@ public class ContentsCont {
      */
     @PostMapping(value = "/map")
     public String map_update(Model model,
-                             @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
-                             @RequestParam(value = "map", defaultValue = "") String map) {
+                             @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                             @RequestParam(name = "map", defaultValue = "") String map) {
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("contentsno", contentsno);
         hashMap.put("map", map);
@@ -452,9 +456,9 @@ public class ContentsCont {
      */
     @GetMapping(value = "/youtube")
     public String youtube(Model model,
-                          @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
-                          @RequestParam(value = "word", defaultValue = "") String word,
-                          @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
+                          @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                          @RequestParam(name = "word", defaultValue = "") String word,
+                          @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
@@ -477,10 +481,10 @@ public class ContentsCont {
     @PostMapping(value = "/youtube")
     public String youtube_update(Model model,
                                  RedirectAttributes ra,
-                                 @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
-                                 @RequestParam(value = "youtube", defaultValue = "") String youtube,
-                                 @RequestParam(value = "word", defaultValue = "") String word,
-                                 @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
+                                 @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                                 @RequestParam(name = "youtube", defaultValue = "") String youtube,
+                                 @RequestParam(name = "word", defaultValue = "") String word,
+                                 @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
         if (youtube.trim().length() > 0) { // 삭제 중인지 확인, 삭제가 아니면 youtube 크기 변경
             youtube = Tool.youtubeResize(youtube, 640); // youtube 영상의 크기를 width 기준 640 px로 변경
@@ -505,8 +509,11 @@ public class ContentsCont {
      *
      */
     @GetMapping(value = "/update_text")
-    public String update_text(HttpSession session, Model model, int contentsno, RedirectAttributes ra, String word,
-                              int now_page) {
+    public String update_text(HttpSession session, Model model,
+                              @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                              RedirectAttributes ra,
+                              @RequestParam(name = "word", defaultValue = "") String word,
+                              @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
@@ -525,22 +532,23 @@ public class ContentsCont {
             // model.addAttribute("content", content);
 
         } else {
-            ra.addAttribute("url", "/member/login_cookie_need"); // /templates/member/login_cookie_need.html
-            return "redirect:/contents/msg"; // @GetMapping(value = "/read")
+            // ra.addAttribute("url", "/member/login_cookie_need"); // /templates/member/login_cookie_need.html
+            // return "redirect:/contents/msg"; // @GetMapping(value = "/read")
+            // 로그인 후 텍스트 수정 폼이 자동으로 열림
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
 
     }
 
     /**
      * 수정 처리 http://localhost:9091/contents/update_text?contentsno=1
-     *
-     * @return
      */
     @PostMapping(value = "/update_text")
-    public String update_text(HttpSession session, Model model, ContentsVO contentsVO,
+    public String update_text_proc(HttpSession session, Model model,
+                              @ModelAttribute("contentsVO") ContentsVO contentsVO,
                               RedirectAttributes ra,
-                              String search_word, // contentsVO.word와 구분 필요
-                              int now_page) {
+                              @RequestParam(name = "search_word", defaultValue = "") String search_word, // contentsVO.word와 구분 필요
+                              @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         ra.addAttribute("word", search_word);
         ra.addAttribute("now_page", now_page);
 
@@ -565,48 +573,50 @@ public class ContentsCont {
                 return "redirect:/contents/msg"; // @GetMapping(value = "/msg")
             }
         } else { // 정상적인 로그인이 아닌 경우 로그인 유도
-            ra.addAttribute("url", "/member/login_cookie_need"); // /templates/member/login_cookie_need.html
-            return "redirect:/contents/msg"; // @GetMapping(value = "/msg")
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsVO.getContentsno();
         }
 
     }
 
     /**
      * 파일 수정 폼 http://localhost:9091/contents/update_file?contentsno=1
-     *
-     * @return
      */
     @GetMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model,
-                              int contentsno,
-                              String word,
-                              int now_page) {
+                              @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
+                              @RequestParam(value = "word", defaultValue = "") String word,
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
+
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
         model.addAttribute("word", word);
         model.addAttribute("now_page", now_page);
 
-        ContentsVO contentsVO = contentsProc.read(contentsno);
-        model.addAttribute("contentsVO", contentsVO);
+        if (memberProc.isAdmin(session)) {
+            ContentsVO contentsVO = contentsProc.read(contentsno);
+            model.addAttribute("contentsVO", contentsVO);
 
-        CateVO cateVO = cateProc.read(contentsVO.getCateno());
-        model.addAttribute("cateVO", cateVO);
+            CateVO cateVO = cateProc.read(contentsVO.getCateno());
+            model.addAttribute("cateVO", cateVO);
 
-        return "/contents/update_file";
+            return "/contents/update_file";
+        } else {
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
+        }
+
+
 
     }
 
     /**
      * 파일 수정 처리 http://localhost:9091/contents/update_file
-     *
-     * @return
      */
     @PostMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model, RedirectAttributes ra,
-                              ContentsVO contentsVO,
-                              String word,
-                              int now_page) {
+                              @ModelAttribute("contentsVO") ContentsVO contentsVO,
+                              @RequestParam(value = "word", defaultValue = "") String word,
+                              @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
 
         if (memberProc.isAdmin(session)) {
             // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
@@ -672,8 +682,7 @@ public class ContentsCont {
 
             return "redirect:/contents/read";
         } else {
-            ra.addAttribute("url", "/member/login_cookie_need");
-            return "redirect:/contents/msg"; // GET
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsVO.getContentsno();
         }
     }
 
@@ -685,10 +694,10 @@ public class ContentsCont {
      */
     @GetMapping(value = "/delete")
     public String delete(HttpSession session, Model model, RedirectAttributes ra,
-                         int cateno,
-                         int contentsno,
-                         String word,
-                         int now_page) {
+                         @RequestParam(name = "cateno", defaultValue = "0") int cateno,
+                         @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
         if (memberProc.isAdmin(session)) { // 관리자로 로그인한경우
             model.addAttribute("cateno", cateno);
             model.addAttribute("word", word);
@@ -706,8 +715,7 @@ public class ContentsCont {
             return "/contents/delete"; // forward
 
         } else {
-            ra.addAttribute("url", "/admin/login_cookie_need");
-            return "redirect:/contents/msg";
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
 
     }
@@ -718,50 +726,57 @@ public class ContentsCont {
      * @return
      */
     @PostMapping(value = "/delete")
-    public String delete(RedirectAttributes ra,
-                         int contentsno, int cateno, String word, int now_page) {
-        // -------------------------------------------------------------------
-        // 파일 삭제 시작
-        // -------------------------------------------------------------------
-        // 삭제할 파일 정보를 읽어옴.
-        ContentsVO contentsVO_read = contentsProc.read(contentsno);
+    public String delete_proc(HttpSession session, RedirectAttributes ra,
+                         @RequestParam(name = "contentsno", defaultValue = "0") int contentsno,
+                         @RequestParam(name = "cateno", defaultValue = "0") int cateno,
+                         @RequestParam(name = "word", defaultValue = "") String word,
+                         @RequestParam(name = "now_page", defaultValue = "1") int now_page) {
 
-        String file1saved = contentsVO_read.getFile1saved();
-        String thumb1 = contentsVO_read.getThumb1();
+        if (memberProc.isAdmin(session)) {
+            // -------------------------------------------------------------------
+            // 파일 삭제 시작
+            // -------------------------------------------------------------------
+            // 삭제할 파일 정보를 읽어옴.
+            ContentsVO contentsVO_read = contentsProc.read(contentsno);
 
-        String uploadDir = Contents.getUploadDir();
-        Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
-        Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
-        // -------------------------------------------------------------------
-        // 파일 삭제 종료
-        // -------------------------------------------------------------------
+            String file1saved = contentsVO_read.getFile1saved();
+            String thumb1 = contentsVO_read.getThumb1();
 
-        contentsProc.delete(contentsno); // DBMS 삭제
+            String uploadDir = Contents.getUploadDir();
+            Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+            Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+            // -------------------------------------------------------------------
+            // 파일 삭제 종료
+            // -------------------------------------------------------------------
 
-        // -------------------------------------------------------------------------------------
-        // 마지막 페이지의 마지막 레코드 삭제시의 페이지 번호 -1 처리
-        // -------------------------------------------------------------------------------------
-        // 마지막 페이지의 마지막 10번째 레코드를 삭제후
-        // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
-        // 페이지수를 4 -> 3으로 감소 시켜야함, 마지막 페이지의 마지막 레코드 삭제시 나머지는 0 발생
+            contentsProc.delete(contentsno); // DBMS 삭제
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("cateno", cateno);
-        map.put("word", word);
+            // -------------------------------------------------------------------------------------
+            // 마지막 페이지의 마지막 레코드 삭제시의 페이지 번호 -1 처리
+            // -------------------------------------------------------------------------------------
+            // 마지막 페이지의 마지막 10번째 레코드를 삭제후
+            // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
+            // 페이지수를 4 -> 3으로 감소 시켜야함, 마지막 페이지의 마지막 레코드 삭제시 나머지는 0 발생
 
-        if (contentsProc.list_by_cateno_search_count(map) % Contents.RECORD_PER_PAGE == 0) {
-            now_page = now_page - 1; // 삭제시 DBMS는 바로 적용되나 크롬은 새로고침등의 필요로 단계가 작동 해야함.
-            if (now_page < 1) {
-                now_page = 1; // 시작 페이지
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("cateno", cateno);
+            map.put("word", word);
+
+            if (contentsProc.list_by_cateno_search_count(map) % Contents.RECORD_PER_PAGE == 0) {
+                now_page = now_page - 1; // 삭제시 DBMS는 바로 적용되나 크롬은 새로고침등의 필요로 단계가 작동 해야함.
+                if (now_page < 1) {
+                    now_page = 1; // 시작 페이지
+                }
             }
+            // -------------------------------------------------------------------------------------
+
+            ra.addAttribute("cateno", cateno);
+            ra.addAttribute("word", word);
+            ra.addAttribute("now_page", now_page);
+
+            return "redirect:/contents/list_by_cateno";
+        } else {
+            return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
-        // -------------------------------------------------------------------------------------
-
-        ra.addAttribute("cateno", cateno);
-        ra.addAttribute("word", word);
-        ra.addAttribute("now_page", now_page);
-
-        return "redirect:/contents/list_by_cateno";
-
     }
 }

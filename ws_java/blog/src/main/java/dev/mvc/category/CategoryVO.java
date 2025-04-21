@@ -21,6 +21,11 @@ public class CategoryVO {
     @Size(min=2, max=10, message="카테고리 이름은 최소 2자에서 최대 10자입니다.")
     private String categoryName;
 
+    @NotNull(message="관련 자료수는 필수 입력 항목입니다.")
+    @Min(value=0)
+    @Max(value=1000000)
+    private Integer categoryCnt = 0;
+
     /** 출력 순서 */
     @NotNull(message="출력 순서는 필수 입력 항목입니다.")
     @Min(value=1)

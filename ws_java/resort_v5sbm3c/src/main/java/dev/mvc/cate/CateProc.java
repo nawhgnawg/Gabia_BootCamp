@@ -212,5 +212,8 @@ public class CateProc implements CateProcInter {
         return str.toString();
     }
 
+    public int update_cnt(CateVO cateVO) {
+        return cateDAO.update_cnt(cateVO);
+    }
 
 }

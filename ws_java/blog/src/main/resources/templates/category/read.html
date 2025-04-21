@@ -28,6 +28,7 @@
                 카테고리: <span th:text="${categoryVO.categoryName}"></span>
             </li>
             <li class="list-group-item" style="margin: 0px auto">
+                관련 자료수: <span th:text="${categoryVO.categoryCnt}" style="margin-right: 20px;"></span>
                 출력 순서: <span th:text="${categoryVO.sortNo}" style="margin-right: 20px;"></span>
                 출력 모드: <span th:text="${categoryVO.visible}" style="margin-right: 20px;"></span>
                 등록일: <span th:text="${categoryVO.rdate.substring(0, 10)}"></span>

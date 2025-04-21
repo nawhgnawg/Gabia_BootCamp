@@ -35,4 +35,6 @@ public interface CategoryDAOInter {
 
     public ArrayList<CategoryVO> list_search_paging(Map map);
 
+    public int update_cnt(CategoryVO categoryVO);
+
 }

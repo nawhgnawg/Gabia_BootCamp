@@ -29,6 +29,12 @@
         WHERE cateno = #{cateno}
     </update>
 
+    <update id="update_cnt" parameterType="dev.mvc.cate.CateVO">
+        UPDATE cate
+        SET cnt=#{cnt}
+        WHERE cateno = #{cateno}
+    </update>
+
     <!-- -->
     <delete id="delete" parameterType="int">
         DELETE

@@ -242,7 +242,7 @@ public class ContentsProc implements ContentsProcInter {
 
     @Override
     public int password_check(HashMap<String, Object> map) {
-        String passwd = (String)map.get("passwd");
+        String passwd = (String) map.get("passwd");
         passwd = security.aesEncode(passwd);
         map.put("passwd", passwd);
 

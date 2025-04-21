@@ -17,15 +17,15 @@
         <span class='menu_divide' >│</span>
         <a th:href="@{|./create?categoryno=${categoryVO.categoryNo}|}">등록</a>
         <span class='menu_divide' >│</span>
-        <a th:href="@{|/contents/update_text?contentsno=${contentsVO.categoryno}&now_page=${now_page}&word=${word}|}">글 수정</a>
+        <a th:href="@{|/contents/update_text?contentsno=${contentsVO.contentsno}&word=${word}&now_page=${now_page}|}">글 수정</a>
         <span class='menu_divide' >│</span>
-        <a th:href="@{|./update_file?contentsno=${contentsVO.categoryno}&word=${word}&now_page=${now_page}|}">파일 수정</a>
+        <a th:href="@{|./update_file?contentsno=${contentsVO.contentsno}&word=${word}&now_page=${now_page}|}">파일 수정</a>
         <span class='menu_divide' >│</span>
         <a th:href="@{|/contents/map?categoryno=${contentsVO.categoryno}&contentsno=${contentsVO.contentsno}|}">지도</a>
         <span class='menu_divide' >│</span>
         <a th:href="@{|/contents/youtube?categoryno=${contentsVO.categoryno}&contentsno=${contentsVO.contentsno}&word=${word}&now_page=${now_page}|}">Youtube</a>
         <span class='menu_divide' >│</span>
-        <a th:href="@{|./delete?contentsno=${contentsVO.categoryno}&word=${word}&now_page=${now_page}&categoryno=${contentsVO.categoryno}|}">삭제</a>
+        <a th:href="@{|./delete?contentsno=${contentsVO.contentsno}&word=${word}&now_page=${now_page}&categoryno=${contentsVO.categoryno}|}">삭제</a>
     </aside>
 
     <aside class="aside_right" th:if="${session.usergrade != 'admin'}">
