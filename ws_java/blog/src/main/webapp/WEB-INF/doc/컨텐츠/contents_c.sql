@@ -643,4 +643,7 @@ UPDATE contents
 SET replycnt = replycnt - 1
 WHERE contentsno = 3;
 
+SELECT COUNT(*) FROM contents
+(SELECT grp FROM cate WHERE grp == '카페')
+
 commit;

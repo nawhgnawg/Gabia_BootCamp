@@ -1,6 +1,6 @@
 <div th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="top_menu_img">
-        <div class="top_menu_label">요리 블로그 ver 5.0</div>
+        <div class="top_menu_label">요리 블로그 ver 6.0</div>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -32,15 +32,24 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{|/bloguser/create|}">회원 가입</a>
                     </li>
-                    <li class="nav-item" th:if="${session.usergrade == 'admin'}">
-                        <a class="nav-link" th:href="@{|/category/list_search|}">카테고리 목록</a>
-                    </li>
-                    <li class="nav-item" th:if="${session.usergrade == 'admin'}">
-                        <a class="nav-link" th:href="@{|/bloguser/list|}">회원 목록</a>
-                    </li>
                     <li class="nav-item" th:if="${session.userno != null}">
                         <a class="nav-link" href="/bloguser/passwd_update">비밀 번호 변경</a>
                     </li>
+
+                    <li class="nav-item dropdown" th:if="${session.usergrade=='admin'}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="관리자">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/category/list_search?word=${word}|}">카테고리 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/bloguser/list|}">회원 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/contents/list_all|}">전체 글 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/create|}">요리 기록 등록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_all|}">요리 기록 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item">
                         <span th:if="${session.userno == null}"><a class="nav-link" href="/bloguser/login" th:text="로그인"></a></span>
                         <span th:if="${session.userno != null}"><a class="nav-link" href="/bloguser/logout" th:text="|${session.useremail} 로그아웃|"></a></span>

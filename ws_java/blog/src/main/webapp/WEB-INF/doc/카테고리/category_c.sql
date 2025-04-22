@@ -4,7 +4,7 @@ CREATE TABLE category (
 	categoryno	    NUMBER(10)		NOT NULL    PRIMARY KEY,
 	categorygrp	    VARCHAR(30)		NOT NULL,
 	categoryname	VARCHAR(30)		NOT NULL,
-    cnt	            NUMBER(7)	    DEFAULT 0	NOT NULL,
+    categorycnt	    NUMBER(7)	    DEFAULT 0	NOT NULL,
 	sortno	        NUMBER(5)   	DEFAULT 1	NOT NULL,
 	visible	        CHAR(1)	        DEFAULT 'N'	NOT NULL,
 	rdate	        DATE		    NOT NULL
@@ -29,5 +29,9 @@ INSERT INTO category(categoryno, categorygrp, categoryname, sortno, visible, rda
 VALUES(CATEGORY_SEQ.nextval, '중식', '--', 201, 'Y', SYSDATE);
 
 SELECT * FROM category;
+
+ALTER TABLE category
+ADD (categorycnt NUMBER(7) DEFAULT 0 NOT NULL);
+
 
 COMMIT;

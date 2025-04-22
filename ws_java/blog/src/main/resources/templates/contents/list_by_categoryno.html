@@ -41,16 +41,14 @@
                 <div th:if="${contentsVO.size1 == 0}">
                     <img src="/contents/images/none1.png" style="width: 120px; height: 90px;">
                 </div>
+            </td>
 
-            </td>
-            </td>
             <td class='td_left'>
                 <span th:text="${contentsVO.title}" style="font-weight: bold;"></span><br>
                 <span th:if="${contentsVO.content.length() > 160 }"
                       th:text="|${contentsVO.content.substring(0, 160) }...|"></span>
                 <span th:if="${contentsVO.content.length() <= 160 }"
                       th:text="|${contentsVO.content}|"></span>
-
             </td>
         </tr>
     </table>
