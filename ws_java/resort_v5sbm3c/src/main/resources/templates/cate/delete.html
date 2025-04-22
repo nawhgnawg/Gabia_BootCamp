@@ -21,8 +21,11 @@
             <input type="hidden" name="word" th:value="${word}"> <!--/* 값 유지 */-->
             <input type="hidden" name="now_page" th:value="${now_page}"> <!--/* 값 유지 */-->
 
-            <div class="msg_warning">
+            <div th:if="${code} == 'contents_exist_n'" class="msg_warning">
                 카테고리를 삭제하면 복구 할 수 없습니다.<br>삭제하시려면 [삭제] 버튼을 클릭하세요.
+            </div>
+            <div th:if="${code} == 'contents_exist_y'" class="msg_warning">
+                관련 자료 <span th:text="${contents_cnt}"></span> 건이 발견되었습니다.<br>관련 자료와 카테고리를 모두 삭제하시려면 [삭제] 버튼을 클릭하세요.
             </div>
             <div style="width: 60%; margin: 0px auto; background-color: #DDDDDD;">
                 <label>카테고리 그룹</label>: <span th:text="${cateVO.grp}"></span> <br>

@@ -54,23 +54,20 @@
                 <div th:if="${contentsVO.size1 == 0}">
                     <img src="/contents/images/none1.png" style="width: 120px; height: 90px;">
                 </div>
+            </td>
 
-            </td>
-            </td>
             <td class='td_left'>
                 <span th:text="${contentsVO.title}" style="font-weight: bold;"></span>
-                <span th:text="| ${contentsVO.rdate.substring(0, 10)}|"></span><br>
-
-                <span th:if="${contentsVO.content.length() > 160 }"
-                      th:text="|${contentsVO.content.substring(0, 160) }...|"></span>
-                <span th:if="${contentsVO.content.length() <= 160 }"
+                <span th:text="|${contentsVO.rdate.substring(0, 10)}|"></span><br>
+                <span th:if="${contentsVO.content.length() > 160}"
+                      th:text="|${contentsVO.content.substring(0, 160)}|"></span>
+                <span th:if="${contentsVO.content.length() <= 160}"
                       th:text="|${contentsVO.content}|"></span>
-
             </td>
         </tr>
 
         <tr th:if="${list.size() == 0}">
-            <td colspan="2" style="text-align: center;">관련 글이 등록되지 않았습니다.</td>
+            <td colspan="3" style="text-align: center;">관련 글이 등록되지 않았습니다.</td>
         </tr>
 
     </table>

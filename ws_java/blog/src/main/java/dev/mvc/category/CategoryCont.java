@@ -267,6 +267,15 @@ public class CategoryCont {
         int search_cnt = list.size();
         model.addAttribute("search_cnt", search_cnt);
 
+        int contents_cnt = contentsProc.count_by_categoryno(categoryNo);
+        // 삭제하는 카테고리에 Contents 가 있는 경우
+        if (contents_cnt > 0) {
+            model.addAttribute("contents_cnt", contents_cnt);
+            model.addAttribute("code", "contents_exist_y");
+        } else {
+            model.addAttribute("code", "contents_exist_n");
+        }
+
         // --------------------------------------------------------------------------------------
         // 페이지 번호 목록 생성
         // --------------------------------------------------------------------------------------
@@ -294,6 +303,16 @@ public class CategoryCont {
 
         CategoryVO categoryVO = categoryProc.read(categoryNo);// cateno로 cateVO 객체 가져옴
         model.addAttribute("categoryVO", categoryVO);
+
+        int contents_cnt = contentsProc.count_by_categoryno(categoryNo);
+        // 삭제하는 카테고리에 Contents 가 있는 경우
+        if (contents_cnt > 0) {
+            contentsProc.delete_by_categoryno(categoryNo);
+            model.addAttribute("contents_cnt", contents_cnt);
+            model.addAttribute("code", "contents_exist_y");
+        } else {
+            model.addAttribute("code", "contents_exist_n");
+        }
 
         int cnt = categoryProc.delete(categoryNo);
 

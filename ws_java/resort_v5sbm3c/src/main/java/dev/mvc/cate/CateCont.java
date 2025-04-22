@@ -268,6 +268,15 @@ public class CateCont {
         int search_cnt = list.size();
         model.addAttribute("search_cnt", search_cnt);
 
+        int contents_cnt = contentsProc.count_by_cateno(cateno);
+        // 삭제하는 카테고리에 Contents 가 있는 경우
+        if (contents_cnt > 0) {
+            model.addAttribute("contents_cnt", contents_cnt);
+            model.addAttribute("code", "contents_exist_y");
+        } else {
+            model.addAttribute("code", "contents_exist_n");
+        }
+
         // --------------------------------------------------------------------------------------
         // 페이지 번호 목록 생성
         // --------------------------------------------------------------------------------------
@@ -296,6 +305,12 @@ public class CateCont {
 
         CateVO cateVO = cateProc.read(cateno);  // cateno로 cateVO 객체 가져옴
         model.addAttribute("cateVO", cateVO);
+
+        int contents_cnt = contentsProc.count_by_cateno(cateno);
+        // 삭제하는 카테고리에 Contents 가 있는 경우
+        if (contents_cnt > 0) {
+            contentsProc.delete_by_cateno(cateno);
+        }
 
         int cnt = cateProc.delete(cateno);
 
