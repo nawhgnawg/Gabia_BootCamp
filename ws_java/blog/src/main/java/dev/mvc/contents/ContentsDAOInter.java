@@ -98,4 +98,9 @@ public interface ContentsDAOInter {
      * 글 수 감소
      */
     public int decreaseReplycnt(int contentsno);
+
+    public int increaseRecom(int contentsno);
+
+    public int decreaseRecom(int contentsno);
+
 }

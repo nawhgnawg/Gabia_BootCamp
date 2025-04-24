@@ -295,4 +295,14 @@ public class ContentsProc implements ContentsProcInter {
     public int decreaseReplycnt(int contentsno) {
         return contentsDAO.decreaseReplycnt(contentsno);
     }
+
+    @Override
+    public int increaseRecom(int contentsno) {
+        return contentsDAO.increaseRecom(contentsno);
+    }
+
+    @Override
+    public int decreaseRecom(int contentsno) {
+        return contentsDAO.decreaseRecom(contentsno);
+    }
 }

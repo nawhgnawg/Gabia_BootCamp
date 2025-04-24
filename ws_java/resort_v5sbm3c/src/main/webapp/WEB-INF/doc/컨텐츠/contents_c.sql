@@ -640,4 +640,14 @@ WHERE contentsno = 3;
 SELECT contentsno, memberno, cateno, title, passwd
 FROM contents
 
+-- 추천
+UPDATE contents
+SET recom = recom + 1
+WHERE contentsno = 1;
+
+-- 비추천
+UPDATE contents
+SET recom = recom - 1
+WHERE contentsno = 1;
+
 commit;

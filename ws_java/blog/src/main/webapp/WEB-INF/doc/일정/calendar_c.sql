@@ -21,8 +21,8 @@ CREATE TABLE calendar (
   cnt         NUMBER        DEFAULT 0, -- 조회수
   seqno       NUMBER(5)     DEFAULT 1 NOT NULL, -- 일정 출력 순서
   regdate     DATE          NOT NULL, -- 등록 날짜
-  memberno    NUMBER(10)     NOT NULL , -- FK
-  FOREIGN KEY (memberno) REFERENCES member (memberno) -- 일정을 등록한 관리자
+  userno      NUMBER(10)    NOT NULL , -- FK
+  FOREIGN KEY (userno) REFERENCES bloguser (userno) -- 일정을 등록한 관리자
 );
 
 DROP SEQUENCE calendar_seq;
@@ -49,7 +49,7 @@ INSERT INTO calendar(calendarno, labeldate, label, title, content, cnt, seqno, r
 VALUES (calendar_seq.nextval, '2025-01-01', '새해 첫날 학원 출입 안내', '새해 첫날 학원 출입 안내', '새해 첫날에 학원 입실 안됩니다.', 0, 2, sysdate, 1);
 
 -- 전체 목록
-SELECT calendarno, labeldate, label, title, content, cnt, seqno, regdate, memberno
+SELECT calendarno, labeldate, label, title, content, cnt, seqno, regdate, userno
 FROM calendar
 ORDER BY calendarno DESC;
 

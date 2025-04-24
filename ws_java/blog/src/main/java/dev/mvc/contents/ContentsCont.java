@@ -6,10 +6,13 @@ import dev.mvc.category.CategoryProc;
 import dev.mvc.category.CategoryProcInter;
 import dev.mvc.category.CategoryVO;
 import dev.mvc.category.CategoryVOMenu;
+import dev.mvc.contentsgood.ContentsgoodProcInter;
+import dev.mvc.contentsgood.ContentsgoodVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,10 @@ public class ContentsCont {
     @Autowired
     @Qualifier("dev.mvc.contents.ContentsProc") // @Component("dev.mvc.contents.ContentsProc")
     private ContentsProc contentsProc;
+
+    @Autowired
+    @Qualifier("dev.mvc.contentsgood.ContentsgoodProc")
+    private ContentsgoodProcInter contentsgoodProc;
 
     public ContentsCont() {
         System.out.println("-> ContentsCont created.");
@@ -293,7 +300,7 @@ public class ContentsCont {
      * @return
      */
     @GetMapping(value = "/read")
-    public String read(Model model,
+    public String read(HttpSession session, Model model,
                        @RequestParam(value = "contentsno", defaultValue = "0") int contentsno,
                        @RequestParam(value = "word", defaultValue = "") String word,
                        @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
@@ -303,15 +310,6 @@ public class ContentsCont {
 
         ContentsVO contentsVO = contentsProc.read(contentsno);
         model.addAttribute("contentsVO", contentsVO);
-
-//    String title = contentsVO.getTitle();
-//    String content = contentsVO.getContent();
-//
-//    title = Tool.convertChar(title);  // 특수 문자 처리
-//    content = Tool.convertChar(content);
-//
-//    contentsVO.setTitle(title);
-//    contentsVO.setContent(content);
 
         long size1 = contentsVO.getSize1();
         String size1_label = Tool.unit(size1);
@@ -326,6 +324,22 @@ public class ContentsCont {
 
         model.addAttribute("word", word);
         model.addAttribute("now_page", now_page);
+
+        // -------------------------------------------------------------------------------------------
+        // 추천 관련
+        // -------------------------------------------------------------------------------------------
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("contentsno", contentsno);
+
+        int hartCnt = 0;
+        if (session.getAttribute("userno") != null ) { // 회원인 경우만 카운트 처리
+            int userno = (int) session.getAttribute("userno");
+            map.put("userno", userno);
+
+            hartCnt = contentsgoodProc.hartCnt(map);
+        }
+
+        model.addAttribute("hartCnt", hartCnt);
 
         return "contents/read";
     }
@@ -678,5 +692,68 @@ public class ContentsCont {
         } else {
             return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
+    }
+
+    /**
+     * 추천 처리 http://localhost:9092/contents/good
+     */
+    @PostMapping("/good")
+    @ResponseBody
+    public String good(HttpSession session, Model model, @RequestBody String json_src){
+        System.out.println("-> json_src: " + json_src); // json_src: {"contentsno":"5"}
+
+        JSONObject src = new JSONObject(json_src); // String -> JSON
+        int contentsno = (int) src.get("contentsno"); // 값 가져오기
+        System.out.println("-> contentsno: " + contentsno);
+
+        if (userProc.isMember(session)) { // 회원 로그인 확인
+            // 추천을 한 상태인지 확인
+            int userno = (int) session.getAttribute("userno");
+
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("contentsno", contentsno);
+            map.put("userno", userno);
+
+            int good_cnt = contentsgoodProc.hartCnt(map);
+            System.out.println("-> good_cnt: " + good_cnt);
+
+            if (good_cnt == 1) {
+                System.out.println("-> 추천 해제: " + contentsno + ' ' + userno);
+
+                ContentsgoodVO contentsgoodVO = contentsgoodProc.readByContentsnoUserno(map);
+
+                contentsgoodProc.delete(contentsgoodVO.getContentsgoodno()); // 추천 삭제
+                contentsProc.decreaseRecom(contentsno); // 카운트 감소
+            } else {
+                System.out.println("-> 추천: " + contentsno + ' ' + userno);
+
+                ContentsgoodVO contentsgoodVO_new = new ContentsgoodVO();
+                contentsgoodVO_new.setContentsno(contentsno);
+                contentsgoodVO_new.setUserno(userno);
+
+                contentsgoodProc.create(contentsgoodVO_new);
+                contentsProc.increaseRecom(contentsno); // 카운트 증가
+            }
+
+            // 추천 여부가 변경되어 다시 새로운 값을 읽어옴.
+            int hartCnt = contentsgoodProc.hartCnt(map);
+            int recom = contentsProc.read(contentsno).getRecom();
+
+            JSONObject result = new JSONObject();
+            result.put("isUser", 1); // 로그인: 1, 비회원: 0
+            result.put("hartCnt", hartCnt); // 추천 여부, 추천:1, 비추천: 0
+            result.put("recom", recom);   // 추천인수
+
+            System.out.println("-> result.toString(): " + result.toString());
+            return result.toString();
+
+        } else { // 정상적인 로그인이 아닌 경우 로그인 유도
+            JSONObject result = new JSONObject();
+            result.put("isUser", 0); // 로그인: 1, 비회원: 0
+
+            System.out.println("-> result.toString(): " + result.toString());
+            return result.toString();
+        }
+
     }
 }

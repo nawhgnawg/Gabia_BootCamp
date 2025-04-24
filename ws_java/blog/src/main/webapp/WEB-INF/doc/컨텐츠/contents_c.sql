@@ -393,10 +393,19 @@ WHERE contentsno >= 7;
 
 commit;
 
+-- ----------------------------------------------------------------------------------------------------
+-- 추천 관련 SQL
+-- ----------------------------------------------------------------------------------------------------
 -- 추천
 UPDATE contents
 SET recom = recom + 1
 WHERE contentsno = 1;
+
+-- 비추천
+UPDATE contents
+SET recom = recom - 1
+WHERE contentsno = 1;
+
 
 -- categoryno FK 특정 그룹에 속한 레코드 갯수 산출
 SELECT COUNT(*) as cnt
@@ -645,5 +654,6 @@ WHERE contentsno = 3;
 
 SELECT COUNT(*) FROM contents
 (SELECT grp FROM cate WHERE grp == '카페')
+
 
 commit;

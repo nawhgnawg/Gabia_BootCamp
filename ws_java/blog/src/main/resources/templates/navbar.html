@@ -47,6 +47,7 @@
                             <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/create|}">요리 기록 등록</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_all|}">요리 기록 목록</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/contentsgood/list_all|}">레시피 추천 목록</a></li>
                         </ul>
                     </li>
 
@@ -54,6 +55,8 @@
                         <span th:if="${session.userno == null}"><a class="nav-link" href="/bloguser/login" th:text="로그인"></a></span>
                         <span th:if="${session.userno != null}"><a class="nav-link" href="/bloguser/logout" th:text="|${session.useremail} 로그아웃|"></a></span>
                     </li>
+
+                    <li class="nav-item" th:if="${session.usergrade != 'admin'}"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
 
                 </ul>
             </div>
