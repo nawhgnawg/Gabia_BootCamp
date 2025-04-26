@@ -129,6 +129,173 @@
                     <span id="hart_panel"></span><span id="recom_panel"></span>
                 </div>
             </li>
+
+            <li class="li_none">
+                <!-- ------------------------------ 댓글 영역 시작 ------------------------------ -->
+                <script>
+                    window.onload = () => {
+                      let content_tag = document.getElementById('content');
+                      let btn_create_tag = document.getElementById('btn_create');
+                      let btn_add = document.getElementById('btn_add'); // 더보기
+                      let reply_list = document.getElementById('reply_list'); // 목록 출력 panel
+
+                      content_tag.addEventListener('click', () => {
+                        let id =  '[[${session.useremail}]]'; //  javascript -> Thymeleaf -> session
+                        // alert('Click!: ' + id);
+                        if (id == '') {
+                          alert('로그인해야 댓글을 입력 할 수 있습니다.');
+                          location.href="/bloguser/login?url=/contents/read?contentsno=[[${contentsVO.contentsno}]]%26word=[[${word}]]%26now_page=[[${now_page}]]";
+                        } else {
+                          // alert('로그인 됨');
+                          // content_tag.focus();
+                        }
+                      });
+
+                      btn_create_tag.addEventListener('click', () => {
+                        let content = content_tag.value.trim();
+                        let passwd = document.getElementById('passwd').value;
+
+                        if (content.length == 0) {
+                          alert('내용이 없습니다. 내용을 입력해주세요.');
+                        } else {
+                          // alert('content: ' + content_tag.value);
+                          // {"sentence":"안녕하세요.","language":"영어","age":"25"}
+                          // console.log(JSON.stringify({sentence, language, age}))
+                          // return;
+
+                          // Spring Security를 사용하지 않고 CORS 설정시 접근 안됨.
+                          // fetch("http://127.0.0.1:9091/reply/create", {
+                          fetch("/reply/create", {
+                            "method": "post",
+                            "headers": {"Content-Type": "application/json"},
+                            body: JSON.stringify({"contentsno": "[[${contentsVO.contentsno}]]", "content": content, "passwd": passwd})
+                          })
+                          .then((response) => response.json())
+                          .then((data) => {
+                            list_by_contentsno_join(); // 목록 출력
+                          });
+                          // result_animation_tag.innerHTML = '<img src="/static/images/progress.gif" style="width: 15%; margin-top: 0px;">';
+                        }
+                      });
+                      list_by_contentsno_join(); // 목록 출력
+
+                      // 자바 스크립트는 변수명에 '-' 사용 못함.
+                      btn_add.addEventListener('click', () => {
+                        // 현재 페이지보다 레코드 갯수가 더 많은 경우만 실행
+                        if (reply_data.length > reply_now_page * 5 ) { // 5, 10, 15, 20, 25 X 
+                          // let data_replypage = reply_list.getAttribute('data-replypage');
+                          // console.log('-> data_replypage typeof:' + typeof data_replypage );
+                          let start = 0; // 출력 순환 시작 index
+                          let end = 0;  // 출력 순환 종료 index
+                          if (reply_data.length > 5) {
+                            start = reply_now_page * 5;
+                            end = (reply_now_page * 5) + 5; // 시작 index + 페이지 당 레코드 수
+                            
+                            let msg = '';
+                            let page_div = document.createElement('div'); // 글내용
+                            for (let i = start; i < end; i++) { // 5 ~ 9, 10 탈출
+                              if (i == reply_data.length) { // 모든 태그를 출력한 이후인지 검사
+                                break;
+                              }
+
+                              let row = reply_data[i];
+                              msg += "<div id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
+                              msg += "<span style='font-weight: bold;'>" + row.id + "</span>";
+                              msg += "  " + row.rdate;
+                        
+                              if ('[[${session.memberno}]]' == row.userno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
+                                msg += " <a href='javascript:reply_update("+row.replyno+")'><img src='/reply/images/update.png' style='width: 16px;'></a>";
+                                msg += " <a href='javascript:reply_delete("+row.replyno+")'><img src='/reply/images/delete.png' style='width: 16px;'></a>";
+                              }
+                              msg += "  " + "<br>";
+                              msg += row.content;
+                              msg += "</div>";
+
+                            }
+                            page_div.innerHTML = msg; //  페이지에 속한 레코드들 추가
+                            reply_list.appendChild(page_div);
+                            
+                            reply_now_page = reply_now_page + 1;
+                          }             
+                          
+                        }
+                      });            
+                      list_by_contentsno_join(); // 목록 출력
+                    }
+                    
+                    // 5건 미만이면 5회 미만 순환, 5건 이상 5회 순환
+                    function list_by_contentsno_join() { // 목록 출력
+                      let cnt = 0; // 출력 순환 횟수  
+                    
+                      // Spring Security를 사용하지 않고 CORS 설정시 접근 안됨.
+                      // fetch("http://127.0.0.1:9091/reply/create", {
+                      fetch("/reply/list_by_contentsno_join?contentsno=[[${contentsVO.contentsno}]]", {
+                        "method": "get" 
+                      })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        reply_data = data['res'];
+                        // alert(reply_data.length);
+                        // return;
+                        if (reply_data.length > 5) {
+                          cnt = 5;
+                        } else {
+                          cnt = reply_data.length;
+                        }
+                        
+                        // console.log('-> cnt: ' + cnt);
+                        
+                        // alert('res: ' + data['res']);
+                        // result_tag.value = data['res'];
+                        // result_animation_tag.innerHTML = '';
+                        let msg = '';
+                        for (let i=0; i < cnt; i++) {
+                          // let row = data['res'][i];
+                          let row = reply_data[i];
+                          msg += "<div id='"+row.replyno+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
+                          msg += "<span style='font-weight: bold;'>" + row.id + "</span>";
+                          msg += "  " + row.rdate;
+                    
+                          if ('[[${session.userno}]]' == row.userno) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
+                            msg += " <a href='javascript:reply_update("+row.replyno+")'><img src='/reply/images/update.png' style='width: 16px;'></a>";
+                            msg += " <a href='javascript:reply_delete("+row.replyno+")'><img src='/reply/images/delete.png' style='width: 16px;'></a>";
+                          }
+                          msg += "  " + "<br>";
+                          msg += row.content;
+                          msg += "</div>";
+                        }  
+                      document.getElementById("reply_list").innerHTML = msg;               
+                      });
+                    }
+                </script>
+
+                <div style='width: 100%; margin: 0px auto; clear: both;'>
+                    <form name='frm_reply' id='frm_reply'>
+                        <input type='hidden' name='contentsno' id='contentsno' value='${contentsno}'>
+                        <input type='hidden' name='userno' id='userno' value='${sessionScope.userno}'>
+
+                        <textarea name='content' id='content' class="form-control" style='width: 100%; height: 60px;'
+                                  placeholder="댓글 작성, 로그인해야 등록 할 수 있습니다." autofocus='autofocus'></textarea>
+                        <div>
+                            <label>패스워드</label>
+                            <input type='password' id='passwd' name='passwd' value='1234' required="required"
+                                   class="form-control" style='width: 50%;'>
+                        </div>
+                        <div style='text-align: center;'>
+                            <button type='button' id='btn_create'>  등  록  </button>
+                        </div>
+                    </form>
+
+                    <div id='reply_list' data-replypage='1'>  <!-- 목록 -->
+                        등록된 댓글이 없습니다.
+                    </div>
+                    <div id='reply_list_btn' style='border: none'>
+                        <button id='btn_add' style='width: 100%;'>더보기 ▽</button>
+                    </div>
+
+                </div>
+
+                <!-- ------------------------------ 댓글 영역 종료 ------------------------------  -->
         </ul>
     </fieldset>
 </div>

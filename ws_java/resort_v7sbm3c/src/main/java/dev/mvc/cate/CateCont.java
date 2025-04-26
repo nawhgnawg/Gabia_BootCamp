@@ -50,7 +50,7 @@ public class CateCont {
      */
     @GetMapping("/create")
     public String create(@ModelAttribute("cateVO") CateVO cateVO) {
-        return "/cate/create";  // templates/cate/create.html
+        return "cate/create";  // templates/cate/create.html
     }
 
     /**
@@ -67,7 +67,7 @@ public class CateCont {
                          RedirectAttributes ra) {
         System.out.println("-> create post");
         if (bindingResult.hasErrors()) {
-            return "/cate/create";
+            return "cate/create";
         }
 
         int cnt = cateProc.create(cateVO);
@@ -107,7 +107,7 @@ public class CateCont {
         ArrayList<String> grpset = cateProc.grpset();
         cateVO.setGrp(String.join("/", grpset));
 
-        return "/cate/list_all";    // templates/cate/list_all.html
+        return "cate/list_all";    // templates/cate/list_all.html
     }
 
     /**
@@ -150,7 +150,7 @@ public class CateCont {
         model.addAttribute("no", no);
 
 
-        return "/cate/read";    // templates/cate/read.html
+        return "cate/read";    // templates/cate/read.html
     }
 
     /**
@@ -190,7 +190,7 @@ public class CateCont {
         model.addAttribute("no", no);
 
 
-        return "/cate/update";    // templates/cate/update.html
+        return "cate/update";    // templates/cate/update.html
     }
 
     /**
@@ -238,7 +238,7 @@ public class CateCont {
         }
         model.addAttribute("cnt", cnt);
 
-        return "/cate/msg";  // templates/cate/msg.html
+        return "cate/msg";  // templates/cate/msg.html
     }
 
     /**
@@ -286,7 +286,7 @@ public class CateCont {
         model.addAttribute("no", no);
 
 
-        return "/cate/delete";      // templates/cate/delete.html
+        return "cate/delete";      // templates/cate/delete.html
     }
 
     /**
@@ -333,7 +333,7 @@ public class CateCont {
         model.addAttribute("name", cateVO.getName());
         model.addAttribute("cnt", cnt);
 
-        return "/cate/msg";
+        return "cate/msg";
     }
 
     /**
@@ -381,7 +381,7 @@ public class CateCont {
         model.addAttribute("name", cateVO.getName());
         model.addAttribute("cnt", cnt);
 
-        return "/cate/msg";
+        return "cate/msg";
     }
 
 
@@ -554,7 +554,7 @@ public class CateCont {
             int no = search_count - ((now_page - 1) * record_per_page);
             model.addAttribute("no", no);
 
-            return "/cate/list_search";  // /templates/cate/list_search.html
+            return "cate/list_search";  // /templates/cate/list_search.html
         } else {
             return "redirect:/member/login_cookie_need?url=/cate/list_search";
         }

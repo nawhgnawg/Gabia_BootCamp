@@ -18,7 +18,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource("classpath:/application.properties")  // 설정 파일 위치
-@MapperScan(basePackages= {"dev.mvc.bloguser", "dev.mvc.category", "dev.mvc.contents", "dev.mvc.calendar", "dev.mvc.contentsgood"})
+@MapperScan(basePackages= {"dev.mvc.bloguser", "dev.mvc.category", "dev.mvc.contents", "dev.mvc.calendar", "dev.mvc.contentsgood", "dev.mvc.reply"})
 public class DatabaseConfiguration {
 
     @Autowired

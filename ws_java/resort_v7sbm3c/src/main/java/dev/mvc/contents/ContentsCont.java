@@ -75,7 +75,7 @@ public class ContentsCont {
         CateVO cateVO = cateProc.read(cateno); // 카테고리 정보를 출력하기위한 목적
         model.addAttribute("cateVO", cateVO);
 
-        return "/contents/create"; // /templates/contents/create.html
+        return "contents/create"; // /templates/contents/create.html
     }
 
     /**
@@ -219,7 +219,7 @@ public class ContentsCont {
 //      }
 
             model.addAttribute("list", list);
-            return "/contents/list_all";
+            return "contents/list_all";
 
         } else {
             return "redirect:/member/login_cookie_need";
@@ -330,7 +330,7 @@ public class ContentsCont {
     int no = search_count - ((now_page - 1) * Contents.RECORD_PER_PAGE);
     model.addAttribute("no", no);
 
-    return "/contents/list_by_cateno_search_paging"; // /templates/contents/list_by_cateno_search_paging.html
+    return "contents/list_by_cateno_search_paging"; // /templates/contents/list_by_cateno_search_paging.html
   }
 
     /**
@@ -541,7 +541,7 @@ public class ContentsCont {
             CateVO cateVO = cateProc.read(contentsVO.getCateno());
             model.addAttribute("cateVO", cateVO);
 
-            return "/contents/update_text"; // /templates/contents/update_text.html
+            return "contents/update_text"; // /templates/contents/update_text.html
             // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
             // model.addAttribute("content", content);
 
@@ -614,7 +614,7 @@ public class ContentsCont {
             CateVO cateVO = cateProc.read(contentsVO.getCateno());
             model.addAttribute("cateVO", cateVO);
 
-            return "/contents/update_file";
+            return "contents/update_file";
         } else {
             return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;
         }
@@ -726,7 +726,7 @@ public class ContentsCont {
             CateVO cateVO = cateProc.read(contentsVO.getCateno());
             model.addAttribute("cateVO", cateVO);
 
-            return "/contents/delete"; // forward
+            return "contents/delete"; // forward
 
         } else {
             return "redirect:/member/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;

@@ -80,7 +80,7 @@ public class CategoryCont {
         int no = ((now_page - 1) * record_per_page) + 1;
         model.addAttribute("no", no);
 
-        return "/category/create";  // templates/cate/create.html
+        return "category/create";  // templates/cate/create.html
     }
 
     /**
@@ -96,7 +96,7 @@ public class CategoryCont {
                          @RequestParam(name = "now_page", defaultValue = "1") int now_page,
                          RedirectAttributes ra) {
         if (bindingResult.hasErrors()) {
-            return "/category/create";
+            return "category/create";
         }
 
         int cnt = categoryProc.create(categoryVO);
@@ -118,7 +118,7 @@ public class CategoryCont {
         }
         model.addAttribute("cnt", cnt);
 
-        return "/category/msg";  // templates/cate/msg.html
+        return "category/msg";  // templates/cate/msg.html
     }
 
     /**
@@ -138,7 +138,7 @@ public class CategoryCont {
         model.addAttribute("grpset", grpset);
 
 
-        return "/category/list_all";    // templates/category/list_all.html
+        return "category/list_all";    // templates/category/list_all.html
     }
 
     /**
@@ -176,7 +176,7 @@ public class CategoryCont {
         int no = ((now_page - 1) * record_per_page) + 1;
         model.addAttribute("no", no);
 
-        return "/category/read";    // templates/cate/read.html
+        return "category/read";    // templates/cate/read.html
     }
 
 
@@ -214,7 +214,7 @@ public class CategoryCont {
         int no = ((now_page - 1) * record_per_page) + 1;
         model.addAttribute("no", no);
 
-        return "/category/update";    // templates/cate/update.html
+        return "category/update";    // templates/cate/update.html
     }
 
     /**
@@ -288,7 +288,7 @@ public class CategoryCont {
         int no = ((now_page - 1) * record_per_page) + 1;
         model.addAttribute("no", no);
 
-        return "/category/delete";      // templates/cate/delete.html
+        return "category/delete";      // templates/cate/delete.html
     }
 
     /**
@@ -337,7 +337,7 @@ public class CategoryCont {
         model.addAttribute("categoryName", categoryVO.getCategoryName());
         model.addAttribute("cnt", cnt);
 
-        return "/category/msg";
+        return "category/msg";
     }
 
     /**

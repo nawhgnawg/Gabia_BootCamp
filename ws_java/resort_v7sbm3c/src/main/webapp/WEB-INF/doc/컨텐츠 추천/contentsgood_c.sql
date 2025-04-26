@@ -77,3 +77,20 @@ WHERE contentsno=2 AND memberno=5;
        CNT
 ----------
          0 <-- 추천 안됨
+
+-- JOIN, 어느 설문을 누가 추천 했는가?
+SELECT contentsgoodno, rdate, contentsno, memberno
+FROM contentsgood
+ORDER BY contentsgoodno DESC;
+
+-- 테이블 2개 join
+SELECT r.contentsgoodno, r.rdate, r.contentsno, c.title, r.memberno
+FROM contents c, contentsgood r
+WHERE c.contentsno = r.contentsno
+ORDER BY contentsgoodno DESC;
+
+-- 테이블 3개 join, as 사용시 컴럼명 변경 가능: c.title as c_title
+SELECT r.contentsgoodno, r.rdate, r.contentsno, c.title as c_title, r.memberno, m.id, m.mname
+FROM contents c, contentsgood r, member m
+WHERE c.contentsno = r.contentsno AND r.memberno = m.memberno
+ORDER BY contentsgoodno DESC;

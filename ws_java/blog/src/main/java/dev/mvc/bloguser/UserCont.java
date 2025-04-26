@@ -55,7 +55,7 @@ public class UserCont {
     public String create_form(Model model, @ModelAttribute("userVO") UserVO userVO) {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
-        return "/bloguser/create";
+        return "bloguser/create";
     }
 
     /**
@@ -155,7 +155,7 @@ public class UserCont {
         }
         model.addAttribute("cnt", cnt);
 
-        return "/bloguser/msg";
+        return "bloguser/msg";
     }
 
     @GetMapping("/delete")
@@ -163,7 +163,7 @@ public class UserCont {
         UserVO userVO = userProc.read(userno);
         model.addAttribute("userVO", userVO);
 
-        return "/bloguser/delete";
+        return "bloguser/delete";
     }
 
     @PostMapping("/delete")
@@ -311,7 +311,7 @@ public class UserCont {
             }
         } else {
             model.addAttribute("code", "login_fail");
-            return "/bloguser/msg";
+            return "bloguser/msg";
         }
     }
 
@@ -471,7 +471,7 @@ public class UserCont {
 
         model.addAttribute("url", url);
 
-        return "/bloguser/login_cookie_need";  // templates/member/login_cookie_need.html
+        return "bloguser/login_cookie_need";  // templates/member/login_cookie_need.html
     }
 
 }

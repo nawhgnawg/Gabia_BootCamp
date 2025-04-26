@@ -75,3 +75,8 @@ WHERE contentsno=2 AND userno=5;
        CNT
 ----------
          0 <-- 추천 안됨
+
+-- 해당 게시물의 현재 추천수
+SELECT COUNT(*) as cnt
+FROM contentsgood
+WHERE contentsno = 12;

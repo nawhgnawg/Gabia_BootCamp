@@ -3,6 +3,7 @@ package dev.mvc.contentsgood;
 import dev.mvc.bloguser.UserProcInter;
 import dev.mvc.category.CategoryProcInter;
 import dev.mvc.category.CategoryVOMenu;
+import dev.mvc.contents.ContentsProcInter;
 import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping(value = "/contentsgood")
@@ -24,6 +26,10 @@ public class ContentsgoodCont {
     @Autowired
     @Qualifier("dev.mvc.category.CategoryProc")
     private CategoryProcInter categoryProc;
+
+    @Autowired
+    @Qualifier("dev.mvc.contents.ContentsProc") // @Component("dev.mvc.contents.ContentsProc")
+    private ContentsProcInter contentsProc;
 
     @Autowired
     @Qualifier("dev.mvc.contentsgood.ContentsgoodProc")
@@ -57,24 +63,6 @@ public class ContentsgoodCont {
         return json.toString();
     }
 
-    //  /**
-    //   * 목록
-    //   *
-    //   * @param model
-    //   * @return
-    //   */
-    //  // http://localhost:9091/contentsgood/list_all
-    //  @GetMapping(value = "/list_all")
-    //  public String list_all(Model model) {
-    //    ArrayList<ContentsgoodVO> list = this.contentsgoodProc.list_all();
-    //    model.addAttribute("list", list);
-    //
-    //    ArrayList<CateVOMenu> menu = this.cateProc.menu();
-    //    model.addAttribute("menu", menu);
-    //
-    //    return "contentsgood/list_all"; // /templates/contentsgood/list_all.html
-    //  }
-
     /**
      * 목록
      * http://localhost:9092/contentsgood/list_all
@@ -87,7 +75,7 @@ public class ContentsgoodCont {
         ArrayList<CategoryVOMenu> menu = categoryProc.menu();
         model.addAttribute("menu", menu);
 
-        return "contentsgood/list_all"; // /templates/contentsgood/list_all.html
+        return "contentsgood/list_all";
     }
 
     /**
@@ -98,21 +86,17 @@ public class ContentsgoodCont {
     public String delete_proc(HttpSession session, Model model,
                               @RequestParam(name="contentsgoodno", defaultValue = "0") int contentsgoodno,
                               RedirectAttributes ra) {
+        // 관리자 로그인 확인
+        if (userProc.isAdmin(session)) {
+            ContentsgoodVO contentsgoodVO = contentsgoodProc.read(contentsgoodno);
+            int contentsno = contentsgoodVO.getContentsno();
+            contentsProc.decreaseRecom(contentsno);        // 추천 카운트 감소
 
-        if (userProc.isAdmin(session)) { // 관리자 로그인 확인
-            contentsgoodProc.delete(contentsgoodno);       // 삭제
+            contentsgoodProc.delete(contentsgoodno);
             return "redirect:/contentsgood/list_all";
-        } else { // 정상적인 로그인이 아닌 경우 로그인 유도
+        } else {
+            // 정상적인 로그인이 아닌 경우 로그인 유도
             return "redirect:/bloguser/login_cookie_need?url=/contentsgood/delete?contentsgoodno=" + contentsgoodno;
         }
-
     }
-  
 }
-
-
-
-
-
-
-

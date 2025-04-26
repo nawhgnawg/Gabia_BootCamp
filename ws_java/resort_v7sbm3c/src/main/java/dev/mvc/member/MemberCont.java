@@ -62,7 +62,7 @@ public class MemberCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
-        return "/member/create";    // /template/member/create.html
+        return "member/create";    // /template/member/create.html
     }
 
     @PostMapping(value = "/create")
@@ -335,7 +335,7 @@ public class MemberCont {
             }
         } else {
             model.addAttribute("code", "login_fail");
-            return "/member/msg";
+            return "member/msg";
         }
     }
 
@@ -495,7 +495,7 @@ public class MemberCont {
 
         model.addAttribute("url", url);
 
-        return "/member/login_cookie_need";  // templates/member/login_cookie_need.html
+        return "member/login_cookie_need";  // templates/member/login_cookie_need.html
     }
 
 }

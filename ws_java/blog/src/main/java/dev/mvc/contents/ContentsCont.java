@@ -45,10 +45,6 @@ public class ContentsCont {
     @Qualifier("dev.mvc.contentsgood.ContentsgoodProc")
     private ContentsgoodProcInter contentsgoodProc;
 
-    public ContentsCont() {
-        System.out.println("-> ContentsCont created.");
-    }
-
     /**
      * POST 요청시 새로고침 방지, POST 요청 처리 완료 → redirect → url → GET → forward -> html 데이터
      * 전송
@@ -76,7 +72,7 @@ public class ContentsCont {
         CategoryVO categoryVO = categoryProc.read(categoryno); // 카테고리 정보를 출력하기위한 목적
         model.addAttribute("categoryVO", categoryVO);
 
-        return "/contents/create"; // /templates/contents/create.html
+        return "contents/create"; // /templates/contents/create.html
     }
 
     /**
@@ -198,7 +194,7 @@ public class ContentsCont {
             ArrayList<ContentsVO> list = contentsProc.list_all(); // 모든 목록
 
             model.addAttribute("list", list);
-            return "/contents/list_all";
+            return "contents/list_all";
 
         } else {
             return "redirect:/bloguser/login_cookie_need";
@@ -457,7 +453,7 @@ public class ContentsCont {
             CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
             model.addAttribute("categoryVO", categoryVO);
 
-            return "/contents/update_text"; // /templates/contents/update_text.html
+            return "contents/update_text"; // /templates/contents/update_text.html
             // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
             // model.addAttribute("content", content);
 
@@ -527,7 +523,7 @@ public class ContentsCont {
             model.addAttribute("categoryVO", categoryVO);
         }
 
-        return "/contents/update_file";
+        return "contents/update_file";
     }
 
     /**
@@ -632,7 +628,7 @@ public class ContentsCont {
             CategoryVO categoryVO = categoryProc.read(contentsVO.getCategoryno());
             model.addAttribute("categoryVO", categoryVO);
 
-            return "/contents/delete"; // forward
+            return "contents/delete"; // forward
 
         } else {
             return "redirect:/bloguser/login_cookie_need?url=/contents/update_text?contentsno=" + contentsno;

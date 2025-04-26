@@ -2,6 +2,7 @@ package dev.mvc.contentsgood;
 
 import java.util.ArrayList;
 
+import dev.mvc.contents.ContentsProcInter;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,10 +32,14 @@ public class ContentsgoodCont {
   @Autowired
   @Qualifier("dev.mvc.cate.CateProc") // @Component("dev.mvc.cate.CateProc")
   private CateProcInter cateProc;
+
+  @Autowired
+  @Qualifier("dev.mvc.contents.ContentsProc") // @Component("dev.mvc.contents.ContentsProc")
+  private ContentsProcInter contentsProc;
   
   @Autowired
   @Qualifier("dev.mvc.contentsgood.ContentsgoodProc") 
-  ContentsgoodProcInter contentsgoodProc;
+  private ContentsgoodProcInter contentsgoodProc;
   
   public ContentsgoodCont() {
     System.out.println("-> ContentsgoodCont created.");
@@ -96,13 +101,13 @@ public class ContentsgoodCont {
   // http://localhost:9091/contentsgood/list_all
   @GetMapping(value = "/list_all")
   public String list_all(Model model) {
-    ArrayList<ContentsContentsgoodMemberVO> list = this.contentsgoodProc.list_all_join();
+    ArrayList<ContentsContentsgoodMemberVO> list = contentsgoodProc.list_all_join();
     model.addAttribute("list", list);
 
-    ArrayList<CateVOMenu> menu = this.cateProc.menu();
+    ArrayList<CateVOMenu> menu = cateProc.menu();
     model.addAttribute("menu", menu);
 
-    return "contentsgood/list_all"; // /templates/contentsgood/list_all.html
+    return "contentsgood/list_all_join"; // /templates/contentsgood/list_all.html
   }
   
   /**
@@ -114,10 +119,15 @@ public class ContentsgoodCont {
   public String delete_proc(HttpSession session, 
       Model model, 
       @RequestParam(name="contentsgoodno", defaultValue = "0") int contentsgoodno, 
-      RedirectAttributes ra) {    
-    
+      RedirectAttributes ra) {
+
+
     if (this.memberProc.isAdmin(session)) { // 관리자 로그인 확인
-      this.contentsgoodProc.delete(contentsgoodno);       // 삭제
+      ContentsgoodVO contentsgoodVO = contentsgoodProc.read(contentsgoodno);
+      int contentsno = contentsgoodVO.getContentsno();
+
+      contentsProc.decreaseRecom(contentsno);        // 추천 카운트 감소
+      contentsgoodProc.delete(contentsgoodno);       // 삭제
 
       return "redirect:/contentsgood/list_all";
 

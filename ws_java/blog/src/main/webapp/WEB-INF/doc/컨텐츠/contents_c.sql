@@ -656,4 +656,8 @@ SELECT COUNT(*) FROM contents
 (SELECT grp FROM cate WHERE grp == '카페')
 
 
+SELECT contentsno, userno, categoryno, title, content, recom
+FROM contents
+ORDER BY contentsno DESC;
+
 commit;

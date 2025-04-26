@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MsgCont {
-    public MsgCont() {
-        System.out.println("-> MsgCont created");
-    }
 
     // http://localhost:9091/test
     @GetMapping("/test")

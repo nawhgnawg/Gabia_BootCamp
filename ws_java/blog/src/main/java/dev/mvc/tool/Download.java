@@ -15,16 +15,11 @@ import java.net.URLEncoder;
 
 @Controller
 public class Download {
-    public Download() {
-        System.out.println("-> Download created.");
-    }
 
     /**
-     *
      * @param dir 저장된 폴더명 예) contents/storage, member/storage, product/storage
      * @param filename 저장된 파일명
      * @param downname 원본 파일명
-     * @return
      */
     @GetMapping(value="/download")
     public ResponseEntity<Resource> download(

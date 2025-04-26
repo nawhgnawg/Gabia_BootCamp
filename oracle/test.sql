@@ -4,23 +4,24 @@ CREATE TABLE test(
     testno NUMBER(5)   NOT NULL, -- -99999 ~ +99999
     mname  VARCHAR(20) NOT NULL, -- 한글 3 byte, 영숫자 1 byte 
     funct  VARCHAR(50) NOT NULL, -- 주요 기술 분야  
+    rdate  DATE        NOT NULL,
     PRIMARY KEY (testno)         -- 중복 안됨, 고유한 값만 가능  
 ); 
 
-INSERT INTO test(testno, mname, funct) 
-VALUES(1, '왕눈이', 'JAVA/Thymeleaf/Spring Boot'); 
+INSERT INTO test(testno, mname, funct, rdate) 
+VALUES(1, '왕눈이', 'JAVA/Thymeleaf/Spring Boot', sysdate); 
 
-INSERT INTO test(testno, mname, funct) 
-VALUES(2, '아로미', 'JAVA/Thymeleaf/Spring Boot/React'); 
+INSERT INTO test(testno, mname, funct, rdate) 
+VALUES(2, '아로미', 'JAVA/Thymeleaf/Spring Boot/React', sysdate); 
 
-INSERT INTO test(testno, mname, funct) 
-VALUES(3, '투투', 'JAVA/Thymeleaf/Spring Boot/React/HTML5'); 
+INSERT INTO test(testno, mname, funct, rdate) 
+VALUES(3, '투투', 'JAVA/Thymeleaf/Spring Boot/React/HTML5', sysdate); 
 
 -- 오름차순
-SELECT testno, mname, funct FROM test ORDER BY testno ASC; 
+SELECT testno, mname, funct, rdate FROM test ORDER BY testno ASC; 
 
 -- 내림차순
-SELECT testno, mname, funct FROM test ORDER BY testno DESC; 
+SELECT testno, mname, funct, rdate FROM test ORDER BY testno DESC; 
 
 -- VARCHAR 타입의 저장 가능 글자수 확인  
 INSERT INTO test(testno, mname, funct) 

@@ -63,7 +63,7 @@ public class CalendarCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
         
-        return "/calendar/create"; // /templates/calendar/create.html
+        return "calendar/create"; // /templates/calendar/create.html
     }
     
     /**
@@ -85,7 +85,7 @@ public class CalendarCont {
         }
         model.addAttribute("cnt", cnt);
 
-        return "/calendar/msg"; // /templates/calendar/msg.html
+        return "calendar/msg"; // /templates/calendar/msg.html
     }
     
     /**
@@ -100,7 +100,7 @@ public class CalendarCont {
         ArrayList<CateVOMenu> menu = cateProc.menu();
         model.addAttribute("menu", menu);
 
-        return "/calendar/list_all"; // /templates/calendar/list_all.html
+        return "calendar/list_all"; // /templates/calendar/list_all.html
     }
    
     /**
@@ -117,7 +117,7 @@ public class CalendarCont {
 
         model.addAttribute("calendarVO", calendarVO);
 
-        return "/calendar/read";
+        return "calendar/read";
     }
     
     /**
@@ -134,7 +134,7 @@ public class CalendarCont {
         if (memberProc.isAdmin(session)) { // 관리자로 로그인한경우
             CalendarVO calendarVO = calendarProc.read(calendarno);
             model.addAttribute("calendarVO", calendarVO);
-            return "/calendar/update"; // /templates/calendar/update.html
+            return "calendar/update"; // /templates/calendar/update.html
         } else {
             return "redirect:/member/login_cookie_need?url=/calendar/update?calendarno=" + calendarno;
         }
@@ -172,7 +172,7 @@ public class CalendarCont {
             CalendarVO calendarVO = calendarProc.read(calendarno);
             model.addAttribute("calendarVO", calendarVO);
 
-            return "/calendar/delete"; // /templates/calendar/delete.html
+            return "calendar/delete"; // /templates/calendar/delete.html
         } else {
             return "/member/login_cookie_need"; // /templates/member/login_cookie_need.html
         }
@@ -234,7 +234,7 @@ public class CalendarCont {
         model.addAttribute("year", year);
         model.addAttribute("month", month-1);  // javascript는 1월이 0임. 
         
-        return "/calendar/list_calendar"; // /templates/calendar/list_calendar.html
+        return "calendar/list_calendar"; // /templates/calendar/list_calendar.html
     }
   
     /**

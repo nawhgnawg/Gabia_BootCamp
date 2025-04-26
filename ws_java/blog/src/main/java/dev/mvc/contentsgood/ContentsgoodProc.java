@@ -32,6 +32,11 @@ public class ContentsgoodProc implements ContentsgoodProcInter {
     }
 
     @Override
+    public int currentHartCnt(int contentsno) {
+        return contentsgoodDAO.currentHartCnt(contentsno);
+    }
+
+    @Override
     public ContentsgoodVO read(int contentsgoodno) {
         return contentsgoodDAO.read(contentsgoodno);
     }

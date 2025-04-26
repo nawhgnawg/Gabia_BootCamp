@@ -29,6 +29,14 @@
         WHERE contentsno=#{contentsno} AND userno=#{userno}
     </select>
 
+    <!-- 해당 게시물의 현재 추천수 -->
+    <select id="currentHartCnt" parameterType="int">
+        SELECT COUNT(*) as cnt
+        FROM contentsgood
+        WHERE contentsno = #{contentsno}};
+    </select>
+
+
     <!-- 일반적인 조회 -->
     <select id="read" resultType="dev.mvc.contentsgood.ContentsgoodVO" parameterType="int">
         SELECT contentsgoodno, rdate, contentsno, userno
