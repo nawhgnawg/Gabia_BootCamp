@@ -1,12 +1,11 @@
 package dev.mvc.memo;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class MemoVO {
+public class MemoUserVO {
 
     /** 메모 번호 */
     private int memono;
@@ -22,6 +21,12 @@ public class MemoVO {
 
     /** 회원 번호 */
     private int userno;
+
+    /** 회원 이메일 */
+    private String useremail;
+
+    /** 회원 이름 */
+    private String username;
 
 
 

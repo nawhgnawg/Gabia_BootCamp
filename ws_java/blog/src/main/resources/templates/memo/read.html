@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
+<div layout:fragment="content">
+
+    <div class="title_line">회원 정보 조회 및 수정(*: 필수) > <span th:text="@{|${userVO.username} (${userVO.useremail})|}"></span></div>
+    <aside class="aside_right">
+        <a href="javascript:location.reload();">새로고침</a>
+        <span class='menu_divide' >│</span>
+        <a href='./create'>회원 가입</a>
+        <span class='menu_divide' >│</span>
+        <a href='./list'>목록</a>
+    </aside>
+
+    <div class="menu_line"></div>
+
+    <div style="width: 60%; margin: 0px auto;">
+        <form name="frm" id="frm" th:object="${userVO}" method="post" action="/memo/update">
+            <input type="hidden" name="userno" th:value="${memoVO.userno}">
+
+            <div class="form-group">
+                <label for="username">제목</label>
+                <input type='text' name='username' id='username' th:value='${memoVO.username}' required="required"
+                       placeholder="성명" class="form-control form-control-sm" style="width: 30%;">
+                <span id='mname_msg'></span>
+            </div>
+
+            <div class="form-group">
+                <label for="content">내용</label>
+                <input type='text' name='content' id='content' th:value='${memoVO.content}' placeholder="내용"
+                       class="form-control form-control-sm" style="width: 30%;">
+            </div>
+
+            <div class="content_body_bottom">
+                <button type="button" onclick="send();" class="btn btn-secondary btn-sm">저장</button>
+                <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm">취소</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</html>

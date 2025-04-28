@@ -51,8 +51,7 @@ public class ContentsgoodCont {
     public String create(HttpSession session, @RequestBody ContentsgoodVO contentsgoodVO) {
         System.out.println("-> 수신 데이터:" + contentsgoodVO.toString());
 
-        int userno = 1; // test
-        // int userno = (int)session.getAttribute("userno"); // 보안성 향상
+         int userno = (int) session.getAttribute("userno"); // 보안성 향상
         contentsgoodVO.setUserno(userno);
 
         int cnt = contentsgoodProc.create(contentsgoodVO);

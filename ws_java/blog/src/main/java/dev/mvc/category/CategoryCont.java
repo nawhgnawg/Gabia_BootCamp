@@ -242,7 +242,7 @@ public class CategoryCont {
         }
         model.addAttribute("cnt", cnt);
 
-        return "/category/msg";  // templates/cate/msg.html
+        return "category/msg";  // templates/cate/msg.html
     }
 
     /**
@@ -490,7 +490,7 @@ public class CategoryCont {
             int no = ((now_page - 1) * record_per_page) + 1;
             model.addAttribute("no", no);
 
-            return "/category/list_search";
+            return "category/list_search";
         } else {
             return "redirect:/bloguser/login_cookie_need?url=/category/list_search";
         }

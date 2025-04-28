@@ -246,7 +246,6 @@ public class UserCont {
             session.setAttribute("userno", userVO.getUserno());
             session.setAttribute("useremail", userVO.getUseremail()); // 시스템 변수와 중복됨, 권장하지 않음.
             session.setAttribute("username", userVO.getUsername());
-            // session.setAttribute("usergrade", userVO.getUsergrade());
 
             // -------------------------------------------------------------------
             // 회원 등급 처리

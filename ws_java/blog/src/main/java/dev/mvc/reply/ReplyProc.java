@@ -28,10 +28,10 @@ public class ReplyProc implements ReplyProcInter {
     public List<ReplyUserVO> list_user_join() {
         List<ReplyUserVO> list = replyDAO.list_user_join();
 
-        for (ReplyUserVO replyMemberVO:list) {
-          String content = replyMemberVO.getContent();
+        for (ReplyUserVO replyUserVO:list) {
+          String content = replyUserVO.getContent();
           content = Tool.convertChar(content);
-          replyMemberVO.setContent(content);
+          replyUserVO.setContent(content);
         }
 
         return list;
@@ -55,10 +55,10 @@ public class ReplyProc implements ReplyProcInter {
         List<ReplyUserVO> list = replyDAO.list_by_contentsno_join(contentsno);
         String content = "";
 
-        for (ReplyUserVO replyMemberVO:list) {
-          content = replyMemberVO.getContent();
+        for (ReplyUserVO replyUserVO:list) {
+          content = replyUserVO.getContent();
           content = Tool.convertChar(content);
-          replyMemberVO.setContent(content);
+          replyUserVO.setContent(content);
         }
         return list;
     }
@@ -87,10 +87,10 @@ public class ReplyProc implements ReplyProcInter {
         List<ReplyUserVO> list = replyDAO.list_by_contentsno_join_add(map);
         String content = "";
 
-        for (ReplyUserVO replyMemberVO:list) {
-          content = replyMemberVO.getContent();
+        for (ReplyUserVO replyUserVO:list) {
+          content = replyUserVO.getContent();
           content = Tool.convertChar(content);
-          replyMemberVO.setContent(content);
+          replyUserVO.setContent(content);
         }
         return list;
     }

@@ -1,4 +1,5 @@
 <div th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
+
     <div class="top_menu_img">
         <div class="top_menu_label">요리 블로그 ver 7.0</div>
     </div>
@@ -48,6 +49,7 @@
                             <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_all|}">요리 기록 목록</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/contentsgood/list_all|}">레시피 추천 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/memo/list_all|}">메모 목록</a></li>
                         </ul>
                     </li>
 
@@ -57,11 +59,138 @@
                     </li>
 
                     <li class="nav-item" th:if="${session.usergrade != 'admin'}"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
-
                 </ul>
+                <!-- 메뉴바 -->
+                <div id="menu" th:if="${session.usergrade == 'admin'}">
+                  <button id="btn_memo_toggle" class="btn btn-primary" style="margin-left: 10px;" th:attr="data-userno=${session.userno}">메모 등록</button>
+                </div>
             </div>
             <!-- 메뉴 종료 -->
-
         </div>
     </nav>
+
+    <!-- 메모장 패널 (처음에는 숨김) -->
+    <div id="memo_section" style="display:none;
+                                  position:absolute;
+                                  top:380px; /* 메뉴바 아래 여백 조정 */
+                                  left:20px;
+                                  right:20px;
+                                  z-index:1000;
+                                  background:white;
+                                  border:1px solid #ccc;
+                                  padding:15px;
+                                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <h3>메모 작성</h3>
+      <input type="text" id="memo_title" placeholder="제목을 입력하세요" style="width:100%; margin-bottom:5px;"><br>
+      <textarea id="memo_content" placeholder="메모 내용을 입력하세요" style="width:100%; height:150px;"></textarea>
+      <div style="text-align:right; margin-top:5px;">
+          <button id="btn_memo_save">메모 저장</button>
+          <button id="btn_memo_delete">메모 내용 지우기</button>
+          <button id="btn_memo_list" onclick="/memo/list_all">메모 목록</button>
+      </div>
+  </div>
+
+
+    <script th:inline="javascript">
+        
+
+        document.addEventListener('DOMContentLoaded', function () {
+          const memoSection = document.getElementById('memo_section');
+          const btnToggle = document.getElementById('btn_memo_toggle');
+          const btnSave = document.getElementById('btn_memo_save');
+          const btnDelete = document.getElementById('btn_memo_delete');
+          const btnList = document.getElementById('btn_memo_list');
+
+          const userno = btnToggle.dataset.userno;
+          
+          document.querySelector('#memo_title').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') { // ===: 타입까지 확인
+              document.getElementById('memo_content').focus();
+            }
+          }); 
+      
+          document.querySelector('#memo_content').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+              document.getElementById('btn_memo_save').focus();
+            }
+          }); 
+
+          // 메모장 열기/닫기
+          btnToggle.addEventListener('click', function () {
+            if (memoSection.style.display === 'none' || memoSection.style.display === '') {
+              memoSection.style.display = 'block';
+              memoSection.style.maxHeight = '0';
+              document.getElementById('memo_title').focus();
+              btnToggle.innerHTML = '취소';
+              setTimeout(() => {
+                memoSection.style.transition = 'max-height 0.5s ease-in-out';
+                memoSection.style.maxHeight = '500px';
+              }, 10);
+            } else {
+              memoSection.style.transition = 'max-height 0.5s ease-in-out';
+              memoSection.style.maxHeight = '0';
+              btnToggle.innerHTML = '메모 등록';
+              setTimeout(() => {
+                memoSection.style.display = 'none';
+              }, 500);
+            }
+          });
+
+          // 메모 저장
+          btnSave.addEventListener('click', function () {
+            const title = document.getElementById('memo_title').value.trim();
+            const content = document.getElementById('memo_content').value.trim();
+
+            if (title === '' || content === '') {
+              alert('제목과 내용을 모두 입력해주세요.');
+              return;
+            }
+            if (!userno || userno == 0) {
+              alert('로그인이 필요합니다.');
+              return;
+            }
+
+            fetch('/memo/create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                title: title,
+                content: content,
+                userno: userno
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.cnt >= 1) {
+                alert('메모가 저장되었습니다.');
+                document.getElementById('memo_title').value = '';
+                document.getElementById('memo_content').value = '';
+                document.getElementById('memo_section').style.display = 'none';
+                location.reload();
+
+              } else {
+                alert('저장 실패');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('에러 발생');
+            });
+          });
+
+          // 메모 삭제
+          btnDelete.addEventListener('click', function () {
+            document.getElementById('memo_title').value = '';
+            document.getElementById('memo_content').value = '';
+          });
+
+          btnList.addEventListener('click', function () {
+            document.getElementById('memo_section').style.display = 'none';
+            window.location.href = '/memo/list_all';
+          });
+
+        });
+    </script>
 </div>
+
+

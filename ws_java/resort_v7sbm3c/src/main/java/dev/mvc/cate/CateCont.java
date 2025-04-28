@@ -88,7 +88,7 @@ public class CateCont {
             model.addAttribute("code", Tool.CREATE_FAIL);
         }
         model.addAttribute("cnt", cnt);
-        return "/cate/msg";  // templates/cate/msg.html
+        return "cate/msg";  // templates/cate/msg.html
     }
 
     /**

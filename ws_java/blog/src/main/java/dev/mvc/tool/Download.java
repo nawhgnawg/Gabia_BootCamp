@@ -26,12 +26,10 @@ public class Download {
             @RequestParam(name="dir", defaultValue = "") String dir,
             @RequestParam(name="filename", defaultValue = "") String filename,
             @RequestParam(name="downname", defaultValue = "") String downname) {
-        // C:/kd/deploy/resort/contents/storage
-        // C:/kd/deploy/resort/member/storage
-        // C:/kd/deploy/resort/product/storage
+
         File file = new File(Tool.getUploadDir() + dir, filename);
 
-        if(!file.exists()) {
+        if (!file.exists()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
             Resource resource = new FileSystemResource(file);

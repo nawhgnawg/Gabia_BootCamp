@@ -174,7 +174,7 @@ public class CalendarCont {
 
             return "calendar/delete"; // /templates/calendar/delete.html
         } else {
-            return "/member/login_cookie_need"; // /templates/member/login_cookie_need.html
+            return "member/login_cookie_need"; // /templates/member/login_cookie_need.html
         }
     }
     

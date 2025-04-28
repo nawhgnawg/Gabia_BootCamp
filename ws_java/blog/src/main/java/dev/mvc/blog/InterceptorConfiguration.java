@@ -17,6 +17,6 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
                 // 인증이 필요한 URL 패턴 지정
                 .addPathPatterns("/**/create/**", "/**/update/**", "/**/delete/**")
                 // 로그인?회원가입 페이지 등은 인증 예외 처리
-                .excludePathPatterns("/member/create", "/login", "/logout", "/css/**", "/js/**", "/images/**");
+                .excludePathPatterns("/bloguser/create", "/login", "/logout", "/css/**", "/js/**", "/images/**");
     }
 }

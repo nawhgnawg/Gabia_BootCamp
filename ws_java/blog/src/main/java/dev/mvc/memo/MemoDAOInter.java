@@ -20,6 +20,10 @@ public interface MemoDAOInter {
     /** 삭제 */
     public int delete(int memono);
 
+    /** 전체 조회 (BlogUser, Memo 조인) */
+    public ArrayList<MemoUserVO> list_all_join();
+
+
 
 
 }
