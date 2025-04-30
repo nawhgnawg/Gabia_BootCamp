@@ -25,8 +25,12 @@
         <tbody>
         <tr th:each="memoUserVO, status:${list}">
             <td class="td_bs" th:text="|${status.index + 1}|"></td>
-            <td class="td_bs" th:text="${memoUserVO.title}"></td>
-            <td class="td_bs" th:text="${memoUserVO.content}"></td>
+            <td class="td_bs">
+                <a th:href="@{|/memo/read?memono=${memoUserVO.memono}|}" style="display:block;" th:text="${memoUserVO.title}"></a>
+            </td>
+            <td class="td_bs">
+                <a th:href="@{|/memo/read?memono=${memoUserVO.memono}|}" style="display:block;" th:text="${memoUserVO.content}"></a>
+            </td>
             <td class="td_bs" th:text="${memoUserVO.userno}"></td>
             <td class="td_bs" th:text="${memoUserVO.useremail}"></td>
             <td class="td_bs" th:text="${memoUserVO.username}"></td>

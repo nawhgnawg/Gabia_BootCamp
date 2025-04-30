@@ -19,9 +19,6 @@ public class ReplyVO {
     /** 내용 */
     private String content = "";
 
-    /** 비밀번호 */
-    private String passwd = "";
-
     /** 등록일 */
     private String rdate = "";
 }

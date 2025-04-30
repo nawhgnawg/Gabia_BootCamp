@@ -1,17 +1,19 @@
 /* ver 2.5 2024_0912 */
+  @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Pen+Script&display=swap');
 
   /* 폰트 선언 */
-  @font-face {
+  /*@font-face {
       font-family: 'TTHakgyoansimMonggeulmonggeulR';
       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMonggeulmonggeulR.woff2') format('woff2');
       font-weight: normal;
       font-style: normal;
-  }
+  }*/
+
 
   /* 모든 태그에 적용 */
   *{
-     font-family: TTHakgyoansimMonggeulmonggeulR;
-     font-size: 16px;
+     font-family: 'Gaegu', 'Nanum Pen Script', cursive;
+     font-size: 18px;
      margin: 0px;  /* top right bottom left */
      padding: 0px;
      color: #555555;
@@ -28,7 +30,7 @@
   .top_menu_img {
     width: 100%;
     height: 300px;
-    background-image: url('./images/food1_200.jpg');
+    background-image: url('/home/back.png');
     margin-bottom: 0px;
   }
 
@@ -637,4 +639,84 @@
         height: 20px;
         font-weight: 300;
         margin: 0 0 0 16px;
+    }
+
+
+    .hero {
+      text-align: center;
+      padding-top: 180px;
+      padding-bottom: 100px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      margin: 20px 0 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      color: #666;
+    }
+
+    .hero button {
+      padding: 12px 25px;
+      font-size: 18px;
+      background-color: #ffb347;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #ff944d;
+    }
+
+    .fab-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .fab {
+      background-color: #007bff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 36px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .fab-menu {
+      display: none;
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      flex-direction: column;
+      gap: 10px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .fab-menu button {
+      background-color: #f8f9fa;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: left;
+      cursor: pointer;
+      width: 160px;
+      transition: background-color 0.3s;
+    }
+
+    .fab-menu button:hover {
+      background-color: #e2e6ea;
     }

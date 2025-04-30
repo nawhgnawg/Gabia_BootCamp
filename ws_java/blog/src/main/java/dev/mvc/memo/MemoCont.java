@@ -46,26 +46,47 @@ public class MemoCont {
     }
 
     @GetMapping("/list_all")
-    public String list_all(Model model) {
-        ArrayList<MemoUserVO> list = memoProc.list_all_join();
-        model.addAttribute("list", list);
+    public String list_all(HttpSession session, Model model) {
+        if (userProc.isAdmin(session)) {
+            ArrayList<MemoUserVO> list = memoProc.list_all_join();
+            model.addAttribute("list", list);
 
-        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
-        model.addAttribute("menu", menu);
+            ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+            model.addAttribute("menu", menu);
 
-        return "memo/list_all";
+            return "memo/list_all";
+        } else {
+            return "redirect:/bloguser/login_cookie_need?url=/memo/list_all";
+        }
     }
 
     @GetMapping("/read")
-    public String read(Model model) {
+    public String read(HttpSession session, Model model, @RequestParam(value = "memono", defaultValue = "0") int memono) {
+        if (userProc.isAdmin(session)) {
+            MemoVO memoVO = memoProc.read(memono);
+            model.addAttribute("memoVO", memoVO);
 
-        ArrayList<CategoryVOMenu> menu = categoryProc.menu();
-        model.addAttribute("menu", menu);
+            ArrayList<CategoryVOMenu> menu = categoryProc.menu();
+            model.addAttribute("menu", menu);
 
-
-
-        return "memo/read";
+            return "memo/read";
+        } else {
+            return "redirect:/bloguser/login_cookie_need?url=/memo/read?memono=" + memono;
+        }
     }
+
+    @PostMapping("/update")
+    public String update(Model model, @ModelAttribute("memoVO") MemoVO memoVO) {
+        int cnt = memoProc.update(memoVO);
+        if (cnt == 1) {
+            model.addAttribute("code", "memo_update_success");
+            return "redirect:/memo/list_all";
+        } else {
+            model.addAttribute("code", "memo_update_fail");
+        }
+        return "memo/msg";
+    }
+
 
     @PostMapping("/delete")
     public String delete(HttpSession session, Model model,

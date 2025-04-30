@@ -14,12 +14,12 @@ public interface ReplyProcInter {
   public List<ReplyUserVO> list_user_join();
 
   public List<ReplyUserVO> list_by_contentsno_join(int contentsno);
-  
-  public int checkPasswd(Map<String, Object> map);
 
   public int delete(int replyno);
 
   public List<ReplyUserVO> list_by_contentsno_join_add(HashMap<String, Object> map);
+
+  public int delete_all(int contentsno);
   
 }
 

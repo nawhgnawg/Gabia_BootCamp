@@ -11,7 +11,7 @@ public interface MemoProcInter {
     public ArrayList<MemoVO> list_all();
 
     /** 특정 유저 메모 조회 */
-    public ArrayList<MemoVO> read(int userno);
+    public MemoVO read(int memono);
 
     /** 수정 */
     public int update(MemoVO memoVO);

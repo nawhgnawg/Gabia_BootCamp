@@ -21,8 +21,8 @@ public class MemoProc implements MemoProcInter {
     }
 
     @Override
-    public ArrayList<MemoVO> read(int userno) {
-        return memoDAO.read(userno);
+    public MemoVO read(int memono) {
+        return memoDAO.read(memono);
     }
 
     @Override

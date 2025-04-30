@@ -43,6 +43,8 @@ public interface ContentsgoodProcInter {
    * 모든 목록, 테이블 3개 join
    */
   public ArrayList<ContentsContentsgoodUserVO> list_all_join();
+
+  public int delete_contentsno(int contentsno);
   
 }
 

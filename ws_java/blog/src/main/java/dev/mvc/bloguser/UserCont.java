@@ -67,7 +67,7 @@ public class UserCont {
         int checkID_cnt = userProc.checkID(userVO.getUseremail());
         System.out.println(checkID_cnt);
         if (checkID_cnt == 0) {
-            userVO.setUsergrade(1); // 기본 회원 1
+            userVO.setUsergrade(15); // 기본 회원 15
             int cnt = userProc.create(userVO);
 
             if (cnt == 1) {

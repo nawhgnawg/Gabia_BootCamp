@@ -8,6 +8,8 @@ import dev.mvc.category.CategoryVO;
 import dev.mvc.category.CategoryVOMenu;
 import dev.mvc.contentsgood.ContentsgoodProcInter;
 import dev.mvc.contentsgood.ContentsgoodVO;
+import dev.mvc.reply.ReplyProcInter;
+import dev.mvc.reply.ReplyUserVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/contents")
@@ -44,6 +47,10 @@ public class ContentsCont {
     @Autowired
     @Qualifier("dev.mvc.contentsgood.ContentsgoodProc")
     private ContentsgoodProcInter contentsgoodProc;
+
+    @Autowired
+    @Qualifier("dev.mvc.reply.ReplyProc")
+    private ReplyProcInter replyProc;
 
     /**
      * POST 요청시 새로고침 방지, POST 요청 처리 완료 → redirect → url → GET → forward -> html 데이터
@@ -77,7 +84,6 @@ public class ContentsCont {
 
     /**
      * 등록 처리 http://localhost:9092/contents/create
-     * @return
      */
     @PostMapping(value = "/create")
     public String create(HttpSession session,
@@ -140,35 +146,9 @@ public class ContentsCont {
             contentsVO.setUserno(userno);
             int cnt = contentsProc.create(contentsVO);
 
-            // ------------------------------------------------------------------------------
-            // PK의 return
-            // ------------------------------------------------------------------------------
-            // System.out.println("--> contentsno: " + contentsVO.getContentsno());
-            // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect
-            // parameter 적용
-            // ------------------------------------------------------------------------------
-
             if (cnt == 1) {
-                // type 1, 재업로드 발생
-                // return "<h1>파일 업로드 성공</h1>"; // 연속 파일 업로드 발생
-
-                // type 2, 재업로드 발생
-                // model.addAttribute("cnt", cnt);
-                // model.addAttribute("code", "create_success");
-                // return "contents/msg";
-
-                // type 3 권장
-                // return "redirect:/contents/list_all"; // /templates/contents/list_all.html
-
-                // System.out.println("-> contentsVO.getCateno(): " + contentsVO.getCateno());
-                // ra.addFlashAttribute("cateno", contentsVO.getCateno()); // controller ->
-                // controller: X
-//                return "redirect:/contents/list_all";
                 ra.addAttribute("categoryno", contentsVO.getCategoryno()); // controller -> controller: O
                 return "redirect:/contents/list_by_categoryno";
-
-                // return "redirect:/contents/list_by_cateno?cateno=" + contentsVO.getCateno();
-                // // /templates/contents/list_by_categoryno.html
             } else {
                 ra.addFlashAttribute("code", "create_fail"); // DBMS 등록 실패
                 ra.addFlashAttribute("cnt", 0); // 업로드 실패
@@ -181,8 +161,8 @@ public class ContentsCont {
     }
 
     /**
-     * 전체 목록, 관리자만 사용 가능 http://localhost:9092/contents/list_all
-     * @return
+     * 전체 목록, 관리자만 사용 가능
+     * http://localhost:9092/contents/list_all
      */
     @GetMapping(value = "/list_all")
     public String list_all(HttpSession session, Model model) {
@@ -292,8 +272,8 @@ public class ContentsCont {
     }
 
     /**
-     * 조회 http://localhost:9092/contents/read?contentsno=17
-     * @return
+     * 조회
+     * http://localhost:9092/contents/read?contentsno=17
      */
     @GetMapping(value = "/read")
     public String read(HttpSession session, Model model,
@@ -321,9 +301,7 @@ public class ContentsCont {
         model.addAttribute("word", word);
         model.addAttribute("now_page", now_page);
 
-        // -------------------------------------------------------------------------------------------
         // 추천 관련
-        // -------------------------------------------------------------------------------------------
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("contentsno", contentsno);
 
@@ -334,15 +312,18 @@ public class ContentsCont {
 
             hartCnt = contentsgoodProc.hartCnt(map);
         }
-
         model.addAttribute("hartCnt", hartCnt);
+
+        // 댓글 목록
+        List<ReplyUserVO> list = replyProc.list_by_contentsno_join(contentsno);
+        model.addAttribute("list", list);
 
         return "contents/read";
     }
 
     /**
-     * 맵 등록/수정/삭제 폼 http://localhost:9092/contents/map?contentsno=1
-     * @return
+     * 맵 등록/수정/삭제 폼
+     * http://localhost:9092/contents/map?contentsno=1
      */
     @GetMapping(value = "/map")
     public String map(Model model,
@@ -360,8 +341,8 @@ public class ContentsCont {
     }
 
     /**
-     * MAP 등록/수정/삭제 처리 http://localhost:9092/contents/map
-     * @return
+     * MAP 등록/수정/삭제 처리
+     * http://localhost:9092/contents/map
      */
     @PostMapping(value = "/map")
     public String map_update(Model model,
@@ -377,8 +358,8 @@ public class ContentsCont {
     }
 
     /**
-     * Youtube 등록/수정/삭제 폼 http://localhost:9092/contents/youtube?contentsno=1
-     * @return
+     * Youtube 등록/수정/삭제 폼
+     * http://localhost:9092/contents/youtube?contentsno=1
      */
     @GetMapping(value = "/youtube")
     public String youtube(Model model,
@@ -401,8 +382,8 @@ public class ContentsCont {
     }
 
     /**
-     * Youtube 등록/수정/삭제 처리 http://localhost:9092/contents/youtube
-     * @return
+     * Youtube 등록/수정/삭제 처리
+     * http://localhost:9092/contents/youtube
      */
     @PostMapping(value = "/youtube")
     public String youtube_update(Model model,
@@ -431,7 +412,8 @@ public class ContentsCont {
     }
 
     /**
-     * 수정 폼 http:// localhost:9092/contents/update_text?contentsno=1
+     * 수정 폼
+     * http://localhost:9092/contents/update_text?contentsno=1
      */
     @GetMapping(value = "/update_text")
     public String update_text(HttpSession session, Model model,
@@ -502,7 +484,8 @@ public class ContentsCont {
     }
 
     /**
-     * 파일 수정 폼 http://localhost:9092/contents/update_file?contentsno=1
+     * 파일 수정 폼
+     * http://localhost:9092/contents/update_file?contentsno=1
      */
     @GetMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model,
@@ -527,7 +510,8 @@ public class ContentsCont {
     }
 
     /**
-     * 파일 수정 처리 http://localhost:9091/contents/update_file
+     * 파일 수정 처리
+     * http://localhost:9091/contents/update_file
      */
     @PostMapping(value = "/update_file")
     public String update_file(HttpSession session, Model model, RedirectAttributes ra,

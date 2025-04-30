@@ -2,6 +2,7 @@ package dev.mvc.contents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ContentsDAOInter {
     /**
@@ -102,5 +103,7 @@ public interface ContentsDAOInter {
     public int increaseRecom(int contentsno);
 
     public int decreaseRecom(int contentsno);
+
+    public List<Integer> read_contentsno(int categoryno);
 
 }

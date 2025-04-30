@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dev.mvc.tool.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,10 @@ import dev.mvc.tool.Tool;
 
 @Component("dev.mvc.reply.ReplyProc")
 public class ReplyProc implements ReplyProcInter {
+
+    @Autowired
+    Security security;
+
     @Autowired
     private ReplyDAOInter replyDAO;
 
@@ -47,6 +52,7 @@ public class ReplyProc implements ReplyProcInter {
           content = Tool.convertChar(content);
           replyVO.setContent(content);
         }
+
         return list;
     }
 
@@ -63,10 +69,6 @@ public class ReplyProc implements ReplyProcInter {
         return list;
     }
 
-    @Override
-    public int checkPasswd(Map<String, Object> map) {
-        return replyDAO.checkPasswd(map);
-    }
 
     @Override
     public int delete(int replyno) {
@@ -93,6 +95,11 @@ public class ReplyProc implements ReplyProcInter {
           replyUserVO.setContent(content);
         }
         return list;
+    }
+
+    @Override
+    public int delete_all(int contentsno) {
+        return replyDAO.delete_all(contentsno);
     }
 
 }

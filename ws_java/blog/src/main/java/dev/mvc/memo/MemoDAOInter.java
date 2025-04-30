@@ -11,8 +11,8 @@ public interface MemoDAOInter {
     /** 전체 조회 */
     public ArrayList<MemoVO> list_all();
 
-    /** 특정 유저 메모 조회 */
-    public ArrayList<MemoVO> read(int userno);
+    /** 메모 단일 조회 */
+    public MemoVO read(int memono);
 
     /** 수정 */
     public int update(MemoVO memoVO);

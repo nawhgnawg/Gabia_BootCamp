@@ -1,10 +1,10 @@
 <div th:fragment="navbarFragment" xmlns:th="http://www.w3.org/1999/xhtml">
 
-    <div class="top_menu_img">
-        <div class="top_menu_label">요리 블로그 ver 7.0</div>
-    </div>
+<!--    <div class="top_menu_img">
+        <div class="top_menu_label">맛집 블로그</div>
+    </div>-->
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <nav class="navbar navbar-expand-lg border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">HOME</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -30,7 +30,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${session.userno == null}">
                         <a class="nav-link" th:href="@{|/bloguser/create|}">회원 가입</a>
                     </li>
                     <li class="nav-item" th:if="${session.userno != null}">
@@ -44,25 +44,25 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li class="nav-item"><a class="nav-link" th:href="@{|/category/list_search?word=${word}|}">카테고리 목록</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/bloguser/list|}">회원 목록</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{|/contents/list_all|}">전체 글 목록</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/create|}">요리 기록 등록</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_all|}">요리 기록 목록</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{|/contentsgood/list_all|}">레시피 추천 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/contents/list_all|}">전체 게시물 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/create|}">나의 맛집 등록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_all|}">맛집 목록</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">Calendar</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{|/contentsgood/list_all|}">게시물 추천 목록</a></li>
                             <li class="nav-item"><a class="nav-link" th:href="@{|/memo/list_all|}">메모 목록</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
                         <span th:if="${session.userno == null}"><a class="nav-link" href="/bloguser/login" th:text="로그인"></a></span>
-                        <span th:if="${session.userno != null}"><a class="nav-link" href="/bloguser/logout" th:text="|${session.useremail} 로그아웃|"></a></span>
+                        <span th:if="${session.userno != null}"><a class="nav-link" style="" href="/bloguser/logout" th:text="|${session.useremail} 로그아웃|"></a></span>
                     </li>
 
-                    <li class="nav-item" th:if="${session.usergrade != 'admin'}"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">요리 기록 Calendar</a></li>
+                    <li class="nav-item" th:if="${session.usergrade != 'admin'}"><a class="nav-link" th:href="@{|/calendar/list_calendar|}">Calendar</a></li>
                 </ul>
                 <!-- 메뉴바 -->
                 <div id="menu" th:if="${session.usergrade == 'admin'}">
-                  <button id="btn_memo_toggle" class="btn btn-primary" style="margin-left: 10px;" th:attr="data-userno=${session.userno}">메모 등록</button>
+                  <button id="btn_memo_toggle" class="btn btn-info" style="margin-left: 10px;" th:attr="data-userno=${session.userno}">📝</button>
                 </div>
             </div>
             <!-- 메뉴 종료 -->
@@ -72,7 +72,7 @@
     <!-- 메모장 패널 (처음에는 숨김) -->
     <div id="memo_section" style="display:none;
                                   position:absolute;
-                                  top:380px; /* 메뉴바 아래 여백 조정 */
+                                  top:100px; /* 메뉴바 아래 여백 조정 */
                                   left:20px;
                                   right:20px;
                                   z-index:1000;
@@ -80,60 +80,72 @@
                                   border:1px solid #ccc;
                                   padding:15px;
                                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <h3>메모 작성</h3>
-      <input type="text" id="memo_title" placeholder="제목을 입력하세요" style="width:100%; margin-bottom:5px;"><br>
-      <textarea id="memo_content" placeholder="메모 내용을 입력하세요" style="width:100%; height:150px;"></textarea>
-      <div style="text-align:right; margin-top:5px;">
-          <button id="btn_memo_save">메모 저장</button>
-          <button id="btn_memo_delete">메모 내용 지우기</button>
-          <button id="btn_memo_list" onclick="/memo/list_all">메모 목록</button>
-      </div>
-  </div>
+        <h3>메모 작성</h3>
+        <input type="text" id="memo_title" placeholder="제목을 입력하세요" style="width:100%; margin-bottom:5px;"><br>
+        <textarea id="memo_content" placeholder="메모 내용을 입력하세요" style="width:100%; height:150px;"></textarea>
+        <div style="text-align:right; margin-top:5px;">
+            <button id="btn_memo_save">메모 저장</button>
+            <button id="btn_memo_delete">메모 내용 지우기</button>
+            <button id="btn_memo_list" onclick="/memo/list_all">메모 목록</button>
+        </div>
+    </div>
 
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button id="fab-button" class="fab">+</button>
+        <div class="fab-menu" id="fab-menu">
+            <button onclick="location.href='/contents/create'">게시물 작성</button>
+            <button onclick="location.href='/calendar/create'">맛집 등록</button>
+            <button onclick="location.href='/memo/create'">메모 작성</button>
+        </div>
+    </div>
 
     <script th:inline="javascript">
-        
-
         document.addEventListener('DOMContentLoaded', function () {
-          const memoSection = document.getElementById('memo_section');
-          const btnToggle = document.getElementById('btn_memo_toggle');
-          const btnSave = document.getElementById('btn_memo_save');
-          const btnDelete = document.getElementById('btn_memo_delete');
-          const btnList = document.getElementById('btn_memo_list');
+            const memoSection = document.getElementById('memo_section');
+            const btnToggle = document.getElementById('btn_memo_toggle');
+            const btnSave = document.getElementById('btn_memo_save');
+            const btnDelete = document.getElementById('btn_memo_delete');
+            const btnList = document.getElementById('btn_memo_list');
+            const fabBtn = document.getElementById('fab-button');
+            const fabMenu = document.getElementById('fab-menu');
+            const userno = btnToggle ? btnToggle.dataset.userno : null;
 
-          const userno = btnToggle.dataset.userno;
+            fabBtn.addEventListener('click', function () {
+                fabMenu.style.display = fabMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
           
-          document.querySelector('#memo_title').addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') { // ===: 타입까지 확인
-              document.getElementById('memo_content').focus();
-            }
-          }); 
+            document.querySelector('#memo_title').addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') { // ===: 타입까지 확인
+                    document.getElementById('memo_content').focus();
+                }
+            });
       
           document.querySelector('#memo_content').addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-              document.getElementById('btn_memo_save').focus();
-            }
-          }); 
+              if (event.key === 'Enter') {
+                  document.getElementById('btn_memo_save').focus();
+              }
+          });
 
           // 메모장 열기/닫기
           btnToggle.addEventListener('click', function () {
-            if (memoSection.style.display === 'none' || memoSection.style.display === '') {
-              memoSection.style.display = 'block';
-              memoSection.style.maxHeight = '0';
-              document.getElementById('memo_title').focus();
-              btnToggle.innerHTML = '취소';
-              setTimeout(() => {
-                memoSection.style.transition = 'max-height 0.5s ease-in-out';
-                memoSection.style.maxHeight = '500px';
-              }, 10);
-            } else {
-              memoSection.style.transition = 'max-height 0.5s ease-in-out';
-              memoSection.style.maxHeight = '0';
-              btnToggle.innerHTML = '메모 등록';
-              setTimeout(() => {
-                memoSection.style.display = 'none';
-              }, 500);
-            }
+              if (memoSection.style.display === 'none' || memoSection.style.display === '') {
+                  memoSection.style.display = 'block';
+                  memoSection.style.maxHeight = '0';
+                  document.getElementById('memo_title').focus();
+                  btnToggle.innerHTML = '취소';
+                  setTimeout(() => {
+                      memoSection.style.transition = 'max-height 0.5s ease-in-out';
+                      memoSection.style.maxHeight = '300px';
+                  }, 10);
+              } else {
+                  memoSection.style.transition = 'max-height 0.5s ease-in-out';
+                  memoSection.style.maxHeight = '0';
+                  btnToggle.innerHTML = '메모 등록';
+                  setTimeout(() => {
+                    memoSection.style.display = 'none';
+                  }, 500);
+              }
           });
 
           // 메모 저장

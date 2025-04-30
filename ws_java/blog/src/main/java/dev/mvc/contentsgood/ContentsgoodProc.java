@@ -51,6 +51,11 @@ public class ContentsgoodProc implements ContentsgoodProcInter {
         return contentsgoodDAO.list_all_join();
     }
 
+    @Override
+    public int delete_contentsno(int contentsno) {
+        return contentsgoodDAO.delete_contentsno(contentsno);
+    }
+
 }
 
 

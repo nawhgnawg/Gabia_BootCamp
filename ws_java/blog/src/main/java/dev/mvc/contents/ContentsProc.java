@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Component("dev.mvc.contents.ContentsProc")
 public class ContentsProc implements ContentsProcInter {
@@ -14,7 +15,6 @@ public class ContentsProc implements ContentsProcInter {
     Security security;
 
     @Autowired // ContentsDAOInter interface를 구현한 클래스의 객체를 만들어 자동으로 할당해라.
-
     private ContentsDAOInter contentsDAO;
 
     @Override // 추상 메소드를 구현했음.
@@ -244,7 +244,7 @@ public class ContentsProc implements ContentsProcInter {
 
     @Override
     public int password_check(HashMap<String, Object> map) {
-        String passwd = (String)map.get("passwd");
+        String passwd = (String) map.get("passwd");
         passwd = security.aesEncode(passwd);
         map.put("passwd", passwd);
 
@@ -304,5 +304,10 @@ public class ContentsProc implements ContentsProcInter {
     @Override
     public int decreaseRecom(int contentsno) {
         return contentsDAO.decreaseRecom(contentsno);
+    }
+
+    @Override
+    public List<Integer> read_contentsno(int categoryno){
+        return contentsDAO.read_contentsno(categoryno);
     }
 }

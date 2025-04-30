@@ -1,7 +1,34 @@
-<!DOCTYPE html>
-<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속 -->
+<!--<!DOCTYPE html>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"> &lt;!&ndash; layout.html 상속 &ndash;&gt;
 <div layout:fragment="content" style="width: 80%; margin: 50px auto; text-align: center;">
     <h1>요리 블로그</h1><br>
-    <img src="/bloguser/images/food_lab.jpeg" style="width: 70%;"> <!-- /static/images/main.jpg -->
+    <img src="/bloguser/images/food_lab.jpeg" style="width: 70%;"> &lt;!&ndash; /static/images/main.jpg &ndash;&gt;
+</div>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        body {
+          margin: 0;
+          font-family: 'Gaegu', 'Nanum Pen Script', cursive;
+          background: #fff url('/home/back.png') no-repeat center center;
+          background-size: cover;
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <body>
+        <div class="hero">
+            <h1>Blog</h1>
+            <p>먹자!</p>
+            <p>마시자!</p>
+            <a href="/contents/list_all">
+                <button type="button">블로그 시작하기</button>
+            </a>
+        </div>
+        <br><br><br><br>
+    </body>
 </div>
 </html>

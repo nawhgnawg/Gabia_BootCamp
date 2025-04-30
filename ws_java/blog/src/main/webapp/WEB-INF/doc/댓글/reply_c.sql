@@ -8,13 +8,26 @@ CREATE TABLE reply(
         contentsno                           NUMBER(10)         NOT NULL,
         userno                               NUMBER(6)          NOT NULL,
         content                              VARCHAR2(1000)     NOT NULL,
-        passwd                               VARCHAR2(100)      NOT NULL,
         rdate                                DATE               NOT NULL,
   FOREIGN KEY (contentsno) REFERENCES contents (contentsno),
   FOREIGN KEY (userno) REFERENCES bloguser (userno)
 );
 
 DROP SEQUENCE reply_seq;
+
+SELECT
+    s.sid,
+    s.serial#,
+    s.username,
+    s.program,
+    o.object_name,
+    o.object_type,
+    l.locked_mode
+FROM
+    v$locked_object l
+JOIN dba_objects o ON l.object_id = o.object_id
+JOIN v$session s ON l.session_id = s.sid;
+
 
 CREATE SEQUENCE reply_seq
   START WITH 1              -- 시작 번호
@@ -25,12 +38,12 @@ CREATE SEQUENCE reply_seq
 
 
 1) 등록
-INSERT INTO reply(replyno, contentsno, userno, content, passwd, rdate)
-VALUES(reply_seq.nextval, 14, 1, '댓글1', '1234', sysdate);
-INSERT INTO reply(replyno, contentsno, userno, content, passwd, rdate)
-VALUES(reply_seq.nextval, 14, 1, '댓글2', '1234', sysdate);
-INSERT INTO reply(replyno, contentsno, userno, content, passwd, rdate)
-VALUES(reply_seq.nextval, 14, 1, '댓글3', '1234', sysdate);
+INSERT INTO reply(replyno, contentsno, userno, content, rdate)
+VALUES(reply_seq.nextval, 14, 1, '댓글1', sysdate);
+INSERT INTO reply(replyno, contentsno, userno, content, rdate)
+VALUES(reply_seq.nextval, 14, 1, '댓글2', sysdate);
+INSERT INTO reply(replyno, contentsno, userno, content, rdate)
+VALUES(reply_seq.nextval, 14, 1, '댓글3', sysdate);
 
 2) 전체 목록
 SELECT replyno, contentsno, userno, content, rdate
@@ -101,3 +114,8 @@ WHERE memberno=1;
 4) FK memberno에 해당하는 댓글 삭제
 DELETE FROM reply
 WHERE memberno=1;
+
+ROLLBACK;
+
+ALTER SYSTEM KILL SESSION '52,15210';
+commit;

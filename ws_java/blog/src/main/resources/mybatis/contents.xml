@@ -196,4 +196,9 @@
         WHERE contentsno = #{contentsno}
     </update>
 
+    <select id="read_contentsno" parameterType="int">
+        SELECT contentsno
+        FROM contents
+        WHERE categoryno = #{categoryno}
+    </select>
 </mapper>

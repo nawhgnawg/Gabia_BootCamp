@@ -2,6 +2,7 @@ package dev.mvc.contents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ContentsProcInter {
 
@@ -118,4 +119,6 @@ public interface ContentsProcInter {
     public int increaseRecom(int contentsno);
 
     public int decreaseRecom(int contentsno);
+
+    public List<Integer> read_contentsno(int categoryno);
 }

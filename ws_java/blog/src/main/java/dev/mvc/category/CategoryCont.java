@@ -3,6 +3,9 @@ package dev.mvc.category;
 import dev.mvc.bloguser.UserProc;
 import dev.mvc.bloguser.UserProcInter;
 import dev.mvc.contents.ContentsProc;
+import dev.mvc.contentsgood.ContentsgoodProc;
+import dev.mvc.reply.ReplyProc;
+import dev.mvc.reply.ReplyProcInter;
 import dev.mvc.tool.Tool;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -31,6 +35,12 @@ public class CategoryCont {
 
     @Autowired
     private ContentsProc contentsProc;
+
+    @Autowired
+    private ContentsgoodProc contentsgoodProc;
+
+    @Autowired
+    private ReplyProc replyProc;
 
     /**
      * 페이지당 출력할 레코드 갯수, nowPage는 1부터 시작
@@ -267,6 +277,8 @@ public class CategoryCont {
         int search_cnt = list.size();
         model.addAttribute("search_cnt", search_cnt);
 
+
+
         int contents_cnt = contentsProc.count_by_categoryno(categoryNo);
         // 삭제하는 카테고리에 Contents 가 있는 경우
         if (contents_cnt > 0) {
@@ -307,6 +319,12 @@ public class CategoryCont {
         int contents_cnt = contentsProc.count_by_categoryno(categoryNo);
         // 삭제하는 카테고리에 Contents 가 있는 경우
         if (contents_cnt > 0) {
+            // 각 Contents 마다 contentsgood 지우기 + 컨텐츠들의 contentsno 가져오기
+            List<Integer> contentsnos = contentsProc.read_contentsno(categoryNo);
+            for (Integer contentsno : contentsnos) {
+                replyProc.delete_all(contentsno);
+                contentsgoodProc.delete_contentsno(contentsno);
+            }
             contentsProc.delete_by_categoryno(categoryNo);
             model.addAttribute("contents_cnt", contents_cnt);
             model.addAttribute("code", "contents_exist_y");

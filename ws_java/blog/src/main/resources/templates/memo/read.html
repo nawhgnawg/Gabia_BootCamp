@@ -3,7 +3,7 @@
 <html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"> <!-- layout.html 상속-->
 <div layout:fragment="content">
 
-    <div class="title_line">회원 정보 조회 및 수정(*: 필수) > <span th:text="@{|${userVO.username} (${userVO.useremail})|}"></span></div>
+    <div class="title_line">메모 조회 및 수정(*: 필수) > <span th:text="@{|${memoVO.title}|}"></span></div>
     <aside class="aside_right">
         <a href="javascript:location.reload();">새로고침</a>
         <span class='menu_divide' >│</span>
@@ -15,28 +15,41 @@
     <div class="menu_line"></div>
 
     <div style="width: 60%; margin: 0px auto;">
-        <form name="frm" id="frm" th:object="${userVO}" method="post" action="/memo/update">
-            <input type="hidden" name="userno" th:value="${memoVO.userno}">
+        <form name="frm" id="frm" th:object="${memoVO}" method="post" action="/memo/update">
+            <input type="hidden" name="memono" th:value="${memoVO.memono}">
 
-            <div class="form-group">
-                <label for="username">제목</label>
-                <input type='text' name='username' id='username' th:value='${memoVO.username}' required="required"
-                       placeholder="성명" class="form-control form-control-sm" style="width: 30%;">
-                <span id='mname_msg'></span>
-            </div>
+            <div id="memo_section" style="display:block;
+                                  top:380px; /* 메뉴바 아래 여백 조정 */
+                                  left:20px;
+                                  right:20px;
+                                  z-index:1000;
+                                  background:white;
+                                  border:1px solid #ccc;
+                                  padding:15px;
+                                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h3>메모 조회</h3>
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type='text' name='title' id='title' th:value='${memoVO.title}' required="required"
+                           placeholder="제목" class="form-control form-control-sm" style="width: 100%;">
+                </div>
 
-            <div class="form-group">
-                <label for="content">내용</label>
-                <input type='text' name='content' id='content' th:value='${memoVO.content}' placeholder="내용"
-                       class="form-control form-control-sm" style="width: 30%;">
-            </div>
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea name='content' id='content' th:text='${memoVO.content}' required="required"
+                              placeholder="내용" class="form-control form-control-sm" style="width: 100%; height:150px;"></textarea>
+                </div>
 
-            <div class="content_body_bottom">
-                <button type="button" onclick="send();" class="btn btn-secondary btn-sm">저장</button>
-                <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm">취소</button>
+                <div class="content_body_bottom">
+                    <button type="submit" class="btn btn-secondary btn-sm">저장</button>
+                    <button type="button" onclick="history.back();" class="btn btn-secondary btn-sm">취소</button>
+                </div>
+
             </div>
         </form>
+
     </div>
 
 </div>
+
 </html>

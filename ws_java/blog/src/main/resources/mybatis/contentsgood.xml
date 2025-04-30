@@ -59,4 +59,9 @@
         ORDER BY contentsgoodno DESC
     </select>
 
+    <delete id="delete_contentsno" parameterType="int">
+        DELETE FROM contentsgood
+        WHERE contentsno = #{contentsno}
+    </delete>
+
 </mapper>
